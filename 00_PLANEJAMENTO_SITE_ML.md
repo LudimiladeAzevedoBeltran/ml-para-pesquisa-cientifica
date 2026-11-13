@@ -664,15 +664,19 @@ fichas de modelo.
 | Visualização — visão geral | `docs/pt/09-graficos/index.qmd` | pronto |
 | Visualização — distribuição | `docs/pt/09-graficos/01-distribuicao.qmd` | pronto |
 | Visualização — relação | `docs/pt/09-graficos/02-relacao.qmd` | pronto |
+| Visualização — tempo | `docs/pt/09-graficos/05-tempo.qmd` | pronto |
+| Visualização — espaço | `docs/pt/09-graficos/06-espaco.qmd` | pronto |
 | Visualização — 3D | `docs/pt/09-graficos/03-3d.qmd` | pronto |
 | Visualização — cores e acessibilidade | `docs/pt/09-graficos/04-cores-acessibilidade.qmd` | pronto |
+| Dados de tempo/espaço | `data/exemplo_serie.csv`, `data/exemplo_espacial.csv` + `src/gerar_figuras_tempo_espaco.py` | pronto |
 | Figuras da visualização | `docs/img/graf_*.png`, `docs/img/plot3d_*.html` + `src/gerar_figuras_graficos.py` | pronto |
 | Site renderizado | `docs/_site/` | pronto |
 
-**Próxima fase:** concluir a Parte IX (categorias, tempo, espaço, multivariado e
-diagnóstico de modelos), as fichas restantes (Baseline, KNN, Naive Bayes, SVM, MLP,
-K-means, DBSCAN/hierárquico e PCA) e a reestruturação didática das páginas existentes.
-Depois, v2: versão em inglês, deep learning, séries temporais e NLP.
+**Próxima fase:** acrescentar código copiável embaixo de cada gráfico nas páginas já
+existentes; concluir a Parte IX (categorias, multivariado, incerteza e diagnóstico de
+modelos); as fichas restantes (Baseline, KNN, Naive Bayes, SVM, MLP, K-means,
+DBSCAN/hierárquico e PCA); e a reestruturação didática das páginas existentes. Depois, v2:
+versão em inglês, deep learning, séries temporais e NLP.
 
 > Nota operacional: o `quarto render` dentro do Google Drive pode falhar com `os error 303`
 > por bloqueio de sincronização. Renderize a partir de uma cópia local ou pause a

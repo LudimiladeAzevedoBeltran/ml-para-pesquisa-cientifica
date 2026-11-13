@@ -130,6 +130,10 @@ website:
             href: pt/09-graficos/01-distribuicao.qmd
           - text: "Relação"
             href: pt/09-graficos/02-relacao.qmd
+          - text: "Tempo"
+            href: pt/09-graficos/05-tempo.qmd
+          - text: "Espaço"
+            href: pt/09-graficos/06-espaco.qmd
           - text: "3D"
             href: pt/09-graficos/03-3d.qmd
           - text: "Cores e acessibilidade"

@@ -20,9 +20,11 @@ dado**, não pelo software.
 |---|---|---|---|
 | Como os valores se distribuem? | Distribuição | histograma, KDE, ECDF, box, violino, raincloud, ridgeline | [Distribuição](01-distribuicao.qmd) |
 | Duas variáveis se relacionam? | Relação | dispersão, hexbin, densidade 2D, bolha, pairplot, correlação | [Relação](02-relacao.qmd) |
+| Como os valores evoluem no tempo? | Tempo | linha, área, sazonal, lag, ACF, calendário, small multiples | [Tempo](05-tempo.qmd) |
+| Onde está no espaço? | Espaço | bolha, raster, contorno, hexbin, small multiples, coroplético | [Espaço](06-espaco.qmd) |
 | Preciso de profundidade ou volume? | 3D | dispersão 3D, superfície, trisurf, isosuperfície | [3D](03-3d.qmd) |
 | Como escolher cores acessíveis? | Cor | paletas, daltonismo, contraste, escala de cinza | [Cores](04-cores-acessibilidade.qmd) |
-| Categorias, tempo, espaço, modelos | Em construção | barras, linha, mapa, resíduos, ROC | em breve |
+| Categorias e modelos | Em construção | barras, dot, mosaico, resíduos, ROC | em breve |
 
 ## Como ler cada ficha
 
