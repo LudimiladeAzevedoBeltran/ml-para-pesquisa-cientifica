@@ -30,14 +30,14 @@ Modelo complexo não compensa falta de dado, de desenho ou de métrica.
 |---|---|---|---|---|
 | Baseline (Dummy) | regressão/classificação | total | nulo | em breve |
 | [Regressão linear](02-regressao-linear.qmd) | regressão | alta | baixo | **pronto** |
-| Ridge / Lasso / Elastic Net | regressão | alta | baixo | em breve |
-| Regressão logística | classificação | alta | baixo | em breve |
+| [Ridge / Lasso / Elastic Net](03-ridge-lasso.qmd) | regressão | alta | baixo | **pronto** |
+| [Regressão logística](04-regressao-logistica.qmd) | classificação | alta | baixo | **pronto** |
 | KNN | regressão/classificação | média | médio | em breve |
 | Naive Bayes | classificação | média | baixo | em breve |
 | SVM | regressão/classificação | baixa/média | médio | em breve |
-| Árvore de decisão | regressão/classificação | alta | baixo | em breve |
-| Random Forest | regressão/classificação | média | médio/alto | em breve |
-| Gradient Boosting | regressão/classificação | média | alto | em breve |
+| [Árvore de decisão](05-arvore-decisao.qmd) | regressão/classificação | alta | baixo | **pronto** |
+| [Random Forest](06-random-forest.qmd) | regressão/classificação | média | médio/alto | **pronto** |
+| [Gradient Boosting](07-gradient-boosting.qmd) | regressão/classificação | média | alto | **pronto** |
 | Rede neural (MLP) | regressão/classificação | baixa | alto | em breve |
 | K-means | clusterização | média | baixo | em breve |
 | DBSCAN / hierárquico | clusterização | média | médio | em breve |

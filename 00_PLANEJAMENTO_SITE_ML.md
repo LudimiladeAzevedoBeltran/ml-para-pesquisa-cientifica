@@ -625,6 +625,12 @@ fichas de modelo.
 | Mapa de decisão | `docs/pt/02-modelos/mapa-de-decisao.qmd` | pronto |
 | Catálogo de modelos | `docs/pt/02-modelos/index.qmd` | pronto |
 | Ficha de modelo (regressão linear) | `docs/pt/02-modelos/02-regressao-linear.qmd` | pronto |
+| Ficha Ridge / Lasso / Elastic Net | `docs/pt/02-modelos/03-ridge-lasso.qmd` | pronto |
+| Ficha Regressão logística | `docs/pt/02-modelos/04-regressao-logistica.qmd` | pronto |
+| Ficha Árvore de decisão | `docs/pt/02-modelos/05-arvore-decisao.qmd` | pronto |
+| Ficha Random Forest | `docs/pt/02-modelos/06-random-forest.qmd` | pronto |
+| Ficha Gradient boosting | `docs/pt/02-modelos/07-gradient-boosting.qmd` | pronto |
+| Figuras de modelos | `docs/img/ridge_lasso_caminho.png`, `logistica_sigmoide.png`, `arvore_decisao.png`, `random_forest_oob.png`, `gradient_boosting_curvas.png` + `src/gerar_figuras_modelos.py` | pronto |
 | Métricas de regressão | `docs/pt/04-avaliacao/01-regressao.qmd` | pronto |
 | Laboratório de interpretação | `docs/pt/05-interpretacao/01-ajuste-regressao.qmd` | pronto |
 | Figuras do laboratório | `docs/img/previsto_observado_*.png` + `src/gerar_figuras.py` | pronto |
@@ -655,8 +661,9 @@ fichas de modelo.
 | Erros e exercícios | `docs/pt/08-extras/05-erros-e-exercicios.qmd` | pronto |
 | Site renderizado | `docs/_site/` | pronto |
 
-**Próxima fase (v2):** versão em inglês, deep learning, séries temporais, NLP e as demais
-fichas de modelo. Antes disso, criar o repositório no GitHub e ativar o Pages.
+**Próxima fase:** concluir as fichas restantes (Baseline, KNN, Naive Bayes, SVM, MLP,
+K-means, DBSCAN/hierárquico e PCA). Depois, v2: versão em inglês, deep learning, séries
+temporais e NLP. Antes disso, ativar o GitHub Pages.
 
 > Nota operacional: o `quarto render` dentro do Google Drive pode falhar com `os error 303`
 > por bloqueio de sincronização. Renderize a partir de uma cópia local ou pause a

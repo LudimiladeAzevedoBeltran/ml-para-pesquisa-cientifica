@@ -81,8 +81,9 @@ quarto preview
 ## Código em Python e R
 
 Cada página de código tem duas abas: **Python** (referência executável, com
-`scikit-learn` e `optuna`) e **R** (`base R` + `ggplot2` + `rpart`). Na v1, o R não exige
-`tidymodels`; quando um exemplo precisar de pacote extra, isso é avisado na própria página.
+`scikit-learn` e `optuna`) e **R** (`base R` + `ggplot2` + `rpart`, com `glmnet`,
+`randomForest` e `gbm` quando a ficha pede). Na v1, o R não exige `tidymodels`; quando um
+exemplo precisar de pacote extra, isso é avisado na própria página.
 
 ## Publicação (GitHub Pages)
 

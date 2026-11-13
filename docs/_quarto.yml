@@ -56,6 +56,16 @@ website:
             href: pt/02-modelos/index.qmd
           - text: "Regressão linear"
             href: pt/02-modelos/02-regressao-linear.qmd
+          - text: "Ridge / Lasso / Elastic Net"
+            href: pt/02-modelos/03-ridge-lasso.qmd
+          - text: "Regressão logística"
+            href: pt/02-modelos/04-regressao-logistica.qmd
+          - text: "Árvore de decisão"
+            href: pt/02-modelos/05-arvore-decisao.qmd
+          - text: "Random Forest"
+            href: pt/02-modelos/06-random-forest.qmd
+          - text: "Gradient boosting"
+            href: pt/02-modelos/07-gradient-boosting.qmd
       - section: "Parte III — Calibração"
         contents:
           - text: "1. Parâmetro vs hiperparâmetro"

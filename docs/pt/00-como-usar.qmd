@@ -98,8 +98,11 @@ pip install -r requirements.txt
 ```
 
 ```r
-# R (ggplot2 + rpart + cluster na v1)
-install.packages(c("ggplot2", "rpart", "cluster"))
+# R (pacotes usados nas fichas da v1)
+install.packages(c(
+  "ggplot2", "rpart", "cluster",
+  "glmnet", "randomForest", "gbm"
+))
 ```
 
 Para renderizar o site localmente, instale o [Quarto](https://quarto.org) e rode:

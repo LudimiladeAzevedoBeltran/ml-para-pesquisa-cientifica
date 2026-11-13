@@ -125,13 +125,18 @@ Tenho y?
 ## O que ainda falta
 
 A tabela acima permite **decidir** com o que já sabemos. As fichas completas dos modelos
-— com hiperparâmetros, faixas, bordas, calibração e código — ainda estão em construção.
-Hoje está pronta:
+— com hiperparâmetros, faixas, bordas, calibração e código — estão sendo construídas.
 
-- [Regressão linear](02-regressao-linear.qmd).
+Hoje estão prontas:
 
-Em breve: Ridge/Lasso, logística, KNN, Naive Bayes, SVM, árvore, Random Forest, gradient
-boosting, MLP, K-means, DBSCAN/hierárquico e PCA.
+- [Regressão linear](02-regressao-linear.qmd)
+- [Ridge / Lasso / Elastic Net](03-ridge-lasso.qmd)
+- [Regressão logística](04-regressao-logistica.qmd)
+- [Árvore de decisão](05-arvore-decisao.qmd)
+- [Random Forest](06-random-forest.qmd)
+- [Gradient boosting](07-gradient-boosting.qmd)
+
+Em breve: Baseline, KNN, Naive Bayes, SVM, MLP, K-means, DBSCAN/hierárquico e PCA.
 
 ## Checklist
 
