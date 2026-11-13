@@ -50,6 +50,8 @@ website:
             href: pt/01-fundamentos/05-dados-e-armadilhas.qmd
       - section: "Parte II — Modelos"
         contents:
+          - text: "Mapa de decisão"
+            href: pt/02-modelos/mapa-de-decisao.qmd
           - text: "Catálogo de modelos"
             href: pt/02-modelos/index.qmd
           - text: "Regressão linear"

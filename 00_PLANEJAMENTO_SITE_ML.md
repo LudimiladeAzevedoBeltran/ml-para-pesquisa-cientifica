@@ -622,6 +622,7 @@ fichas de modelo.
 | Configuração do site | `docs/_quarto.yml`, `docs/index.qmd`, `docs/styles.css` | pronto |
 | Como usar + trilhas | `docs/pt/00-como-usar.qmd` | pronto |
 | Fundamentos 1–5 | `docs/pt/01-fundamentos/` | pronto |
+| Mapa de decisão | `docs/pt/02-modelos/mapa-de-decisao.qmd` | pronto |
 | Catálogo de modelos | `docs/pt/02-modelos/index.qmd` | pronto |
 | Ficha de modelo (regressão linear) | `docs/pt/02-modelos/02-regressao-linear.qmd` | pronto |
 | Métricas de regressão | `docs/pt/04-avaliacao/01-regressao.qmd` | pronto |

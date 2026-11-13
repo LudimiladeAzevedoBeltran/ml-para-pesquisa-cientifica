@@ -22,6 +22,8 @@ certa e interpretar o resultado olhando para o gráfico certo.</p>
 
 [**Quero treinar meu primeiro modelo**<br><small>Regressão linear, passo a passo</small>](pt/02-modelos/02-regressao-linear.qmd)
 
+[**Quero escolher um modelo**<br><small>Mapa de decisão: tarefa, dados, custo e métrica</small>](pt/02-modelos/mapa-de-decisao.qmd)
+
 [**Quero calibrar sem me enganar**<br><small>Manual, grid/random e Optuna</small>](pt/03-calibracao/02-calibracao-manual.qmd)
 
 [**Quero avaliar um resultado**<br><small>R², RMSE, MAE, MAPE e quando usar</small>](pt/04-avaliacao/01-regressao.qmd)

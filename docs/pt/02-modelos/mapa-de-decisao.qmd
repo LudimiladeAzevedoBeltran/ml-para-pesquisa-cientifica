@@ -1,0 +1,148 @@
+---
+title: "Mapa de decisão"
+---
+
+<div class="page-meta">Nível: todos · Tempo: 12 min · Pré-requisito: Fundamentos</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> escolher tarefa, modelo, validação, métrica e calibração sem chutar — e
+saber quando parar.
+</div>
+
+## As cinco decisões
+
+Todo projeto de ML responde cinco perguntas, nesta ordem:
+
+1. **Tarefa:** regressão, classificação, clusterização ou redução?
+2. **Modelo:** qual família faz sentido para o dado e para o objetivo?
+3. **Validação:** como separar treino e teste sem vazar?
+4. **Métrica:** o que conta como bom?
+5. **Calibração:** vale a pena tunar, e com qual orçamento?
+
+A ordem importa. Escolher o modelo antes da tarefa e da métrica é o caminho mais rápido
+para retrabalho.
+
+## Decisão 1 — Tarefa
+
+| Você tem `y`? | `y` é... | Tarefa | Primeira métrica |
+|---|---|---|---|
+| sim | número contínuo | regressão | RMSE/MAE + R² |
+| sim | classe (2) | classificação binária | recall/precisão/F1, ROC/PR |
+| sim | classe (3+) | classificação multiclasse | F1 macro, acurácia balanceada |
+| não | quer grupos | clusterização | silhueta |
+| não | quer comprimir/visualizar | redução de dimensionalidade | variância explicada |
+
+## Decisão 2 — Modelo
+
+**Regra de ouro:** baseline → modelo simples → modelo complexo. Só avance se o ganho
+passar a incerteza.
+
+| Família | Use quando | Evite quando | Pressupostos | Interpretabilidade | Custo |
+|---|---|---|---|---|---|
+| **Baseline** (média/classe majoritária) | sempre, como referência | nunca — é obrigatório | nenhum | total | nulo |
+| **Linear / Ridge / Lasso** | relação ~linear, `n` pequeno/médio, precisa explicar | relações não lineares fortes | linearidade, erros independentes | alta | baixo |
+| **Regressão logística** | classificação binária, interpretabilidade | fronteiras muito não lineares | linearidade no logito | alta | baixo |
+| **KNN** | `n` pequeno, poucas features, sem missing | alta dimensão, muitos dados, escala distinta | escala, distância | média | médio |
+| **Naive Bayes** | texto/alta dimensão, baseline rápido | features muito correlacionadas | independência condicional | média | baixo |
+| **SVM** | `n` médio, alta dimensão, margem clara | `n` muito grande, ruído extremo | escala, kernel adequado | baixa/média | médio |
+| **Árvore de decisão** | precisa explicar regras, relação não linear | `n` pequeno com ruído alto | nenhum forte | alta | baixo |
+| **Random Forest** | tabular, não linear, robusto, `n` médio | precisa de extrapolação suave | nenhum forte | média | médio/alto |
+| **Gradient Boosting** | tabular, busca de acurácia, `n` médio/grande | `n` muito pequeno, pouco tempo de tuning | nenhum forte | média (com SHAP) | alto |
+| **Rede neural (MLP)** | `n` grande, padrões complexos | `n` pequeno, precisa explicar | escala, tuning | baixa | alto |
+| **K-means** | clusters esféricos, `k` plausível | formas arbitrárias, muitos outliers | escala, variância similar | média | baixo |
+| **DBSCAN** | formas arbitrárias, ruído, `k` desconhecido | densidades muito diferentes | escala, `eps`/`min_samples` | média | médio |
+| **Hierárquico** | `n` pequeno, dendrograma, interpretação | `n` grande | distância, escala | alta | médio |
+| **PCA** | compressão linear, visualização, multicolinearidade | relações não lineares | linearidade, escala | média | baixo |
+
+::: {.callout-tip}
+## O "n" é relativo
+Considere `n` pequeno abaixo de ~1.000, médio entre ~1.000 e ~100.000, grande acima disso.
+É uma régua de bolso, não uma lei. O que decide é a validação.
+:::
+
+## Decisão 3 — Validação
+
+| Estrutura do dado | Split correto | Por quê |
+|---|---|---|
+| observações independentes | `KFold` aleatório | cada linha é independente |
+| série temporal | split temporal / `TimeSeriesSplit` | o futuro não pode treinar o passado |
+| pixels/áreas vizinhas | blocos espaciais | vizinhos são pseudorréplicas |
+| mesma entidade repetida | `GroupKFold` | o grupo não pode aparecer nos dois lados |
+| poucos dados | repetir CV com sementes | medir a variabilidade |
+
+**Regra:** se você embaralha o que tem dependência, o resultado fica otimista.
+
+## Decisão 4 — Métrica
+
+| Tarefa | Métrica principal | Complemento | Evite |
+|---|---|---|---|
+| Regressão | RMSE ou MAE | R² | R² de treino |
+| Regressão com outliers | MAE/MedAE | RMSE | RMSE sozinho |
+| Classificação equilibrada | acurácia | F1, AUC | acurácia em desbalanceado |
+| Classificação desbalanceada | PR-AUC/AP, recall | F1, matriz | acurácia sozinha |
+| Custo assimétrico | custo esperado | recall/precisão | F1 por hábito |
+| Probabilidade | log loss, Brier | calibração | AUC como se fosse calibração |
+| Cluster | silhueta | cotovelo, estabilidade | um único k |
+| Comparação de modelos | CV + incerteza | teste pareado | média sem desvio |
+
+Detalhe em [métricas de regressão](../04-avaliacao/01-regressao.qmd),
+[classificação](../04-avaliacao/02-classificacao.qmd) e
+[ROC/PR/calibração](../04-avaliacao/03-roc-pr-calibracao.qmd).
+
+## Decisão 5 — Calibração
+
+| Situação | Método | Orçamento |
+|---|---|---|
+| 1–2 hiperparâmetros, modelo barato | manual (curva de validação) | 10–20 valores |
+| Poucos hiperparâmetros, faixa curta | grid search | dezenas de combinações |
+| Muitos hiperparâmetros | random search | 20–100 trials |
+| Modelo caro, espaço grande | Optuna (TPE + poda) | 30–100 trials |
+| Precisa de estimativa honesta | CV aninhada | tuning dentro do fold |
+| Ganho < incerteza | **não tune** | fique no simples |
+
+Detalhe em [calibração manual](../03-calibracao/02-calibracao-manual.qmd),
+[grid/random](../03-calibracao/03-grid-random-search.qmd) e
+[Optuna](../03-calibracao/04-optuna.qmd).
+
+## Fluxo rápido
+
+```
+Tenho y?
+├─ sim, y é número → regressão
+│  ├─ relação ~linear e preciso explicar → linear/Ridge
+│  ├─ não linear, tabular → árvore/RF/boosting
+│  └─ n grande e padrão complexo → MLP
+├─ sim, y é classe → classificação
+│  ├─ binária e interpretável → logística
+│  ├─ tabular e acurácia → RF/boosting
+│  └─ desbalanceada → métrica PR + limiar por custo
+└─ não → descrever estrutura
+   ├─ grupos esféricos → K-means
+   ├─ formas arbitrárias/ruído → DBSCAN
+   └─ comprimir/visualizar → PCA
+```
+
+## O que ainda falta
+
+A tabela acima permite **decidir** com o que já sabemos. As fichas completas dos modelos
+— com hiperparâmetros, faixas, bordas, calibração e código — ainda estão em construção.
+Hoje está pronta:
+
+- [Regressão linear](02-regressao-linear.qmd).
+
+Em breve: Ridge/Lasso, logística, KNN, Naive Bayes, SVM, árvore, Random Forest, gradient
+boosting, MLP, K-means, DBSCAN/hierárquico e PCA.
+
+## Checklist
+
+- [ ] A tarefa está definida antes do modelo.
+- [ ] O baseline foi calculado.
+- [ ] O split respeita a estrutura do dado.
+- [ ] A métrica foi escolhida antes do resultado.
+- [ ] O modelo é o mais simples que pode responder.
+- [ ] A calibração tem orçamento e critério de parada.
+- [ ] O teste ficou intocado.
+
+## Próximo passo
+
+[Catálogo de modelos](index.qmd) — as fichas, uma por uma.

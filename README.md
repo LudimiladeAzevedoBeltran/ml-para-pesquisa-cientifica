@@ -20,7 +20,7 @@ olhando para o gráfico certo.
 | Parte | Conteúdo |
 |---|---|
 | Fundamentos | o que é ML, como aprende, tipos de tarefa, pipeline, armadilhas |
-| Modelos | fichas padronizadas: quando usar, hiperparâmetros, bordas, calibração |
+| Modelos | mapa de decisão + fichas padronizadas: quando usar, hiperparâmetros, bordas, calibração |
 | Calibração | manual, grid/random search, Optuna e boas práticas |
 | Avaliação | R², R² ajustado, RMSE, MAE, MAPE, acurácia, precisão, recall, F1, ROC/PR |
 | Interpretação | laboratório de figuras com "semáforo": o que olhar e o que é erro |

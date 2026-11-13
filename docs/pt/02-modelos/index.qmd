@@ -9,6 +9,12 @@ title: "Catálogo de modelos"
 custo — antes de olhar para o código.
 </div>
 
+::: {.callout-tip}
+## Decida antes de escolher
+O [mapa de decisão](mapa-de-decisao.qmd) cruza tarefa, tamanho de dados, interpretabilidade
+e custo — e mostra qual validação e qual métrica usar.
+:::
+
 ## Como usar o catálogo
 
 Cada modelo tem uma **ficha padronizada**: quando usar, quando não usar, pressupostos,
