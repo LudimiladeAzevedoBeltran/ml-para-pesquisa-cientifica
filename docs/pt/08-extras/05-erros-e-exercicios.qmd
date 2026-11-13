@@ -50,7 +50,7 @@ F1 = 2×0,667×0,800/(0,667+0,800) = 0,727.
 (a) Triagem de doença rara; (b) confirmação de fraude; (c) previsão de CH4.
 
 ::: {.callout-note collapse="true" title="Solução"}
-(a) Recall (evitar FN). (b) Precisão (evitar FP). (c) RMSE/MAE + R², com diagnóstico de
+(a) Recall (evitar FN). (b) Precisão (evitar FP). (c) RMSE/MAE + R², com interpretação de
 resíduos.
 :::
 
@@ -145,5 +145,5 @@ model card e dicionário de dados.
 
 ## Próximo passo
 
-Volte ao [planejamento](https://github.com/LudimiladeAzevedoBeltran/ml-do-zero-ao-diagnostico/blob/main/00_PLANEJAMENTO_SITE_ML.md)
+Volte ao [planejamento](https://github.com/LudimiladeAzevedoBeltran/ml-para-pesquisa-cientifica/blob/main/00_PLANEJAMENTO_SITE_ML.md)
 ou escolha uma [trilha](../00-como-usar.qmd) para revisar.

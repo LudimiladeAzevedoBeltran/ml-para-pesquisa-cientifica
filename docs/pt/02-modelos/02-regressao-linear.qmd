@@ -27,7 +27,7 @@ quanto `y` muda quando `x` aumenta uma unidade; o intercepto diz o valor de `y` 
 - Relação aproximadamente linear entre `X` e `y`.
 - Você precisa de **interpretabilidade** (coeficientes com unidade e sinal).
 - `n` pequeno ou médio, poucas features, ou como **baseline** forte.
-- Inferência sobre associação, com diagnóstico de resíduos.
+- Inferência sobre associação, com interpretação de resíduos.
 
 ## Quando NÃO usar
 

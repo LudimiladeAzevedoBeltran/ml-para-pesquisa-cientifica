@@ -5,10 +5,10 @@ project:
     - img
 
 website:
-  title: "ML do zero ao diagnóstico"
-  description: "Aprenda machine learning do zero ao diagnóstico: modelos, calibração, métricas e interpretação."
-  site-url: https://ludimiladeazevedobeltran.github.io/ml-do-zero-ao-diagnostico/
-  repo-url: https://github.com/LudimiladeAzevedoBeltran/ml-do-zero-ao-diagnostico
+  title: "Machine Learning para Pesquisa Científica"
+  description: "Métodos, avaliação e interpretação para pesquisadores."
+  site-url: https://ludimiladeazevedobeltran.github.io/ml-para-pesquisa-cientifica/
+  repo-url: https://github.com/LudimiladeAzevedoBeltran/ml-para-pesquisa-cientifica
   repo-actions: [edit, issue]
   navbar:
     left:
@@ -26,7 +26,7 @@ website:
         href: pt/05-interpretacao/01-ajuste-regressao.qmd
     right:
       - icon: github
-        href: https://github.com/LudimiladeAzevedoBeltran/ml-do-zero-ao-diagnostico
+        href: https://github.com/LudimiladeAzevedoBeltran/ml-para-pesquisa-cientifica
   sidebar:
     style: docked
     search: true
@@ -123,8 +123,8 @@ website:
           - text: "Erros e exercícios"
             href: pt/08-extras/05-erros-e-exercicios.qmd
   page-footer:
-    left: "**ML do zero ao diagnóstico** — Ludimila de Azevedo Beltran"
-    right: "[MIT](https://github.com/LudimiladeAzevedoBeltran/ml-do-zero-ao-diagnostico/blob/main/LICENSE) (código) · [CC BY 4.0](https://github.com/LudimiladeAzevedoBeltran/ml-do-zero-ao-diagnostico/blob/main/LICENSE-docs) (texto)"
+    left: "**Machine Learning para Pesquisa Científica** — Ludimila de Azevedo Beltran"
+    right: "[MIT](https://github.com/LudimiladeAzevedoBeltran/ml-para-pesquisa-cientifica/blob/main/LICENSE) (código) · [CC BY 4.0](https://github.com/LudimiladeAzevedoBeltran/ml-para-pesquisa-cientifica/blob/main/LICENSE-docs) (texto)"
 
 format:
   html:

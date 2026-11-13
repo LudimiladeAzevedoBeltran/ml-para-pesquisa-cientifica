@@ -120,7 +120,7 @@ Estas são limitações conscientes da v1:
 
 ## 6. Perguntas que eu quero que você responda
 
-1. A promessa do site ("do zero ao diagnóstico") está sendo cumprida?
+1. A promessa do site ("métodos, avaliação e interpretação") está sendo cumprida?
 2. A ordem das partes funciona para a sua trilha (A, B ou C)?
 3. Qual página você abandonaria por tédio ou confusão?
 4. Qual página você leria de novo?

@@ -1,8 +1,8 @@
-# ML do zero ao diagnóstico
+# Machine Learning para Pesquisa Científica
 
-Material aberto para aprender machine learning **do zero ao diagnóstico**: escolher o
-modelo, calibrar sem se enganar, avaliar com a métrica certa e interpretar o resultado
-olhando para o gráfico certo.
+Material aberto para aprender **métodos de machine learning aplicados à pesquisa científica**:
+escolher o modelo, calibrar com critério, avaliar com a métrica adequada e interpretar
+resultados com base em figuras diagnósticas.
 
 > **Idioma:** português (versão em inglês planejada).
 > **Status:** Fase 5 — v1 completa: fundamentos, modelos, calibração, avaliação, interpretação, projetos, reprodutibilidade e extras.
@@ -90,13 +90,13 @@ exemplo precisar de pacote extra, isso é avisado na própria página.
 O workflow `.github/workflows/publish.yml` renderiza `docs/` e publica `docs/_site` no
 GitHub Pages a cada push na branch `main`.
 
-Para ativar:
+O repositório já está publicado em
+`https://github.com/LudimiladeAzevedoBeltran/ml-para-pesquisa-cientifica`. Para publicar:
 
-1. Crie o repositório `ml-do-zero-ao-diagnostico` no GitHub e envie o projeto.
-2. Em **Settings → Pages → Build and deployment**, escolha **GitHub Actions**.
-3. Faça um push na `main` ou rode o workflow manualmente em **Actions**.
+1. Em **Settings → Pages → Build and deployment**, escolha **GitHub Actions**.
+2. Faça um push na `main` ou rode o workflow manualmente em **Actions**.
 
-O site fica em `https://ludimiladeazevedobeltran.github.io/ml-do-zero-ao-diagnostico/`.
+O site fica em `https://ludimiladeazevedobeltran.github.io/ml-para-pesquisa-cientifica/`.
 Se a branch padrão não for `main`, ajuste o gatilho do workflow.
 
 ## Escopo da v1
@@ -109,7 +109,7 @@ de modelo.
 
 ## Citação
 
-> Beltran, L. A. (2026). *ML do zero ao diagnóstico*. https://github.com/LudimiladeAzevedoBeltran/ml-do-zero-ao-diagnostico
+> Beltran, L. A. (2026). *Machine Learning para Pesquisa Científica: métodos, avaliação e interpretação*. https://github.com/LudimiladeAzevedoBeltran/ml-para-pesquisa-cientifica
 
 Ver `CITATION.cff`. O arquivo prepara o depósito no Zenodo; ao criar uma *release*,
 o repositório ganha um DOI citável.

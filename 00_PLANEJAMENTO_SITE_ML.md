@@ -9,10 +9,12 @@
 
 ## 1. Missão do site
 
-Ensinar machine learning **do zero ao diagnóstico**, com uma promessa específica:
+Ensinar **métodos de machine learning aplicados à pesquisa científica**, com uma promessa
+específica:
 
-> "Ao final, a pessoa sabe escolher um modelo, calibrar sem se enganar, avaliar com a
-> métrica certa e **interpretar o resultado olhando para o gráfico certo**."
+> "Ao final, a pessoa consegue escolher um método, calibrar com critério, avaliar com a
+> métrica adequada e interpretar resultados a partir de figuras diagnósticas — sabendo o
+> que cada escolha implica."
 
 Não é um curso de matemática. Não é uma coleção de snippets. É um **manual de decisão**:
 o leitor chega com uma pergunta e sai sabendo qual caminho seguir, quais são as armadilhas
@@ -583,9 +585,9 @@ Uma página só é considerada pronta quando tem:
 | Início | **Esqueleto + fundamentos** |
 | Autoria | Ludimila de Azevedo Beltran — ORCID 0009-0003-5070-9472 |
 | Licenças | **MIT** (código) + **CC BY 4.0** (texto e figuras), como no TROPOMI |
-| Nome do site | **ML do zero ao diagnóstico** |
+| Nome do site | **ML para Pesquisa Científica** |
 
-**Pendência menor:** criar o repositório no GitHub com o slug `ml-do-zero-ao-diagnostico`
+**Pendência menor:** criar o repositório no GitHub com o slug `ml-para-pesquisa-cientifica`
 e confirmar o domínio do GitHub Pages.
 
 ### 13.1 Consequências das decisões

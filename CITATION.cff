@@ -1,10 +1,9 @@
 cff-version: 1.2.0
 message: "Se você usar este material, por favor cite como abaixo."
-title: "ML do zero ao diagnóstico"
+title: "Machine Learning para Pesquisa Científica: métodos, avaliação e interpretação"
 abstract: >-
-  Material aberto para aprender machine learning do zero ao diagnóstico: escolher
-  o modelo, calibrar hiperparâmetros, avaliar com a métrica certa e interpretar
-  resultados a partir de gráficos diagnósticos.
+  Material aberto para aprender métodos de machine learning aplicados à pesquisa científica:
+  escolha de modelo, calibração de hiperparâmetros, avaliação e interpretação de resultados.
 authors:
   - family-names: Beltran
     given-names: Ludimila de Azevedo
@@ -15,13 +14,16 @@ date-released: 2026-11-13
 license: MIT
 # Preencha o DOI depois de conectar o repositório ao Zenodo:
 # doi: 10.5281/zenodo.XXXXXXX
-repository-code: "https://github.com/LudimiladeAzevedoBeltran/ml-do-zero-ao-diagnostico"
+repository-code: "https://github.com/LudimiladeAzevedoBeltran/ml-para-pesquisa-cientifica"
 keywords:
   - machine learning
   - aprendizado de máquina
+  - pesquisa científica
   - estatística
   - avaliação de modelos
   - interpretação
+  - visualização de dados
+  - acessibilidade
   - Optuna
   - Python
   - R
