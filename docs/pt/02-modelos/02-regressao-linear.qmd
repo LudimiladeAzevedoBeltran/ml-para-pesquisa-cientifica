@@ -1,0 +1,232 @@
+---
+title: "Regressão linear"
+---
+
+<div class="page-meta">Nível: intermediário · Tempo: 18 min · Pré-requisito: Fundamentos 1–4</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> ajustar, interpretar e diagnosticar uma regressão linear, sabendo quais
+hiperparâmetros existem, como calibrar a versão regularizada e o que os coeficientes
+realmente dizem.
+</div>
+
+## Em uma frase
+
+A regressão linear ajusta a reta (ou hiperplano) que minimiza a soma dos erros ao quadrado
+entre o valor observado e o previsto.
+
+## Intuição
+
+Imagine uma nuvem de pontos. A reta de regressão é a que passa "no meio" da nuvem, de modo
+que a distância vertical média dos pontos até ela seja a menor possível. A inclinação diz
+quanto `y` muda quando `x` aumenta uma unidade; o intercepto diz o valor de `y` quando
+`x = 0`.
+
+## Quando usar
+
+- Relação aproximadamente linear entre `X` e `y`.
+- Você precisa de **interpretabilidade** (coeficientes com unidade e sinal).
+- `n` pequeno ou médio, poucas features, ou como **baseline** forte.
+- Inferência sobre associação, com diagnóstico de resíduos.
+
+## Quando NÃO usar
+
+- Relação claramente não linear ou com interações fortes (a reta vai subestimar).
+- Target binário (use regressão logística).
+- Muitos outliers que dominam a reta (considere robusta ou transformação).
+- Multicolinearidade severa sem regularização (coeficientes instáveis).
+- Extrapolação para fora da faixa observada — a reta não sabe que o mundo curva.
+
+## Pressupostos (para inferência)
+
+| Pressuposto | O que significa | Como checar |
+|---|---|---|
+| Linearidade nos parâmetros | `y` é combinação linear de `X` | resíduos vs ajustados |
+| Independência dos erros | observações não se repetem | desenho, Durbin-Watson |
+| Homocedasticidade | variância do erro constante | resíduos vs ajustados |
+| Normalidade dos resíduos | para IC e testes em amostras pequenas | QQ-plot |
+| Ausência de multicolinearidade extrema | features não são redundantes | correlação, VIF |
+| Exogeneidade | erro não correlacionado com `X` | desenho, conhecimento do domínio |
+
+Para **previsão**, alguns pressupostos podem ser relaxados; para **inferência**, não.
+
+## Hiperparâmetros
+
+A regressão linear "pura" quase não tem o que calibrar. A calibração real aparece nas
+versões regularizadas (Ridge, Lasso, Elastic Net).
+
+| Nome | O que controla | Faixa típica | Default | Borda inferior | Borda superior | Escala |
+|---|---|---|---|---|---|---|
+| `fit_intercept` | ajusta o intercepto | `True`/`False` | `True` | força a reta pela origem | — | categórica |
+| `positive` | força coeficientes ≥ 0 | `True`/`False` | `False` | — | impede efeito negativo real | categórica |
+| `alpha` (Ridge/Lasso) | força da regularização | `1e-4`–`1e4` | `1.0` | sem regularização, overfitting | coeficientes colapsam, underfitting | **log** |
+| `l1_ratio` (Elastic Net) | mistura L1/L2 | `0`–`1` | `0.5` | vira Ridge | vira Lasso | linear |
+
+::: {.callout-warning}
+## Borda é aviso, não troféu
+Se o Optuna escolher `alpha = 1e-4` ou `alpha = 1e4`, o ótimo provavelmente está fora da
+faixa. Refaça o espaço de busca antes de aceitar o resultado.
+:::
+
+## Como calibrar
+
+### Na mão
+
+1. Ajuste o modelo sem regularização e olhe os resíduos.
+2. Se houver overfitting ou coeficientes instáveis, teste `alpha` em potências de 10:
+   `0.001, 0.01, 0.1, 1, 10, 100`.
+3. Para cada valor, calcule o RMSE em validação cruzada.
+4. Plote `alpha` (log) vs RMSE e escolha o mínimo.
+5. Confirme que o mínimo não está na borda.
+
+### Com Optuna
+
+```python
+import optuna
+from sklearn.linear_model import Ridge
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import cross_val_score
+
+# X_tr e y_tr vêm do bloco de código anterior
+def objetivo(trial):
+    alpha = trial.suggest_float("alpha", 1e-4, 1e4, log=True)
+    modelo = make_pipeline(StandardScaler(), Ridge(alpha=alpha))
+    score = cross_val_score(
+        modelo, X_tr, y_tr, cv=5, scoring="neg_root_mean_squared_error"
+    ).mean()
+    return -score
+
+study = optuna.create_study(
+    direction="minimize",
+    sampler=optuna.samplers.TPESampler(seed=42),
+)
+study.optimize(objetivo, n_trials=50)
+
+print(study.best_params)
+print("RMSE CV:", round(study.best_value, 2))
+```
+
+**Leitura do resultado:** `log=True` é obrigatório para `alpha`, porque a diferença entre
+`0.01` e `0.1` importa tanto quanto entre `10` e `100`.
+
+## Código mínimo
+
+::: {.panel-tabset}
+## Python
+
+```python
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
+
+rng = np.random.default_rng(42)
+X = rng.uniform(0, 10, 200).reshape(-1, 1)
+y = 4 + 1.8 * X.ravel() + rng.normal(0, 2.0, 200)
+
+X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.25, random_state=42)
+
+modelo = LinearRegression().fit(X_tr, y_tr)
+pred = modelo.predict(X_te)
+
+print("intercepto :", round(modelo.intercept_, 2))
+print("coeficiente:", round(modelo.coef_[0], 2))
+print("R²         :", round(r2_score(y_te, pred), 3))
+print("RMSE       :", round(mean_squared_error(y_te, pred) ** 0.5, 2))
+print("MAE        :", round(mean_absolute_error(y_te, pred), 2))
+```
+
+## R
+
+```r
+set.seed(42)
+X <- runif(200, 0, 10)
+y <- 4 + 1.8 * X + rnorm(200, 0, 2)
+dados <- data.frame(X, y)
+
+idx <- sample(nrow(dados), floor(0.75 * nrow(dados)))
+treino <- dados[idx, ]
+teste  <- dados[-idx, ]
+
+modelo <- lm(y ~ X, data = treino)
+pred <- predict(modelo, teste)
+
+cat("intercepto :", round(coef(modelo)[1], 2), "\n")
+cat("coeficiente:", round(coef(modelo)[2], 2), "\n")
+cat("R²         :", round(1 - sum((teste$y - pred)^2) /
+                           sum((teste$y - mean(teste$y))^2), 3), "\n")
+cat("RMSE       :", round(sqrt(mean((teste$y - pred)^2)), 2), "\n")
+cat("MAE        :", round(mean(abs(teste$y - pred)), 2), "\n")
+```
+:::
+
+## Como interpretar os coeficientes
+
+- **Sinal:** positivo indica associação positiva; negativo, negativa.
+- **Magnitude:** variação esperada em `y` para +1 unidade em `x`, **mantendo as outras
+  features constantes**.
+- **Unidade:** o coeficiente carrega a unidade de `y` por unidade de `x`. Sem unidade, o
+  número não significa nada.
+- **Comparação entre features:** só faz sentido com coeficientes padronizados (ou com
+  features na mesma escala).
+
+::: {.callout-caution}
+## Coeficiente não é causalidade
+Um coeficiente grande e significativo não prova que `x` causa `y`. Prova associação
+condicional ao modelo. Causalidade exige desenho causal (experimento, quasi-experimento,
+controle de confundidores).
+:::
+
+## Métricas recomendadas
+
+| Métrica | Uso |
+|---|---|
+| R² | fração da variância explicada; comparar modelos no mesmo alvo |
+| R² ajustado | comparar modelos com números diferentes de preditores |
+| RMSE | erro na unidade do alvo; penaliza erros grandes |
+| MAE | erro absoluto médio; mais robusto a outliers |
+
+Reporte pelo menos **uma métrica de erro (RMSE ou MAE) e o R²**, com o erro de validação
+cruzada e o baseline.
+
+## Erros comuns
+
+1. Reportar R² de **treino** e chamar de desempenho.
+2. Usar R² para comparar alvos ou escalas diferentes.
+3. Ignorar resíduos: R² alto com padrão nos resíduos ainda é modelo mal especificado.
+4. Extrapolar para fora da faixa observada.
+5. Interpretar coeficiente como efeito causal.
+6. Deixar outliers dominarem a reta sem investigar.
+7. Multicolinearidade severa: coeficientes com sinais trocados e erros-padrão enormes.
+8. Padronizar `X` fora do pipeline (vazamento).
+
+## Custo computacional
+
+Baixo. Ajuste em milissegundos para dezenas de milhares de linhas. É o baseline obrigatório
+antes de qualquer modelo caro.
+
+## Referências
+
+- Montgomery, D. C.; Peck, E. A.; Vining, G. G. *Introduction to Linear Regression Analysis*.
+- James, G. et al. *An Introduction to Statistical Learning* (cap. 3).
+- Gelman, A.; Hill, J. *Data Analysis Using Regression and Multilevel/Hierarchical Models*.
+- Documentação do `scikit-learn`: `LinearRegression`, `Ridge`, `Lasso`.
+- Documentação do R: `lm`, `summary.lm`.
+
+## Exercício
+
+Um modelo prevê concentração de CH4 (ppb) a partir de temperatura (°C), umidade (%) e
+vento (m/s). Os coeficientes são: temperatura `0,8`; umidade `-0,3`; vento `-1,2`.
+Interprete os três e diga qual métrica você reportaria para uma audiência não técnica.
+
+::: {.callout-note collapse="true" title="Solução"}
+Mantendo as outras variáveis constantes: +1 °C associa-se a +0,8 ppb de CH4; +1 ponto
+percentual de umidade associa-se a -0,3 ppb; +1 m/s de vento associa-se a -1,2 ppb. Para
+audiência não técnica, MAE (em ppb) é mais interpretável que RMSE; reporte também R² e o
+baseline. Não afirme causalidade.
+:::
+
+## Próximo passo
+
+[Métricas de regressão](../04-avaliacao/01-regressao.qmd) — o que cada número esconde.

@@ -1,0 +1,98 @@
+---
+title: "3. Checklists finais"
+---
+
+<div class="page-meta">Nível: todos · Tempo: 10 min · Pré-requisito: Todas as partes</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> auditar um projeto antes de publicar — vazamento, métrica, figuras,
+reprodutibilidade e honestidade do relato.
+</div>
+
+## 1. Anti-leakage
+
+- [ ] O teste foi separado antes de qualquer transformação.
+- [ ] Imputação, escala e encoding estão dentro do pipeline.
+- [ ] Nenhuma feature é derivada do target.
+- [ ] A validação respeita tempo, espaço ou grupo.
+- [ ] O teste nunca foi usado para escolher modelo ou hiperparâmetro.
+- [ ] A seleção de features aconteceu dentro do CV.
+- [ ] O split é reprodutível (semente/índices salvos).
+
+## 2. Modelagem
+
+- [ ] A pergunta está escrita em uma frase.
+- [ ] O baseline foi calculado.
+- [ ] A métrica foi escolhida antes do resultado.
+- [ ] O modelo é o mais simples que responde à pergunta.
+- [ ] O espaço de busca tem limites e escala justificados.
+- [ ] O melhor hiperparâmetro não está na borda (ou a borda foi ampliada).
+- [ ] A incerteza entre folds foi reportada.
+
+## 3. Avaliação e relato
+
+- [ ] A acurácia não é a única métrica em classe desbalanceada.
+- [ ] O limiar foi escolhido pelo custo, não por hábito.
+- [ ] A matriz de confusão foi reportada no limiar escolhido.
+- [ ] ROC e PR foram interpretadas no contexto da prevalência.
+- [ ] O resultado de teste é de teste, não de treino.
+- [ ] O relato separa previsão de causalidade.
+- [ ] As limitações dizem o que invalida, não só "dados limitados".
+
+## 4. Figuras e tabelas
+
+- [ ] Toda figura é citada no texto.
+- [ ] A legenda é autossuficiente (unidade, escala, período).
+- [ ] Os eixos têm unidade.
+- [ ] A ordem de aparição está correta.
+- [ ] A figura não esconde a dispersão (sem eixo truncado enganoso).
+- [ ] Tabelas têm fonte e unidades.
+
+## 5. Reprodutibilidade
+
+- [ ] `data/raw` está intocado.
+- [ ] O ambiente está registrado.
+- [ ] As sementes estão no código.
+- [ ] O split está salvo ou reproduzível.
+- [ ] O README explica como rodar.
+- [ ] O model card e o data card existem.
+- [ ] A licença e a citação estão definidas.
+
+## 6. Antes de publicar
+
+- [ ] O abstract não promete mais do que o resultado entrega.
+- [ ] Os números do abstract batem com a tabela.
+- [ ] As referências são reais e verificáveis.
+- [ ] Não há dado sensível ou segredo no repositório.
+- [ ] O site renderiza sem links quebrados.
+
+## Auditoria rápida (5 perguntas)
+
+1. O teste foi tocado antes do fim?
+2. A métrica combina com o custo do erro?
+3. O baseline foi batido?
+4. O gráfico mostra o que a métrica esconde?
+5. Outra pessoa consegue reproduzir com o que está no repositório?
+
+Se alguma resposta for "não", o projeto não está pronto.
+
+## Exercício
+
+Leia o mini-relatório abaixo e encontre cinco problemas.
+
+> "Acurácia de 95%. O modelo foi escolhido após testar 30 configurações no conjunto de
+> teste. A feature 'focos de fogo' foi calculada no mesmo mês do alvo 'área queimada'.
+> O R² de treino foi 0,99. Não usamos baseline porque o modelo é moderno."
+
+::: {.callout-note collapse="true" title="Solução"}
+1. Acurácia sozinha, sem prevalência/matriz.
+2. Modelo escolhido no teste (vazamento).
+3. Feature contemporânea ao alvo (vazamento temporal/target).
+4. R² de treino reportado como desempenho.
+5. Sem baseline.
+Faltam ainda: incerteza, limiar, limitações e reprodutibilidade.
+:::
+
+## Próximo passo
+
+[Glossário](../08-extras/01-glossario.qmd).

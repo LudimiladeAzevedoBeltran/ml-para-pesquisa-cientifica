@@ -1,0 +1,136 @@
+---
+title: "Bibliografia comentada"
+---
+
+<div class="page-meta">Nível: todos · Tempo: consulta · Pré-requisito: nenhum</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> indicar o que ler para cada tema, sem despejar uma lista infinita.
+</div>
+
+::: {.callout-note}
+## Como usar
+As referências abaixo são reais e verificáveis. Não inventei DOI. Quando precisar citar,
+confira a versão mais recente e o DOI no site do editor.
+:::
+
+## Fundamentos e livros-texto
+
+- James, G.; Witten, D.; Hastie, T.; Tibshirani, R. *An Introduction to Statistical
+  Learning*. 2. ed. Springer, 2021. https://www.statlearning.com/
+- Hastie, T.; Tibshirani, R.; Friedman, J. *The Elements of Statistical Learning*.
+  2. ed. Springer, 2009. https://hastie.su.domains/ElemStatLearn/
+- Géron, A. *Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow*.
+  3. ed. O'Reilly, 2022.
+- Bishop, C. M. *Pattern Recognition and Machine Learning*. Springer, 2006.
+- Murphy, K. P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022.
+- Murphy, K. P. *Probabilistic Machine Learning: Advanced Topics*. MIT Press, 2023.
+
+## Estatística e inferência
+
+- Gelman, A.; Carlin, J. B.; Stern, H. S.; Dunson, D. B.; Vehtari, A.; Rubin, D. B.
+  *Bayesian Data Analysis*. 3. ed. CRC Press, 2013.
+- Efron, B.; Tibshirani, R. J. *An Introduction to the Bootstrap*. Chapman & Hall, 1993.
+- Hernán, M. A.; Robins, J. M. *Causal Inference: What If*. CRC Press, 2020.
+- Pearl, J. *Causality: Models, Reasoning, and Inference*. 2. ed. Cambridge, 2009.
+
+## Modelos
+
+- Breiman, L. Random Forests. *Machine Learning*, v. 45, p. 5–32, 2001.
+- Friedman, J. H. Greedy Function Approximation: A Gradient Boosting Machine.
+  *Annals of Statistics*, v. 29, n. 5, p. 1189–1232, 2001.
+- Chen, T.; Guestrin, C. XGBoost: A Scalable Tree Boosting System. *KDD*, 2016.
+- Pedregosa, F. et al. Scikit-learn: Machine Learning in Python. *JMLR*, v. 12,
+  p. 2825–2830, 2011.
+
+## Calibração de hiperparâmetros
+
+- Bergstra, J.; Bengio, Y. Random Search for Hyper-Parameter Optimization. *JMLR*,
+  v. 13, p. 281–305, 2012.
+- Akiba, T.; Sano, S.; Yanase, T.; Ohta, T.; Koyama, M. Optuna: A Next-generation
+  Hyperparameter Optimization Framework. *KDD*, 2019.
+- Documentation: https://optuna.readthedocs.io/
+
+## Avaliação
+
+- Davis, J.; Goadrich, M. The Relationship Between Precision-Recall and ROC Curves.
+  *ICML*, 2006.
+- Niculescu-Mizil, A.; Caruana, R. Predicting Good Probabilities with Supervised
+  Learning. *ICML*, 2005.
+- Gneiting, T.; Raftery, A. E. Strictly Proper Scoring Rules, Prediction, and
+  Estimation. *JASA*, v. 102, p. 359–378, 2007.
+- Brier, G. W. Verification of Forecasts Expressed in Terms of Probability.
+  *Monthly Weather Review*, v. 78, p. 1–3, 1950.
+- Cohen, J. A Coefficient of Agreement for Nominal Scales. *Educational and
+  Psychological Measurement*, v. 20, p. 37–46, 1960.
+- Matthews, B. W. Comparison of the Predicted and Observed Secondary Structure of T4
+  Phage Lysozyme. *Biochimica et Biophysica Acta*, v. 405, p. 442–451, 1975.
+- Demšar, J. Statistical Comparisons of Classifiers over Multiple Data Sets. *JMLR*,
+  v. 7, p. 1–30, 2006.
+
+## Agrupamento
+
+- Rousseeuw, P. J. Silhouettes: A Graphical Aid to the Interpretation and Validation of
+  Cluster Analysis. *Journal of Computational and Applied Mathematics*, v. 20,
+  p. 53–65, 1987.
+- Caliński, T.; Harabasz, J. A Dendrite Method for Cluster Analysis. *Communications
+  in Statistics*, v. 3, p. 1–27, 1974.
+- Davies, D. L.; Bouldin, D. W. A Cluster Separation Measure. *IEEE TPAMI*, v. 1,
+  p. 224–227, 1979.
+- Hubert, L.; Arabie, P. Comparing Partitions. *Journal of Classification*, v. 2,
+  p. 193–218, 1985.
+
+## Vazamento e validação
+
+- Kaufman, S.; Rosset, S.; Perlich, C. Leakage in Data Mining: Formulation, Detection,
+  and Avoidance. *ACM TKDD*, v. 6, 2012.
+- Kapoor, S.; Narayanan, A. Leakage and the Reproducibility Crisis in
+  Machine-Learning-Based Science. *Patterns*, v. 4, 2023.
+- Varma, S.; Simon, R. Bias in Error Estimation When Using Cross-Validation for Model
+  Selection. *BMC Bioinformatics*, v. 7, 2006.
+- Roberts, D. R. et al. Cross-Validation Strategies for Data with Temporal, Spatial,
+  Hierarchical, or Phylogenetic Structure. *Ecography*, v. 40, p. 913–929, 2017.
+
+## Interpretabilidade
+
+- Molnar, C. *Interpretable Machine Learning*. 2. ed. 2022.
+  https://christophm.github.io/interpretable-ml-book/
+- Lundberg, S. M.; Lee, S.-I. A Unified Approach to Interpreting Model Predictions.
+  *NeurIPS*, 2017.
+- Fisher, A.; Rudin, C.; Dominici, F. All Models are Wrong, but Many are Useful:
+  Learning a Variable's Importance by Perturbation. *JMLR*, v. 20, 2019.
+
+## Reprodutibilidade e relato
+
+- Wilkinson, M. D. et al. The FAIR Guiding Principles for Scientific Data Management
+  and Stewardship. *Scientific Data*, v. 3, 2016.
+- Mitchell, M. et al. Model Cards for Model Reporting. FAT* 2019.
+- Gebru, T. et al. Datasheets for Datasets. *Communications of the ACM*, v. 64, 2021.
+- Pineau, J. et al. Improving Reproducibility in Machine Learning Research.
+  *JMLR*, v. 22, 2021.
+- Collins, G. S. et al. TRIPOD+AI Statement. *BMJ*, 2024.
+- Wolff, R. F. et al. PROBAST: A Tool to Assess the Risk of Bias and Applicability of
+  Prediction Model Studies. *Annals of Internal Medicine*, v. 170, 2019.
+- Walsh, I. et al. DOME: Recommendations for Supervised Machine Learning Validation in
+  Biology. *Nature Methods*, v. 18, 2021.
+
+## Aplicações ambientais e sensoriamento remoto
+
+- Reichstein, M. et al. Deep Learning and Process Understanding for Data-Driven Earth
+  System Science. *Nature*, v. 566, p. 195–204, 2019.
+- Tuia, D. et al. Perspectives in Machine Learning for Wildlife Conservation.
+  *Nature Communications*, v. 13, 2022.
+- Roberts, D. R. et al. (ver acima) — leitura obrigatória para dados espaciais e
+  temporais.
+
+## Documentação oficial
+
+- scikit-learn: https://scikit-learn.org/stable/
+- Optuna: https://optuna.readthedocs.io/
+- pandas: https://pandas.pydata.org/docs/
+- R: https://cran.r-project.org/manuals.html
+- Quarto: https://quarto.org/docs/
+
+## Próximo passo
+
+[Erros comuns e exercícios](05-erros-e-exercicios.qmd).

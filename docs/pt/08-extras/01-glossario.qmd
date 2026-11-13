@@ -1,0 +1,125 @@
+---
+title: "Glossário PT–EN"
+---
+
+<div class="page-meta">Nível: todos · Tempo: consulta · Pré-requisito: nenhum</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> resolver a bagunça de termos em português e inglês sem perder o rigor.
+</div>
+
+## Fundamentos
+
+| Português | English | Ideia |
+|---|---|---|
+| aprendizado supervisionado | supervised learning | aprende com `X` e `y` |
+| aprendizado não supervisionado | unsupervised learning | aprende estrutura sem `y` |
+| aprendizado semissupervisionado | semi-supervised learning | poucos rótulos, muitos dados |
+| aprendizado auto-supervisionado | self-supervised learning | rótulo criado a partir do dado |
+| aprendizado por reforço | reinforcement learning | aprende por recompensa |
+| variável de entrada | feature / predictor | coluna de `X` |
+| alvo | target / outcome | coluna de `y` |
+| amostra | sample / observation | uma linha |
+| conjunto de treino | training set | ajusta parâmetros |
+| conjunto de validação | validation set | escolhe hiperparâmetros |
+| conjunto de teste | test set | estima erro final |
+| validação cruzada | cross-validation | várias partições |
+| retenção | holdout | teste separado |
+| linha de base | baseline | referência mínima |
+| função de perda | loss function | mede o erro |
+| gradiente descendente | gradient descent | otimiza parâmetros |
+| regularização | regularization | pune complexidade |
+| sobreajuste | overfitting | decora o treino |
+| subajuste | underfitting | simples demais |
+| viés–variância | bias–variance | trade-off central |
+| vazamento | leakage | informação indevida |
+| semente | seed | torna o aleatório repetível |
+
+## Modelos e ajuste
+
+| Português | English | Ideia |
+|---|---|---|
+| parâmetro | parameter | aprendido no treino |
+| hiperparâmetro | hyperparameter | escolhido antes |
+| calibração de hiperparâmetros | hyperparameter tuning | busca da melhor configuração |
+| busca em grade | grid search | todas as combinações |
+| busca aleatória | random search | amostra o espaço |
+| otimização bayesiana | Bayesian optimization | aprende com trials |
+| poda | pruning | interrompe trials ruins |
+| conjunto | ensemble | combina modelos |
+| bagging | bagging | amostras bootstrap |
+| boosting | boosting | corrige erros em sequência |
+| floresta aleatória | random forest | muitas árvores |
+| árvore de decisão | decision tree | perguntas em sequência |
+| máquina de vetores de suporte | support vector machine (SVM) | margem máxima |
+| k vizinhos mais próximos | k-nearest neighbors (KNN) | vizinhança |
+| rede neural | neural network | camadas de transformações |
+| agrupamento | clustering | grupos sem rótulo |
+| componente principal | principal component | direção de maior variância |
+
+## Avaliação — regressão
+
+| Português | English | Ideia |
+|---|---|---|
+| coeficiente de determinação | R² / coefficient of determination | variância explicada |
+| R² ajustado | adjusted R² | R² penalizado por preditores |
+| raiz do erro quadrático médio | RMSE | erro na unidade do alvo |
+| erro absoluto médio | MAE | erro absoluto médio |
+| erro percentual absoluto médio | MAPE | erro relativo |
+| erro absoluto mediano | MedAE | robusto a outliers |
+| erro logarítmico quadrático | MSLE | alvo positivo |
+
+## Avaliação — classificação
+
+| Português | English | Ideia |
+|---|---|---|
+| acurácia | accuracy | acerto total |
+| acurácia balanceada | balanced accuracy | acerto médio por classe |
+| precisão | precision | dos previstos positivos, quantos são |
+| revocação / sensibilidade | recall / sensitivity | dos positivos, quantos foram achados |
+| especificidade | specificity | dos negativos, quantos foram achados |
+| F1 | F1 score | equilíbrio precisão–recall |
+| coeficiente de Matthews | Matthews correlation coefficient (MCC) | correlação real–previsto |
+| kappa de Cohen | Cohen's kappa | concordância acima do acaso |
+| matriz de confusão | confusion matrix | TP, TN, FP, FN |
+| curva ROC | ROC curve | TPR vs FPR |
+| área sob a curva | AUC | separação global |
+| curva precisão–recall | precision–recall curve | precisão vs recall |
+| precisão média | average precision (AP) | área da curva PR |
+| perda logarítmica | log loss | pune confiança errada |
+| escore de Brier | Brier score | erro quadrático da probabilidade |
+| calibração | calibration | probabilidade = frequência |
+| limiar | threshold | ponto de corte |
+| desbalanceamento | class imbalance | classes com tamanhos diferentes |
+
+## Agrupamento e interpretação
+
+| Português | English | Ideia |
+|---|---|---|
+| coeficiente de silhueta | silhouette coefficient | separação e coesão |
+| método do cotovelo | elbow method | inércia vs k |
+| índice de Calinski-Harabasz | Calinski-Harabasz index | razão entre variâncias |
+| índice de Davies-Bouldin | Davies-Bouldin index | similaridade entre clusters |
+| análise de componentes principais | principal component analysis (PCA) | compressão linear |
+| importância por permutação | permutation importance | queda ao embaralhar |
+| valores SHAP | SHAP values | contribuição por feature |
+| dependência parcial | partial dependence | efeito médio |
+| inferência | inference | conclusão sobre parâmetros |
+| causalidade | causality | efeito causal |
+
+## Reprodutibilidade
+
+| Português | English | Ideia |
+|---|---|---|
+| reprodutibilidade | reproducibility | mesmo resultado, mesmos insumos |
+| replicabilidade | replicability | novo dado, mesma conclusão |
+| dicionário de dados | data dictionary | descrição das colunas |
+| cartão de modelo | model card | ficha do modelo |
+| cartão de dados | data card | ficha dos dados |
+| versionamento | version control | histórico de mudanças |
+| ambiente | environment | versões de software |
+| teste unitário | unit test | verifica uma função |
+
+## Próximo passo
+
+[FAQ](02-faq.qmd).

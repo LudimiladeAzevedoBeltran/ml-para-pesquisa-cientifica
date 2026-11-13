@@ -1,0 +1,97 @@
+---
+title: "Folhas de cola"
+---
+
+<div class="page-meta">Nível: todos · Tempo: consulta · Pré-requisito: nenhum</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> ter à mão as decisões que se repetem: modelo, métrica, hiperparâmetro e
+relato.
+</div>
+
+## Qual modelo?
+
+| Tarefa | Dados | Primeira escolha | Alternativa |
+|---|---|---|---|
+| Regressão | tabular, relação linear | regressão linear | Ridge/Lasso, árvore, RF |
+| Regressão | tabular, não linear | árvore/RF | gradient boosting |
+| Classificação | tabular, linear | regressão logística | SVM, RF |
+| Classificação | tabular, não linear | RF/gradient boosting | SVM, MLP |
+| Classificação | texto/imagem | modelo pré-treinado | MLP/CNN/Transformer |
+| Clusterização | tabular, k conhecido | K-means | hierárquico |
+| Clusterização | formas arbitrárias | DBSCAN | HDBSCAN |
+| Redução | linear | PCA | — |
+| Redução | visualização não linear | t-SNE/UMAP | — |
+
+**Regra:** baseline → simples → complexo. Só avance se o ganho passar a incerteza.
+
+## Qual métrica?
+
+| Situação | Métrica principal | Complemento |
+|---|---|---|
+| Regressão, erro na unidade | RMSE ou MAE | R² |
+| Regressão, outliers | MAE/MedAE | RMSE |
+| Regressão, escalas diferentes | MAPE/sMAPE (sem zeros) | MAE |
+| Classificação equilibrada | acurácia | F1, AUC |
+| Classificação desbalanceada | PR-AUC/AP, recall | F1, matriz |
+| Classificação, custo assimétrico | custo esperado | recall/precisão |
+| Probabilidade | log loss, Brier | curva de calibração |
+| Cluster | silhueta | cotovelo, estabilidade |
+| Comparação de modelos | CV + incerteza | teste pareado |
+
+## Hiperparâmetros que importam
+
+| Modelo | Hiperparâmetro | Faixa típica | Borda inferior | Borda superior |
+|---|---|---|---|---|
+| Ridge/Lasso | `alpha` | 1e-4–1e4 (log) | sem regularização | colapsa |
+| Árvore | `max_depth` | 2–20 | underfitting | overfitting |
+| Árvore | `min_samples_leaf` | 1–50 (log) | overfitting | underfitting |
+| Random Forest | `n_estimators` | 100–1000 | instável | custo sem ganho |
+| Random Forest | `max_features` | `sqrt`, `log2`, 0.1–1 | mais viés | mais variância |
+| Gradient Boosting | `learning_rate` | 0.01–0.3 | underfitting | overfitting |
+| Gradient Boosting | `n_estimators` | 50–1000 | underfitting | overfitting |
+| KNN | `n_neighbors` | 1–50 | overfitting | underfitting |
+| SVM | `C` | 1e-3–1e3 (log) | underfitting | overfitting |
+| SVM | `gamma` | 1e-4–1e1 (log) | underfitting | overfitting |
+| K-means | `n_clusters` | 2–10 | funde grupos | divide demais |
+| PCA | `n_components` | 1–n_features | perde informação | ruído |
+
+## Receita de tuning
+
+1. Escolha a métrica antes.
+2. Defina o espaço com escala e limites.
+3. Use CV respeitando tempo/espaço/grupo.
+4. Rode manual → random/grid → Optuna.
+5. Se o melhor cair na borda, amplie.
+6. Compare o ganho com a incerteza.
+7. Reavalie no teste, uma vez.
+8. Reporte espaço, orçamento, melhor score e variabilidade.
+
+## Relato em 10 linhas
+
+```text
+Pergunta:
+Dados (n, período, fonte):
+Split/CV:
+Baseline:
+Modelo:
+Métrica principal (média ± incerteza):
+Diagnóstico (resíduos/curva):
+Limiar/custo (se classificação):
+Limitações:
+Como reproduzir:
+```
+
+## Sinais de alerta
+
+- R² de treino perto de 1 e teste ruim.
+- Acurácia alta com recall baixo.
+- Melhor hiperparâmetro na borda.
+- Score que muda muito entre sementes.
+- Feature que "prevê" o alvo com precisão suspeita.
+- Figura sem unidade ou com eixo truncado.
+- Conclusão causal sem desenho causal.
+
+## Próximo passo
+
+[Bibliografia](04-bibliografia.qmd).

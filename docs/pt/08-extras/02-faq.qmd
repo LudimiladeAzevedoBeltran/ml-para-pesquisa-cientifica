@@ -1,0 +1,89 @@
+---
+title: "FAQ"
+---
+
+<div class="page-meta">Nível: todos · Tempo: consulta · Pré-requisito: nenhum</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> responder as dúvidas que aparecem em toda primeira conversa sobre ML.
+</div>
+
+## Modelos
+
+**Preciso de GPU?**
+Não para dados tabulares e modelos clássicos. GPU ajuda em deep learning e em volumes
+grandes. Comece com CPU.
+
+**Qual modelo devo começar?**
+O mais simples que responde à pergunta: baseline → regressão linear/logística → árvore →
+ensemble. Veja o [catálogo de modelos](../02-modelos/index.qmd).
+
+**Deep learning sempre ganha?**
+Não. Em dados tabulares pequenos, árvores e ensembles costumam empatar ou ganhar, com
+menos custo e mais interpretabilidade.
+
+**Quanto dado é suficiente?**
+Depende da complexidade do problema e do ruído. O sinal prático: a curva de aprendizado
+estabilizou? Se sim, mais dado rende pouco. Veja a
+[calibração manual](../03-calibracao/02-calibracao-manual.qmd).
+
+**Como escolho entre dois modelos?**
+Compare na mesma CV, com a mesma métrica e as mesmas partições; reporte a diferença com
+incerteza. Veja [boas práticas](../03-calibracao/05-boas-praticas.qmd).
+
+## Avaliação
+
+**Posso usar acurácia?**
+Só com classes equilibradas e custos simétricos. Em desbalanceamento, use acurácia
+balanceada, precisão, recall, F1 e PR-AUC. Veja
+[métricas de classificação](../04-avaliacao/02-classificacao.qmd).
+
+**O que é um R² bom?**
+Depende do problema. R² 0,3 pode ser excelente em ecologia e 0,9 pode ser ruim se o modelo
+vaza. Compare com o baseline e olhe os resíduos.
+
+**Preciso de p-value?**
+Para inferência, sim (com desenho adequado). Para previsão, não é o centro; o que importa é
+erro fora da amostra e incerteza.
+
+**Meu modelo tem R² alto e resíduo com padrão. É ruim?**
+O padrão indica que falta estrutura. Pode ser aceitável para previsão e inadequado para
+inferência. Veja o [diagnóstico de resíduos](../06-projetos/02-regressao.qmd).
+
+**Clusters são classes?**
+Não. Cluster é estrutura descoberta; classe é rótulo conhecido. Veja
+[clusterização](../06-projetos/04-clusterizacao.qmd).
+
+## Dados e vazamento
+
+**O que é vazamento?**
+Informação do futuro, do teste ou do alvo que entra no treino. Produz resultado bonito e
+falso. Veja [dados e armadilhas](../01-fundamentos/05-dados-e-armadilhas.qmd).
+
+**Como lidar com missing?**
+Entenda o mecanismo (MCAR/MAR/MNAR), impute dentro do pipeline e teste a sensibilidade. Não
+interpole lacunas longas como se fossem dado real.
+
+**Posso remover outliers?**
+Investigue antes. Outlier pode ser erro, evento extremo real ou outra população. Remover por
+reflexo apaga sinal.
+
+## Prática
+
+**Python ou R?**
+Os dois. Python tem o ecossistema de ML mais amplo; R é forte em estatística e no fluxo de
+dados. O site mostra as duas abas.
+
+**Como publico o site?**
+O workflow do GitHub Pages já está pronto. Veja a página de
+[Git e model card](../07-reprodutibilidade/02-git-model-card.qmd).
+
+**Como cito este material?**
+Use o `CITATION.cff` ou a citação do README. O texto é CC BY 4.0; o código é MIT.
+
+**Por onde começo se tenho pouco tempo?**
+[Primeiro modelo em 30 minutos](../06-projetos/01-primeiro-modelo-30min.qmd).
+
+## Próximo passo
+
+[Folhas de cola](03-folhas-de-cola.qmd).

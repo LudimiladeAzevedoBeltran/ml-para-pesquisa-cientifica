@@ -1,0 +1,56 @@
+---
+title: "Projetos guiados"
+---
+
+<div class="page-meta">Nível: todos · Tempo: 5 min · Pré-requisito: Fundamentos</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> escolher um projeto e seguir o ciclo completo — pergunta, dados, modelo,
+diagnóstico e relato.
+</div>
+
+## Por que projetos
+
+Conceito isolado não sobrevive ao primeiro CSV real. Os projetos juntam as peças na ordem
+em que elas aparecem no trabalho: pergunta, dados, split, baseline, modelo, calibração,
+avaliação, interpretação e relato.
+
+Cada projeto usa um **caderno de campo**: você preenche as decisões, não só roda o código.
+
+## Os projetos
+
+| Projeto | Nível | Tempo | Dados | O que você aprende |
+|---|---|---|---|---|
+| [Primeiro modelo em 30 min](01-primeiro-modelo-30min.qmd) | iniciante | 30 min | `data/exemplo_ch4.csv` | o ciclo mínimo, do CSV ao diagnóstico |
+| [Regressão: CH4](02-regressao.qmd) | intermediário | 35 min | `data/exemplo_ch4.csv` | baseline, CV, resíduos e decisão de complexidade |
+| [Classificação: risco](03-classificacao.qmd) | avançado | 35 min | `data/exemplo_classificacao.csv` | desbalanceamento, limiar e custo do erro |
+| [Clusterização: perfis](04-clusterizacao.qmd) | intermediário | 30 min | `data/exemplo_cluster.csv` | k, silhueta, PCA e interpretação |
+
+## Ordem sugerida
+
+1. **Primeiro modelo** — para perder o medo e ver o ciclo completo.
+2. **Regressão** — para aprender a diagnosticar e decidir se vale complicar.
+3. **Classificação** — para aprender a escolher o limiar pelo custo.
+4. **Clusterização** — para aprender a interpretar grupos sem rótulo.
+
+## Como usar
+
+Rode o código a partir da **raiz do repositório** (`12_Projeto_Machine-learning_site`),
+para que os caminhos `data/...` funcionem.
+
+1. Leia a pergunta e os dados antes de rodar.
+2. Rode o código e confira os números.
+3. Mude **uma** coisa (uma feature, um limiar, um `k`) e veja o efeito.
+4. Responda ao exercício.
+5. Preencha o checklist e o relatório no fim da página.
+
+::: {.callout-tip}
+## Dados e reprodutibilidade
+Os três CSVs são gerados por `src/gerar_dados_projetos.py`, com sementes fixas. As figuras
+são geradas por `src/gerar_figuras_projetos.py`. Se você mudar a semente, os números
+mudam — e isso é uma lição, não um bug.
+:::
+
+## Próximo passo
+
+Comece pelo [primeiro modelo em 30 minutos](01-primeiro-modelo-30min.qmd).

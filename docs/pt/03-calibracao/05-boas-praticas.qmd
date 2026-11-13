@@ -1,0 +1,217 @@
+---
+title: "5. Boas práticas de calibração"
+---
+
+<div class="page-meta">Nível: avançado · Tempo: 18 min · Pré-requisito: Optuna</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> avaliar um modelo calibrado com CV aninhada, reportar a incerteza e
+reconhecer quando a calibração não vale a pena.
+</div>
+
+## O pecado original: calibrar e avaliar no mesmo fold
+
+Se você usa a mesma validação cruzada para escolher hiperparâmetros e para estimar o erro,
+o resultado é otimista. O modelo foi escolhido para ir bem naquele conjunto; o número não
+se reproduz em dados novos.
+
+A solução é **CV aninhada** (nested CV):
+
+```
+Para cada fold externo (avaliação):
+    separe treino e teste do fold externo
+    Para cada fold interno (calibração):
+        escolha o melhor hiperparâmetro no treino do fold externo
+    treine o modelo escolhido no treino do fold externo
+    avalie no teste do fold externo
+```
+
+O fold externo nunca participa da escolha. O resultado é uma estimativa honesta do
+processo completo (calibração + treino).
+
+## Código: CV aninhada
+
+::: {.panel-tabset}
+## Python
+
+```python
+from sklearn.datasets import load_diabetes
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import GridSearchCV, KFold, cross_val_score
+
+X, y = load_diabetes(return_X_y=True)
+grade = {
+    "max_depth": [3, 5, 8],
+    "min_samples_leaf": [1, 3, 5],
+}
+
+inner = KFold(n_splits=3, shuffle=True, random_state=42)
+outer = KFold(n_splits=5, shuffle=True, random_state=42)
+
+busca = GridSearchCV(
+    RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1),
+    grade,
+    cv=inner,
+    scoring="neg_root_mean_squared_error",
+    n_jobs=1,
+)
+
+scores = cross_val_score(
+    busca, X, y, cv=outer,
+    scoring="neg_root_mean_squared_error", n_jobs=1,
+)
+
+print("RMSE nested:", round(-scores.mean(), 2), "+/-", round(scores.std(), 2))
+```
+
+## R
+
+```r
+library(rpart)
+
+set.seed(42)
+dados <- mtcars
+rmse <- function(obs, pred) sqrt(mean((obs - pred)^2))
+grade <- expand.grid(maxdepth = c(2, 3, 5), minsplit = c(2, 5))
+
+outer_folds <- cut(seq_len(nrow(dados)), breaks = 5, labels = FALSE)
+erros_outer <- numeric(5)
+
+for (k in 1:5) {
+  tr_outer <- dados[outer_folds != k, ]
+  va_outer <- dados[outer_folds == k, ]
+
+  inner_folds <- cut(seq_len(nrow(tr_outer)), breaks = 3, labels = FALSE)
+  erros_inner <- numeric(nrow(grade))
+
+  for (g in seq_len(nrow(grade))) {
+    erros_fold <- numeric(3)
+    for (j in 1:3) {
+      tr <- tr_outer[inner_folds != j, ]
+      va <- tr_outer[inner_folds == j, ]
+      m <- rpart(
+        mpg ~ ., data = tr, method = "anova",
+        control = rpart.control(
+          maxdepth = grade$maxdepth[g], minsplit = grade$minsplit[g], cp = 0
+        )
+      )
+      erros_fold[j] <- rmse(va$mpg, predict(m, va))
+    }
+    erros_inner[g] <- mean(erros_fold)
+  }
+
+  melhor <- grade[which.min(erros_inner), ]
+  m <- rpart(
+    mpg ~ ., data = tr_outer, method = "anova",
+    control = rpart.control(
+      maxdepth = melhor$maxdepth, minsplit = melhor$minsplit, cp = 0
+    )
+  )
+  erros_outer[k] <- rmse(va_outer$mpg, predict(m, va_outer))
+}
+
+cat("RMSE nested:", round(mean(erros_outer), 2),
+    "+/-", round(sd(erros_outer), 2), "\n")
+```
+:::
+
+::: {.callout-tip}
+## Quando a nested CV é obrigatória
+Sempre que você reporta o resultado de um modelo **depois de calibrar**. Se o modelo foi
+escolhido olhando a validação, a validação simples não é uma estimativa honesta.
+:::
+
+## O teste final continua sagrado
+
+A nested CV estima o processo. O **teste** (holdout separado antes de tudo) continua sendo
+a última palavra. Use-o uma vez, depois de fechar o modelo:
+
+1. Separe treino e teste no início.
+2. Faça toda a calibração e a nested CV no treino.
+3. Escolha o modelo final.
+4. Treine no treino inteiro.
+5. Avalie no teste. Uma vez.
+
+## Incerteza: média sozinha não basta
+
+Um RMSE de 56,5 pode ser 56,5 ± 3 ou 56,5 ± 15. A decisão muda. Reporte:
+
+- média e desvio entre folds;
+- intervalo de confiança (95%);
+- número de folds e sementes.
+
+```python
+import numpy as np
+from scipy import stats
+
+scores = -scores  # se vierem negativos do sklearn
+n = len(scores)
+ic = stats.t.interval(0.95, n - 1, loc=scores.mean(), scale=stats.sem(scores))
+print(f"{scores.mean():.2f} (IC95%: {ic[0]:.2f}–{ic[1]:.2f})")
+```
+
+Para comparar dois modelos nas **mesmas** partições, use teste pareado:
+
+```python
+from scipy.stats import wilcoxon
+
+# vetores de RMSE por fold de dois modelos avaliados nas mesmas partições
+stat, p = wilcoxon(scores_modelo_a, scores_modelo_b)
+print("p =", round(p, 4))
+```
+
+Com 5 folds, o Wilcoxon tem pouca potência. Reporte a diferença média e a incerteza, não
+só o p.
+
+## Orçamento vs ganho
+
+| Situação | Decisão |
+|---|---|
+| Ganho de tuning < incerteza entre folds | fique no modelo mais simples |
+| Ganho grande, mas só na borda do espaço | amplie a faixa e confirme |
+| Ganho grande e estável | vale reportar e usar |
+| Custo de treino explode | reduza espaço/folds ou aceite o default |
+| Baseline ainda não foi batido | o problema não é tuning |
+
+## O que reportar
+
+| Item | Exemplo |
+|---|---|
+| Tarefa e métrica | regressão, RMSE |
+| Split e CV | holdout 20%; 5 folds externos, 3 internos |
+| Espaço de busca | `max_depth` 2–20; `min_samples_leaf` 1–20 (log) |
+| Método | Optuna TPE, 40 trials, semente 42 |
+| Melhor configuração | `max_depth=11`, `min_samples_leaf=3` |
+| Score de validação | 56,5 ± 2,1 (IC95%) |
+| Score de teste | 58,0 |
+| Baseline | média do treino: 73,2 |
+| Reprodutibilidade | código, versões, semente, folds |
+
+## Checklist
+
+- [ ] O teste foi separado antes de qualquer decisão.
+- [ ] A calibração aconteceu só no treino.
+- [ ] A avaliação final usou nested CV ou holdout intocado.
+- [ ] O espaço de busca tem escala e limites justificados.
+- [ ] O melhor valor não está na borda (ou a borda foi ampliada).
+- [ ] A incerteza entre folds foi reportada.
+- [ ] O baseline foi calculado.
+- [ ] Sementes, versões e folds estão registrados.
+- [ ] O ganho de tuning foi comparado com a incerteza.
+
+## Exercício
+
+Um colega reporta R² = 0,92 depois de testar 200 combinações e escolher a melhor no
+conjunto de teste. O que está errado e como corrigir?
+
+::: {.callout-note collapse="true" title="Solução"}
+Ele usou o teste para escolher o modelo: o R² é otimista e não é uma estimativa honesta.
+Correção: separar o teste antes, fazer a busca e a escolha no treino (com CV aninhada) e
+avaliar o modelo final no teste uma única vez. Reportar a incerteza e o baseline.
+:::
+
+## Próximo passo
+
+A Parte IV aprofunda as [métricas de regressão](../04-avaliacao/01-regressao.qmd) e, na
+sequência, entram as métricas de classificação. A Parte V mostra como
+[interpretar o resultado](../05-interpretacao/01-ajuste-regressao.qmd).

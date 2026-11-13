@@ -1,0 +1,87 @@
+---
+title: "ML do zero ao diagnóstico"
+---
+
+<div id="capa">
+<p class="kicker">Material aberto · Python + R · do zero ao diagnóstico</p>
+<h1 class="capa-title">Machine learning <span class="accent">sem achismo</span></h1>
+<p class="capa-sub">Escolher o modelo, calibrar sem se enganar, avaliar com a métrica
+certa e interpretar o resultado olhando para o gráfico certo.</p>
+<div class="capa-fatos">
+<span class="fato"><b>3 trilhas</b> · do zero, já programa, já usa ML</span>
+<span class="fato"><b>fichas de modelo</b> · parâmetros e bordas</span>
+<span class="fato"><b>calibração</b> · manual + Optuna</span>
+<span class="fato"><b>laboratório</b> · interpretação com semáforo</span>
+</div>
+</div>
+
+## Comece por aqui
+
+::: {.card-grid}
+[**Quero entender o que é ML**<br><small>Comece pelo fundamento 1</small>](pt/01-fundamentos/01-o-que-e-ml.qmd)
+
+[**Quero treinar meu primeiro modelo**<br><small>Regressão linear, passo a passo</small>](pt/02-modelos/02-regressao-linear.qmd)
+
+[**Quero calibrar sem me enganar**<br><small>Manual, grid/random e Optuna</small>](pt/03-calibracao/02-calibracao-manual.qmd)
+
+[**Quero avaliar um resultado**<br><small>R², RMSE, MAE, MAPE e quando usar</small>](pt/04-avaliacao/01-regressao.qmd)
+
+[**Quero avaliar uma classificação**<br><small>Matriz de confusão, precisão, recall, ROC e PR</small>](pt/04-avaliacao/02-classificacao.qmd)
+
+[**Quero interpretar um gráfico**<br><small>Laboratório: previsto vs observado</small>](pt/05-interpretacao/01-ajuste-regressao.qmd)
+
+[**Quero fazer um projeto completo**<br><small>Do CSV ao relatório, com diagnóstico</small>](pt/06-projetos/index.qmd)
+
+[**Quero revisar meu projeto**<br><small>Checklists, model card e reprodutibilidade</small>](pt/07-reprodutibilidade/03-checklists.qmd)
+:::
+
+## Escolha sua trilha
+
+::: {.card-grid}
+[**Trilha A — Do zero**<br><small>Nunca programou. Entenda o conceito e rode o primeiro modelo em 30 min.</small>](pt/00-como-usar.qmd)
+
+[**Trilha B — Já programa**<br><small>Sabe Python ou R. Aprenda a escolher, calibrar e avaliar com critério.</small>](pt/00-como-usar.qmd)
+
+[**Trilha C — Já usa ML**<br><small>Treina modelos. Aprenda a diagnosticar, comparar e relatar sem overclaim.</small>](pt/00-como-usar.qmd)
+:::
+
+## O que você vai encontrar
+
+<span class="badge-scale">Fundamentos</span>
+<span class="badge-scale">Modelos</span>
+<span class="badge-scale">Calibração</span>
+<span class="badge-scale">Avaliação</span>
+<span class="badge-scale">Interpretação</span>
+<span class="badge-scale">Projetos</span>
+<span class="badge-scale">Reprodutibilidade</span>
+<span class="badge-scale">Extras</span>
+
+- **Fundamentos:** o que é ML, como aprende, tipos de tarefa, pipeline e armadilhas.
+- **Modelos:** fichas com quando usar, quando não usar, hiperparâmetros, faixas e bordas.
+- **Calibração:** manual, grid/random search e Optuna, com o que dá errado em cada um.
+- **Avaliação:** R², R² ajustado, RMSE, MAE, MAPE, acurácia, precisão, recall, F1, ROC e PR.
+- **Interpretação:** figura pronta, o que olhar, semáforo e "o que fazer se".
+- **Projetos:** do primeiro modelo em 30 minutos a projetos completos e reprodutíveis.
+
+## Como o site está organizado
+
+| Parte | Pergunta que responde |
+|---|---|
+| I — Fundamentos | O que é ML e como ele aprende? |
+| II — Modelos | Qual modelo usar e quais parâmetros importam? |
+| III — Calibração | Como escolher hiperparâmetros sem trapacear? |
+| IV — Avaliação | Qual métrica usar e como comparar modelos? |
+| V — Interpretação | O que este gráfico está me dizendo? |
+| VI — Projetos | Como juntar tudo num caso real? |
+| VII — Reprodutibilidade | Como fazer outra pessoa reproduzir? |
+
+> **Autora:** Ludimila de Azevedo Beltran — ORCID
+> [0009-0003-5070-9472](https://orcid.org/0009-0003-5070-9472).
+
+## Status
+
+Esta é a **Fase 5**: o site cobre fundamentos, modelos, calibração, avaliação, interpretação,
+projetos guiados, reprodutibilidade e extras. A v1 está completa; a versão em inglês, deep
+learning e séries temporais ficam para a v2. O planejamento completo está em
+[`00_PLANEJAMENTO_SITE_ML.md`](https://github.com/LudimiladeAzevedoBeltran/ml-do-zero-ao-diagnostico/blob/main/00_PLANEJAMENTO_SITE_ML.md).
+

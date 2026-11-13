@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+*.egg-info/
+
+# Quarto
+docs/_site/
+docs/.quarto/
+docs/site_libs/
+*_files/
+/.quarto/
+
+# Dados grandes e locais
+data/raw/
+*.csv.gz
+*.parquet
+*.feather
+*.sqlite
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/

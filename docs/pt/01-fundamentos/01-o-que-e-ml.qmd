@@ -1,0 +1,167 @@
+---
+title: "1. O que é machine learning"
+---
+
+<div class="page-meta">Nível: iniciante · Tempo: 12 min · Pré-requisito: nenhum</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> distinguir machine learning de programação tradicional, estatística e
+inteligência artificial, e reconhecer quando um problema é (ou não é) de ML.
+</div>
+
+## Definição operacional
+
+Machine learning (aprendizado de máquina) é a construção de um programa que **aprende um
+padrão a partir de dados** para fazer previsões ou descrever estrutura, em vez de receber
+a regra escrita à mão.
+
+Programação tradicional:
+
+```
+regra + dados  ->  resposta
+```
+
+Machine learning:
+
+```
+dados + respostas -> regra (modelo)
+```
+
+O produto do aprendizado é um **modelo**: uma função que recebe entradas (`X`) e devolve
+uma saída (`y`). O modelo não "entende" o mundo; ele ajusta números para reduzir erro.
+
+## Um exemplo concreto
+
+Suponha que você queira prever a concentração de metano (`CH4`) a partir de temperatura,
+umidade e vento.
+
+- **Programação tradicional:** alguém precisa escrever a equação física completa.
+- **Machine learning:** você fornece pares de (temperatura, umidade, vento) e (CH4 medido)
+  e o algoritmo encontra uma função que reproduz esses pares e tenta generalizar para
+  novos.
+
+Se o modelo acerta nos dados que já viu e erra nos novos, ele **decorou**, não aprendeu.
+Esse é o problema central da área e o tema do próximo fundamento.
+
+## De onde veio
+
+| Período | Marco | Ideia |
+|---|---|---|
+| 1943 | McCulloch & Pitts | neurônio artificial simplificado |
+| 1950 | Turing | "máquinas podem pensar?" |
+| 1958 | Rosenblatt | perceptron |
+| 1970–1980 | Inverno da IA | limites do perceptron e falta de dados |
+| 1986 | Rumelhart et al. | retropropagação popularizada |
+| 1990–2000 | SVM, boosting, árvores | métodos estatísticos robustos |
+| 2010s | dados + GPU | redes profundas em visão e linguagem |
+| 2020s | modelos de fundação | escala, transferência e uso geral |
+
+A história importa por um motivo prático: quase todo método "novo" é uma combinação de
+ideias antigas com mais dados e mais computação.
+
+## ML, estatística, IA e ciência de dados
+
+| Campo | Pergunta típica | Foco |
+|---|---|---|
+| Estatística | "Qual é o efeito de X sobre Y?" | inferência, incerteza, desenho |
+| Machine learning | "Qual é a melhor previsão de Y?" | generalização, erro preditivo |
+| Inteligência artificial | "Como construir um sistema que age?" | agentes, busca, representação |
+| Ciência de dados | "Que decisão os dados sustentam?" | pipeline, comunicação, produto |
+
+As fronteiras são borradas. O erro comum é usar ML para responder pergunta causal sem
+desenho causal — e aí nem a estatística nem o ML salvam.
+
+## O que ML não é
+
+- **Não descobre causalidade sozinho.** Correlação bem ajustada continua sendo correlação.
+- **Não substitui desenho de estudo.** Se a amostra é enviesada, o modelo aprende o viés.
+- **Não é mágica com poucos dados.** Modelo complexo com `n` pequeno decora ruído.
+- **Não é sinônimo de deep learning.** Árvore e regressão resolvem a maior parte dos
+  problemas tabulares.
+- **Não é objetivo em si.** O objetivo é responder uma pergunta, não treinar um modelo.
+
+## Os dois objetivos
+
+1. **Prever** (predição): o valor de `y` para um novo `X`. Ex.: estimar CH4 amanhã.
+2. **Descrever** (inferência/estrutura): entender relações, grupos ou importância.
+   Ex.: quais variáveis mais pesam na concentração.
+
+O objetivo muda a métrica, o modelo e o relato. Escolha antes de treinar.
+
+## Vocabulário mínimo
+
+| Termo | Significado |
+|---|---|
+| `X` | matriz de entradas (features, preditores) |
+| `y` | saída (target, desfecho) |
+| amostra | uma linha de `X` com seu `y` |
+| treino | parte usada para ajustar o modelo |
+| validação | parte usada para escolher hiperparâmetros |
+| teste | parte usada uma única vez, para estimar o erro final |
+| feature | uma coluna de `X` |
+| target | a coluna `y` |
+| modelo | a função ajustada |
+| hiperparâmetro | escolha feita antes do ajuste |
+
+## Código mínimo
+
+O exemplo ajusta uma reta a cinco pontos. Repare: ninguém escreveu a equação; o algoritmo
+encontrou os coeficientes.
+
+::: {.panel-tabset}
+## Python
+
+```python
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+X = np.array([[1], [2], [3], [4], [5]])
+y = np.array([2.1, 3.9, 6.2, 7.8, 10.1])
+
+modelo = LinearRegression().fit(X, y)
+print("intercepto:", round(modelo.intercept_, 2))
+print("coeficiente:", round(modelo.coef_[0], 2))
+print("previsão para x=6:", round(modelo.predict([[6]])[0], 2))
+```
+
+## R
+
+```r
+X <- 1:5
+y <- c(2.1, 3.9, 6.2, 7.8, 10.1)
+
+modelo <- lm(y ~ X)
+print(round(coef(modelo), 2))
+print(round(predict(modelo, newdata = data.frame(X = 6)), 2))
+```
+:::
+
+A reta é uma **regra aprendida**. O mérito não é a reta em si; é o processo que a encontrou.
+
+::: {.callout-warning}
+## Cuidado com o vocabulário
+"Treinar" não é "ensinar regras". É ajustar parâmetros para minimizar erro nos dados de
+treino. "Aprender" é generalizar para dados novos. São coisas diferentes.
+:::
+
+## Exercício
+
+Classifique cada situação como **previsão**, **descrição** ou **não é ML**:
+
+1. Estimar a concentração de CH4 de amanhã a partir das condições de hoje.
+2. Agrupar municípios por perfil de desmatamento e uso da terra.
+3. Calcular a média de uma coluna no Excel.
+4. Identificar quais variáveis mais influenciam a temperatura prevista.
+5. Sortear uma amostra aleatória de 100 linhas.
+
+::: {.callout-note collapse="true" title="Solução"}
+1. Previsão.
+2. Descrição (clusterização).
+3. Não é ML (estatística descritiva).
+4. Descrição (importância/interpretação).
+5. Não é ML (amostragem).
+:::
+
+## Próximo passo
+
+[2. Como o ML aprende](02-como-o-ml-aprende.qmd) — e por que o erro de treino mente.

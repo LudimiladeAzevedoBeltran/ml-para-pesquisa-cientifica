@@ -1,0 +1,127 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+    - img
+
+website:
+  title: "ML do zero ao diagnóstico"
+  description: "Aprenda machine learning do zero ao diagnóstico: modelos, calibração, métricas e interpretação."
+  site-url: https://ludimiladeazevedobeltran.github.io/ml-do-zero-ao-diagnostico/
+  repo-url: https://github.com/LudimiladeAzevedoBeltran/ml-do-zero-ao-diagnostico
+  repo-actions: [edit, issue]
+  navbar:
+    left:
+      - text: Início
+        href: index.qmd
+      - text: Como usar
+        href: pt/00-como-usar.qmd
+      - text: Fundamentos
+        href: pt/01-fundamentos/01-o-que-e-ml.qmd
+      - text: Modelos
+        href: pt/02-modelos/index.qmd
+      - text: Avaliação
+        href: pt/04-avaliacao/01-regressao.qmd
+      - text: Interpretação
+        href: pt/05-interpretacao/01-ajuste-regressao.qmd
+    right:
+      - icon: github
+        href: https://github.com/LudimiladeAzevedoBeltran/ml-do-zero-ao-diagnostico
+  sidebar:
+    style: docked
+    search: true
+    collapse-level: 1
+    contents:
+      - text: "Início"
+        href: index.qmd
+      - text: "Como usar o site"
+        href: pt/00-como-usar.qmd
+      - section: "Parte I — Fundamentos"
+        contents:
+          - text: "1. O que é machine learning"
+            href: pt/01-fundamentos/01-o-que-e-ml.qmd
+          - text: "2. Como o ML aprende"
+            href: pt/01-fundamentos/02-como-o-ml-aprende.qmd
+          - text: "3. Tipos de aprendizado e de tarefa"
+            href: pt/01-fundamentos/03-tipos-de-aprendizado.qmd
+          - text: "4. O pipeline completo"
+            href: pt/01-fundamentos/04-pipeline.qmd
+          - text: "5. Dados e armadilhas"
+            href: pt/01-fundamentos/05-dados-e-armadilhas.qmd
+      - section: "Parte II — Modelos"
+        contents:
+          - text: "Catálogo de modelos"
+            href: pt/02-modelos/index.qmd
+          - text: "Regressão linear"
+            href: pt/02-modelos/02-regressao-linear.qmd
+      - section: "Parte III — Calibração"
+        contents:
+          - text: "1. Parâmetro vs hiperparâmetro"
+            href: pt/03-calibracao/01-parametros-vs-hiperparametros.qmd
+          - text: "2. Calibração manual"
+            href: pt/03-calibracao/02-calibracao-manual.qmd
+          - text: "3. Grid e random search"
+            href: pt/03-calibracao/03-grid-random-search.qmd
+          - text: "4. Optuna"
+            href: pt/03-calibracao/04-optuna.qmd
+          - text: "5. Boas práticas"
+            href: pt/03-calibracao/05-boas-praticas.qmd
+      - section: "Parte IV — Avaliação"
+        contents:
+          - text: "Métricas de regressão"
+            href: pt/04-avaliacao/01-regressao.qmd
+          - text: "Métricas de classificação"
+            href: pt/04-avaliacao/02-classificacao.qmd
+          - text: "ROC, PR e calibração"
+            href: pt/04-avaliacao/03-roc-pr-calibracao.qmd
+      - section: "Parte V — Interpretação"
+        contents:
+          - text: "Previsto vs observado"
+            href: pt/05-interpretacao/01-ajuste-regressao.qmd
+      - section: "Parte VI — Projetos"
+        contents:
+          - text: "Visão geral"
+            href: pt/06-projetos/index.qmd
+          - text: "Primeiro modelo em 30 min"
+            href: pt/06-projetos/01-primeiro-modelo-30min.qmd
+          - text: "Regressão: CH4"
+            href: pt/06-projetos/02-regressao.qmd
+          - text: "Classificação: risco"
+            href: pt/06-projetos/03-classificacao.qmd
+          - text: "Clusterização: perfis"
+            href: pt/06-projetos/04-clusterizacao.qmd
+      - section: "Parte VII — Reprodutibilidade"
+        contents:
+          - text: "1. Estrutura, ambiente e sementes"
+            href: pt/07-reprodutibilidade/01-estrutura-ambiente.qmd
+          - text: "2. Git, GitHub e model card"
+            href: pt/07-reprodutibilidade/02-git-model-card.qmd
+          - text: "3. Checklists finais"
+            href: pt/07-reprodutibilidade/03-checklists.qmd
+      - section: "Parte VIII — Extras"
+        contents:
+          - text: "Glossário PT–EN"
+            href: pt/08-extras/01-glossario.qmd
+          - text: "FAQ"
+            href: pt/08-extras/02-faq.qmd
+          - text: "Folhas de cola"
+            href: pt/08-extras/03-folhas-de-cola.qmd
+          - text: "Bibliografia"
+            href: pt/08-extras/04-bibliografia.qmd
+          - text: "Erros e exercícios"
+            href: pt/08-extras/05-erros-e-exercicios.qmd
+  page-footer:
+    left: "**ML do zero ao diagnóstico** — Ludimila de Azevedo Beltran"
+    right: "[MIT](https://github.com/LudimiladeAzevedoBeltran/ml-do-zero-ao-diagnostico/blob/main/LICENSE) (código) · [CC BY 4.0](https://github.com/LudimiladeAzevedoBeltran/ml-do-zero-ao-diagnostico/blob/main/LICENSE-docs) (texto)"
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-overflow: wrap
+    lang: pt-BR
+    css: styles.css
+    link-external-newwindow: true
+

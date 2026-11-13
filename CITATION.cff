@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "Se você usar este material, por favor cite como abaixo."
+title: "ML do zero ao diagnóstico"
+abstract: >-
+  Material aberto para aprender machine learning do zero ao diagnóstico: escolher
+  o modelo, calibrar hiperparâmetros, avaliar com a métrica certa e interpretar
+  resultados a partir de gráficos diagnósticos.
+authors:
+  - family-names: Beltran
+    given-names: Ludimila de Azevedo
+    orcid: "https://orcid.org/0009-0003-5070-9472"
+type: software
+version: 0.1.0
+date-released: 2026-11-13
+license: MIT
+# Preencha o DOI depois de conectar o repositório ao Zenodo:
+# doi: 10.5281/zenodo.XXXXXXX
+repository-code: "https://github.com/LudimiladeAzevedoBeltran/ml-do-zero-ao-diagnostico"
+keywords:
+  - machine learning
+  - aprendizado de máquina
+  - estatística
+  - avaliação de modelos
+  - interpretação
+  - Optuna
+  - Python
+  - R
+

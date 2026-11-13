@@ -1,0 +1,128 @@
+---
+title: "Como usar o site"
+---
+
+<div class="page-meta">Nível: todos · Tempo: 5 min · Pré-requisito: nenhum</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> escolher sua trilha e saber como cada página está organizada.
+</div>
+
+## O que este site é
+
+Um **manual de decisão**. Cada página ajuda você a decidir algo: qual modelo usar, qual
+hiperparâmetro calibrar, qual métrica reportar, como ler um gráfico. Não é uma apostila
+para decorar fórmula e não é uma coleção de códigos sem contexto.
+
+## O que este site não é
+
+- Não substitui um curso de estatística ou de cálculo.
+- Não ensina deep learning na v1.
+- Não promete que um modelo descobre causalidade sozinho.
+- Não esconde as armadilhas para parecer mais simples.
+
+## Escolha sua trilha
+
+| Trilha | Para quem | Comece por | Tempo |
+|---|---|---|---|
+| **A — Do zero** | Nunca programou ou só usa planilha | [Fundamento 1](01-fundamentos/01-o-que-e-ml.qmd) | ~6 h |
+| **B — Já programa** | Sabe Python ou R, nunca treinou modelo | [Fundamento 2](01-fundamentos/02-como-o-ml-aprende.qmd) | ~10 h |
+| **C — Já usa ML** | Treina modelos, quer diagnosticar e relatar | [Métricas de regressão](04-avaliacao/01-regressao.qmd) | ~8 h |
+
+### Trilha A — Do zero
+
+1. [O que é machine learning](01-fundamentos/01-o-que-e-ml.qmd)
+2. [Como o ML aprende](01-fundamentos/02-como-o-ml-aprende.qmd)
+3. [Tipos de aprendizado e de tarefa](01-fundamentos/03-tipos-de-aprendizado.qmd)
+4. [O pipeline completo](01-fundamentos/04-pipeline.qmd)
+5. [Dados e armadilhas](01-fundamentos/05-dados-e-armadilhas.qmd)
+6. [Regressão linear](02-modelos/02-regressao-linear.qmd)
+7. [Métricas de regressão](04-avaliacao/01-regressao.qmd)
+8. [Previsto vs observado](05-interpretacao/01-ajuste-regressao.qmd)
+
+### Trilha B — Já programa
+
+1. [Como o ML aprende](01-fundamentos/02-como-o-ml-aprende.qmd)
+2. [O pipeline completo](01-fundamentos/04-pipeline.qmd)
+3. [Dados e armadilhas](01-fundamentos/05-dados-e-armadilhas.qmd)
+4. [Catálogo de modelos](02-modelos/index.qmd)
+5. [Regressão linear](02-modelos/02-regressao-linear.qmd)
+6. [Métricas de regressão](04-avaliacao/01-regressao.qmd)
+7. [Previsto vs observado](05-interpretacao/01-ajuste-regressao.qmd)
+
+### Trilha C — Já usa ML
+
+1. [Dados e armadilhas](01-fundamentos/05-dados-e-armadilhas.qmd)
+2. [Métricas de regressão](04-avaliacao/01-regressao.qmd)
+3. [Previsto vs observado](05-interpretacao/01-ajuste-regressao.qmd)
+4. [Catálogo de modelos](02-modelos/index.qmd) — para comparar alternativas.
+
+## Como cada página está organizada
+
+No topo de cada página você encontra:
+
+- **Nível**, **tempo de leitura** e **pré-requisito**.
+- Um **objetivo de aprendizagem** em uma frase.
+
+No corpo:
+
+- Conceito com exemplo.
+- Código em **duas abas**: Python e R.
+- Figura interpretada, quando faz sentido.
+- **Armadilhas** em caixas de atenção.
+- **Exercício** com solução escondida.
+- Link para a próxima página.
+
+## Convenções
+
+| Símbolo | Significado |
+|---|---|
+| **Ficha de modelo** | Tabela com hiperparâmetros, faixa, default e bordas |
+| **Semáforo** | Verde = saudável; amarelo = atenção; vermelho = erro |
+| **Borda** | Limite de uma faixa de busca; se o melhor valor cai na borda, a faixa está errada |
+| **Baseline** | Modelo de referência mínimo (média, persistência, Dummy) |
+
+## Prepare o ambiente
+
+Você pode só ler o site. Para rodar o código, precisa de Python 3.10+ e, se quiser a aba
+R, R 4.x.
+
+```bash
+# Python
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# Linux/macOS
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+```r
+# R (ggplot2 + rpart + cluster na v1)
+install.packages(c("ggplot2", "rpart", "cluster"))
+```
+
+Para renderizar o site localmente, instale o [Quarto](https://quarto.org) e rode:
+
+```bash
+cd docs
+quarto preview
+```
+
+::: {.callout-tip}
+## Não quer instalar nada?
+Use o [Google Colab](https://colab.research.google.com) para a aba Python. O código dos
+exemplos roda sem instalação.
+:::
+
+## Como estudar (e não só ler)
+
+1. Leia o objetivo da página antes de começar.
+2. Rode o código. Mude um número e veja o que acontece.
+3. Faça o exercício **antes** de abrir a solução.
+4. Explique o conceito em voz alta, em uma frase, sem olhar o texto.
+5. Só então passe para a próxima página.
+
+## Próximo passo
+
+Comece pelo [Fundamento 1 — O que é machine learning](01-fundamentos/01-o-que-e-ml.qmd).

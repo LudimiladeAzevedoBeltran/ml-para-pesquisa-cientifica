@@ -1,0 +1,214 @@
+---
+title: "Métricas de regressão"
+---
+
+<div class="page-meta">Nível: intermediário · Tempo: 20 min · Pré-requisito: Fundamento 2</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> escolher e interpretar R², R² ajustado, RMSE, MAE e MAPE, sabendo o que
+cada uma mede, o que ela esconde e quando não usar.
+</div>
+
+## A métrica não é enfeite
+
+A métrica define o que o modelo vai otimizar e o que você vai reportar. Escolher depois de
+ver o resultado é uma forma silenciosa de trapaça. Defina a métrica **antes** de treinar,
+a partir do custo do erro no problema real.
+
+## Tabela-resumo
+
+| Métrica | O que mede | Unidade | Faixa | Sensível a outlier | Use quando |
+|---|---|---|---|---|---|
+| **R²** | fração da variância explicada | adimensional | (-∞, 1] | média | comparar modelos no mesmo alvo |
+| **R² ajustado** | R² penalizado pelo nº de preditores | adimensional | (-∞, 1] | média | comparar modelos com nº diferente de features |
+| **RMSE** | raiz do erro quadrático médio | a do alvo | [0, ∞) | **alta** | erros grandes são caros |
+| **MAE** | erro absoluto médio | a do alvo | [0, ∞) | baixa | querer robustez e leitura simples |
+| **MedAE** | mediana do erro absoluto | a do alvo | [0, ∞) | muito baixa | muitos outliers |
+| **MAPE** | erro percentual absoluto médio | % | [0, ∞) | depende | comunicar em percentual, sem zeros |
+| **sMAPE** | versão simétrica do MAPE | % | [0, 200] | depende | comparar escalas, com cautela |
+| **MSLE** | erro logarítmico quadrático | adimensional | [0, ∞) | baixa | alvo positivo com crescimento |
+
+## R² — coeficiente de determinação
+
+$$
+R^2 = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}
+$$
+
+- **O que mede:** quanto da variabilidade de `y` o modelo explica, comparado a prever
+  sempre a média.
+- **Faixa:** no máximo 1 (ajuste perfeito). Pode ser **negativo** fora da amostra: o modelo
+  é pior que a média.
+- **Cuidado:** R² alto não garante bom modelo. Um modelo com viés sistemático pode ter R²
+  alto em uma faixa e errar feio em outra.
+
+## R² ajustado
+
+$$
+R^2_{aj} = 1 - (1 - R^2)\frac{n-1}{n-p-1}
+$$
+
+- **O que mede:** o R² penalizado pelo número de preditores `p`.
+- **Use quando:** comparar modelos de regressão com números diferentes de features.
+- **Cuidado:** não é apropriado para modelos regularizados ou de ML em geral; nesses casos,
+  compare por erro em validação cruzada.
+
+## RMSE — raiz do erro quadrático médio
+
+$$
+\text{RMSE} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}
+$$
+
+- **O que mede:** o "erro típico" na unidade do alvo, com penalização quadrática.
+- **Use quando:** erros grandes são especialmente caros.
+- **Cuidado:** um único outlier pode dominar o RMSE. Compare apenas alvos na mesma unidade.
+
+## MAE — erro absoluto médio
+
+$$
+\text{MAE} = \frac{1}{n}\sum_{i=1}^{n}|y_i - \hat{y}_i|
+$$
+
+- **O que mede:** a magnitude média do erro, sem elevar ao quadrado.
+- **Use quando:** você quer robustez a outliers e uma leitura direta ("erra, em média,
+  2 ppb").
+- **Cuidado:** não diferencia erros grandes de erros pequenos; pode esconder caudas.
+
+## MAPE — erro percentual absoluto médio
+
+$$
+\text{MAPE} = \frac{100}{n}\sum_{i=1}^{n}\left|\frac{y_i - \hat{y}_i}{y_i}\right|
+$$
+
+- **O que mede:** o erro relativo, em percentual.
+- **Use quando:** você precisa comparar alvos em escalas diferentes.
+- **Cuidado:** explode quando `y` é zero ou perto de zero; é assimétrico (pune mais a
+  superestimação). Se houver zero no alvo, use MAE, RMSE ou sMAPE.
+
+## sMAPE e MSLE (menos comuns)
+
+- **sMAPE:** versão simétrica do MAPE; ainda sofre perto de zero.
+- **MSLE:** `mean((log1p(y) - log1p(ŷ))²)`; pune mais a subestimação e exige `y ≥ 0`.
+  Útil para contagens e alvos com crescimento exponencial.
+
+## Código
+
+::: {.panel-tabset}
+## Python
+
+```python
+import numpy as np
+from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
+
+y_obs = np.array([10, 20, 30, 40], dtype=float)
+y_pred = np.array([12, 18, 33, 39], dtype=float)
+
+r2 = r2_score(y_obs, y_pred)
+rmse = mean_squared_error(y_obs, y_pred) ** 0.5
+mae = mean_absolute_error(y_obs, y_pred)
+medae = np.median(np.abs(y_obs - y_pred))
+
+mask = y_obs != 0
+mape = np.mean(np.abs((y_obs[mask] - y_pred[mask]) / y_obs[mask])) * 100
+smape = np.mean(2 * np.abs(y_obs - y_pred) / (np.abs(y_obs) + np.abs(y_pred))) * 100
+
+n, p = len(y_obs), 1
+r2_aj = 1 - (1 - r2) * (n - 1) / (n - p - 1)
+
+print(f"R²          = {r2:.3f}")
+print(f"R² ajustado = {r2_aj:.3f}")
+print(f"RMSE        = {rmse:.2f}")
+print(f"MAE         = {mae:.2f}")
+print(f"MedAE       = {medae:.2f}")
+print(f"MAPE        = {mape:.1f}%")
+print(f"sMAPE       = {smape:.1f}%")
+```
+
+## R
+
+```r
+y_obs  <- c(10, 20, 30, 40)
+y_pred <- c(12, 18, 33, 39)
+
+r2 <- 1 - sum((y_obs - y_pred)^2) / sum((y_obs - mean(y_obs))^2)
+rmse <- sqrt(mean((y_obs - y_pred)^2))
+mae <- mean(abs(y_obs - y_pred))
+medae <- median(abs(y_obs - y_pred))
+
+ok <- y_obs != 0
+mape <- mean(abs((y_obs[ok] - y_pred[ok]) / y_obs[ok])) * 100
+smape <- mean(2 * abs(y_obs - y_pred) / (abs(y_obs) + abs(y_pred))) * 100
+
+n <- length(y_obs); p <- 1
+r2_aj <- 1 - (1 - r2) * (n - 1) / (n - p - 1)
+
+cat(sprintf("R²          = %.3f\n", r2))
+cat(sprintf("R² ajustado = %.3f\n", r2_aj))
+cat(sprintf("RMSE        = %.2f\n", rmse))
+cat(sprintf("MAE         = %.2f\n", mae))
+cat(sprintf("MedAE       = %.2f\n", medae))
+cat(sprintf("MAPE        = %.1f%%\n", mape))
+cat(sprintf("sMAPE       = %.1f%%\n", smape))
+```
+:::
+
+## Exemplo numérico
+
+| i | `y` | `ŷ` | erro | `|erro|` | erro² |
+|---|---|---|---|---|---|
+| 1 | 10 | 12 | -2 | 2 | 4 |
+| 2 | 20 | 18 | 2 | 2 | 4 |
+| 3 | 30 | 33 | -3 | 3 | 9 |
+| 4 | 40 | 39 | 1 | 1 | 1 |
+| **soma** | | | | **8** | **18** |
+
+- Média de `y` = 25; `SS_tot` = 500.
+- R² = 1 - 18/500 = **0,964**.
+- R² ajustado (p = 1) = **0,946**.
+- RMSE = √(18/4) = **2,12**.
+- MAE = 8/4 = **2,00**.
+- MAPE = **10,6%**.
+
+## Quando usar qual
+
+| Situação | Métrica principal | Complemento |
+|---|---|---|
+| Erros grandes são caros | RMSE | R² |
+| Outliers e caudas | MAE ou MedAE | RMSE para contraste |
+| Comparar alvos em escalas diferentes | MAPE/sMAPE (sem zeros) | MAE na unidade |
+| Comparar modelos com nº diferente de features | R² ajustado (OLS) | RMSE em CV |
+| Audiência não técnica | MAE na unidade | R² |
+| Alvo positivo com crescimento | MSLE | MAE |
+| Série temporal | RMSE/MAE | MASE, validação temporal |
+
+## Erros comuns
+
+1. Escolher a métrica depois de ver o resultado.
+2. Reportar R² de treino como desempenho.
+3. Comparar RMSE de alvos com unidades diferentes.
+4. Usar MAPE com zeros no alvo.
+5. Reportar só a média da métrica, sem incerteza entre folds.
+6. Dizer "R² = 0,9, logo o modelo é bom" sem olhar resíduos e baseline.
+7. Usar acurácia para regressão (não existe).
+8. Otimizar MAE e reportar RMSE sem explicar a troca.
+
+## Exercício
+
+Calcule R², RMSE, MAE e MAPE para `y = [100, 200, 300]` e `ŷ = [110, 190, 330]`. Depois
+escolha a métrica que você reportaria para uma audiência não técnica e justifique.
+
+::: {.callout-note collapse="true" title="Solução"}
+Erros: -10, 10, -30. Soma dos quadrados = 1100. Média de `y` = 200; `SS_tot` = 20000.
+
+- R² = 1 - 1100/20000 = **0,945**
+- RMSE = √(1100/3) = **19,15**
+- MAE = (10 + 10 + 30)/3 = **16,67**
+- MAPE = (10/100 + 10/200 + 30/300)/3 × 100 = **8,3%**
+
+Para audiência não técnica, MAE na unidade do alvo ("erra, em média, 16,7 unidades") é a
+leitura mais direta. Reporte R² e RMSE como complemento, não como substitutos.
+:::
+
+## Próximo passo
+
+[Previsto vs observado](../05-interpretacao/01-ajuste-regressao.qmd) — o gráfico que mostra
+o que a métrica esconde.

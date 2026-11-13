@@ -1,0 +1,109 @@
+---
+title: "1. Parâmetro vs hiperparâmetro"
+---
+
+<div class="page-meta">Nível: intermediário · Tempo: 10 min · Pré-requisito: Fundamento 2</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> distinguir parâmetro de hiperparâmetro, entender por que a calibração
+não pode olhar o teste e reconhecer os três orçamentos de uma busca.
+</div>
+
+## A diferença que organiza tudo
+
+| | **Parâmetro** | **Hiperparâmetro** |
+|---|---|---|
+| Quem define | o algoritmo, no treino | você, antes do treino |
+| Como é escolhido | minimizando a perda | por busca, regra ou experiência |
+| Exemplos | coeficientes, pesos, cortes | `max_depth`, `k`, `alpha`, `C`, `n_estimators` |
+| Muda com o dado? | sim | não (muda com a busca) |
+| Onde é reportado | no modelo ajustado | na tabela de configuração |
+
+O parâmetro é **aprendido**. O hiperparâmetro é **escolhido**. Confundir os dois leva a
+duas falhas clássicas: tentar "treinar" um hiperparâmetro dentro do `fit` ou tratar um
+coeficiente como se fosse uma decisão de projeto.
+
+## Exemplos por modelo
+
+| Modelo | Parâmetros | Hiperparâmetros |
+|---|---|---|
+| Regressão linear | coeficientes, intercepto | `fit_intercept`, `positive` |
+| Ridge / Lasso | coeficientes | `alpha` |
+| Regressão logística | coeficientes | `C`, `penalty`, `solver` |
+| KNN | nenhum (memoriza) | `n_neighbors`, `weights`, `metric` |
+| SVM | vetores de suporte, coeficientes | `C`, `kernel`, `gamma` |
+| Árvore de decisão | cortes e folhas | `max_depth`, `min_samples_leaf`, `ccp_alpha` |
+| Random Forest | árvores internas | `n_estimators`, `max_depth`, `max_features`, `min_samples_leaf` |
+| Gradient Boosting | árvores internas | `learning_rate`, `n_estimators`, `max_depth`, `subsample` |
+| K-means | centros | `n_clusters`, `init`, `n_init` |
+| PCA | componentes | `n_components`, `whiten` |
+| MLP | pesos e vieses | `hidden_layer_sizes`, `learning_rate_init`, `alpha` |
+
+## Por que não calibrar no teste
+
+Se você usa o teste para escolher `max_depth`, o teste deixa de ser uma estimativa
+honesta do erro em dados novos. Ele vira parte do treino. O número final fica otimista e
+não se reproduz.
+
+A regra é:
+
+```
+treino     -> ajusta parâmetros
+validação  -> escolhe hiperparâmetros
+teste      -> estima o erro final, uma única vez
+```
+
+Na validação cruzada, cada fold de validação faz o papel de "validação". O teste continua
+separado, intocado, até o fim.
+
+## Os três orçamentos
+
+Toda busca gasta três recursos:
+
+| Orçamento | O que é | Como controlar |
+|---|---|---|
+| **Espaço** | quais valores serão testados | faixas, escala, categóricas |
+| **Avaliação** | quantas configurações serão testadas | `n_trials`, `n_iter`, tamanho do grid |
+| **Tempo** | quanto cada avaliação custa | folds, tamanho do modelo, paralelismo |
+
+Aumentar um sem controlar os outros produz uma busca cara e sem ganho. O melhor resultado
+não é o maior número de trials; é o melhor erro **com incerteza aceitável** dentro do
+orçamento.
+
+::: {.callout-warning}
+## "Calibrar" tem três sentidos
+Neste site, **calibrar** significa escolher hiperparâmetros. Mas o termo também é usado
+para (i) **calibração de probabilidade** (Platt, isotônica) e (ii) calibração de
+instrumento/medição. São coisas diferentes. A calibração de probabilidade entra na parte
+de classificação.
+:::
+
+## O fluxo da calibração
+
+1. Escolha a métrica **antes** da busca.
+2. Defina o espaço de busca, com escala e limites justificados.
+3. Escolha o método: manual, grid, random ou bayesiano.
+4. Avalie com validação cruzada (respeitando tempo/espaço/grupo).
+5. Escolha o melhor ponto, olhando a incerteza e as bordas.
+6. Reavalie o modelo final no teste, uma vez.
+7. Reporte espaço, método, orçamento, melhor score e variabilidade.
+
+## Exercício
+
+Classifique como **parâmetro** ou **hiperparâmetro**:
+
+1. O coeficiente de `temperatura` em uma regressão.
+2. O número de vizinhos `k` no KNN.
+3. Os centros de um K-means já ajustado.
+4. A profundidade máxima de uma árvore.
+5. O intercepto de uma regressão.
+6. A taxa de aprendizado de um MLP.
+
+::: {.callout-note collapse="true" title="Solução"}
+1. Parâmetro. 2. Hiperparâmetro. 3. Parâmetro. 4. Hiperparâmetro. 5. Parâmetro.
+6. Hiperparâmetro.
+:::
+
+## Próximo passo
+
+[2. Calibração manual](02-calibracao-manual.qmd) — como ler as curvas e ajustar na mão.

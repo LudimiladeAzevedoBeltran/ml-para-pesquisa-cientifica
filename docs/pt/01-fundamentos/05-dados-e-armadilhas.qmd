@@ -1,0 +1,200 @@
+---
+title: "5. Dados e armadilhas"
+---
+
+<div class="page-meta">Nível: intermediário · Tempo: 18 min · Pré-requisito: Fundamento 4</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> identificar vazamento, desbalanceamento, missing, outliers, escala,
+multicolinearidade e dependência temporal/espacial antes de treinar o modelo.
+</div>
+
+## A armadilha número um: vazamento
+
+**Vazamento (leakage)** é qualquer informação do futuro, do teste ou do próprio alvo que
+entra no treino. Ele produz um resultado bonito e falso.
+
+| Tipo | Exemplo | Sinal |
+|---|---|---|
+| Temporal | usar dados de dezembro para prever novembro | score alto e queda em produção |
+| Espacial | pixels vizinhos no treino e no teste | generalização irreal |
+| De grupo | mesma pessoa/estação em treino e teste | score inflado |
+| De pré-processamento | escalar antes do split | otimismo sutil |
+| De seleção | escolher features olhando o teste | erro reportado menor |
+| De target | feature calculada a partir do alvo | modelo "vidente" |
+
+## Desbalanceamento
+
+Em classificação, 95% de uma classe e 5% da outra é comum (fogo, fraude, doença rara). A
+acurácia mente: um modelo que sempre prevê a classe majoritária acerta 95%.
+
+O que fazer:
+
+- Reportar **precisão, recall, F1, PR-AUC** e a matriz de confusão.
+- Usar **acurácia balanceada**.
+- Considerar `class_weight="balanced"`, reamostragem ou ajuste de limiar.
+- Nunca usar acurácia sozinha.
+
+## Missing
+
+Nem todo missing é igual:
+
+| Mecanismo | Significado | Consequência |
+|---|---|---|
+| MCAR | falta aleatória | imputação simples tende a funcionar |
+| MAR | falta depende de outras variáveis observadas | imputação condicional |
+| MNAR | falta depende do próprio valor ausente | o missing é informação |
+
+Regras práticas:
+
+- Impute **dentro** do pipeline, nunca antes do split.
+- Crie uma coluna indicadora de "estava faltando" quando o missing for informativo.
+- Não interpole lacunas longas de série temporal como se fossem dado real.
+
+## Outliers
+
+Outlier não é sinônimo de erro. Pode ser:
+
+- erro de medição (corrigir ou remover),
+- evento extremo real (manter e modelar),
+- outra população (separar).
+
+Remover outlier por reflexo é uma das formas mais rápidas de apagar o sinal que interessa.
+Investigue antes de decidir.
+
+## Escala
+
+Modelos baseados em distância (KNN, SVM, K-means) e regularizados (Ridge, Lasso) são
+sensíveis à escala. Árvores não são. Se você escala, faça dentro do pipeline.
+
+## Multicolinearidade
+
+Duas features quase idênticas inflam a variância dos coeficientes e confundem a
+importância. Diagnóstico: correlação alta, VIF alto. Solução: remover, combinar ou usar
+regularização.
+
+## Dependência temporal, espacial e de grupo
+
+A validação cruzada comum embaralha as linhas. Isso é errado quando:
+
+- **Tempo:** o futuro não pode treinar o passado. Use split temporal.
+- **Espaço:** pixels vizinhos são pseudorréplicas. Use blocos espaciais.
+- **Grupo:** a mesma entidade aparece várias vezes. Use `GroupKFold`.
+
+O resultado de uma CV que ignora isso é otimista e não se sustenta.
+
+## Código: vendo o vazamento na seleção
+
+O exemplo compara duas formas de selecionar features. A primeira seleciona usando o
+treino inteiro **antes** da validação cruzada: a seleção vê o `y` das amostras que
+deveriam estar fora do fold. A segunda seleciona dentro do pipeline, refeita em cada
+fold.
+
+Exagerei no número de features (1000 para 40 amostras) para o efeito ficar visível. O
+princípio vale para qualquer escala: seleção, imputação, escala e encoding precisam
+acontecer **dentro** do fold.
+
+::: {.panel-tabset}
+## Python
+
+```python
+import numpy as np
+from sklearn.feature_selection import SelectKBest, f_regression
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.pipeline import make_pipeline
+
+rng = np.random.default_rng(42)
+n, p = 40, 1000
+X = rng.normal(size=(n, p))
+beta = np.array([1, -0.8, 0.6])
+y = X[:, :3] @ beta + rng.normal(0, 8, n)
+
+X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.25, random_state=42)
+
+# ERRADO: seleção feita no treino inteiro, antes da validação cruzada
+seletor = SelectKBest(f_regression, k=3).fit(X_tr, y_tr)
+errado = cross_val_score(
+    LinearRegression(), seletor.transform(X_tr), y_tr,
+    cv=5, scoring="neg_root_mean_squared_error"
+).mean()
+
+# CERTO: seleção dentro do pipeline, refeita em cada fold
+certo = cross_val_score(
+    make_pipeline(SelectKBest(f_regression, k=3), LinearRegression()),
+    X_tr, y_tr, cv=5, scoring="neg_root_mean_squared_error"
+).mean()
+
+print("RMSE com vazamento:", round(-errado, 2))
+print("RMSE correto      :", round(-certo, 2))
+```
+
+## R
+
+```r
+set.seed(42)
+n <- 40; p <- 1000
+X <- matrix(rnorm(n * p), n, p)
+beta <- c(1, -0.8, 0.6)
+y <- as.numeric(X[, 1:3] %*% beta + rnorm(n, 0, 8))
+dados <- data.frame(y = y, X)
+
+idx <- sample(n, floor(0.75 * n))
+treino <- dados[idx, ]
+
+selecionar <- function(d, k = 3) {
+  cors <- abs(cor(d[, -1], d$y))[, 1]
+  names(sort(cors, decreasing = TRUE))[1:k]
+}
+
+rmse <- function(obs, pred) sqrt(mean((obs - pred)^2))
+folds <- cut(seq_len(nrow(treino)), breaks = 5, labels = FALSE)
+
+# ERRADO: seleciona no treino inteiro e usa as mesmas features em todos os folds
+vars_errado <- selecionar(treino, 3)
+erro_errado <- numeric(5)
+for (f in 1:5) {
+  tr <- treino[folds != f, ]; va <- treino[folds == f, ]
+  m <- lm(reformulate(vars_errado, "y"), data = tr)
+  erro_errado[f] <- rmse(va$y, predict(m, va))
+}
+
+# CERTO: seleciona dentro de cada fold
+erro_certo <- numeric(5)
+for (f in 1:5) {
+  tr <- treino[folds != f, ]; va <- treino[folds == f, ]
+  vars <- selecionar(tr, 3)
+  m <- lm(reformulate(vars, "y"), data = tr)
+  erro_certo[f] <- rmse(va$y, predict(m, va))
+}
+
+cat("RMSE com vazamento:", round(mean(erro_errado), 2), "\n")
+cat("RMSE correto      :", round(mean(erro_certo), 2), "\n")
+```
+:::
+
+## Checklist anti-leakage
+
+- [ ] O split foi feito antes de qualquer transformação.
+- [ ] Imputação, escala e encoding estão dentro do pipeline.
+- [ ] Nenhuma feature é derivada do target.
+- [ ] A validação respeita tempo, espaço ou grupo.
+- [ ] O teste nunca foi usado para escolher modelo ou hiperparâmetro.
+- [ ] Features candidatas foram selecionadas dentro do CV.
+- [ ] O resultado foi comparado com um baseline.
+
+## Exercício
+
+Você previu área queimada com R² de 0,98. Entre as features estão "número de focos de
+fogo no mês" e "precipitação". O alvo é "área queimada no mês". O que investigar?
+
+::: {.callout-note collapse="true" title="Solução"}
+Verificar se "número de focos" é medido depois do evento ou derivado do mesmo processo que
+gera a área queimada. Se for contemporâneo ou posterior ao alvo, é vazamento temporal/target.
+Também revisar a validação: série temporal não pode ser embaralhada. R² 0,98 em área
+queimada é suspeito o suficiente para auditoria.
+:::
+
+## Próximo passo
+
+Você já tem a base. Agora o [catálogo de modelos](../02-modelos/index.qmd).

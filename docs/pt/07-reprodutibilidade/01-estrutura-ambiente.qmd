@@ -1,0 +1,166 @@
+---
+title: "1. Estrutura, ambiente e sementes"
+---
+
+<div class="page-meta">Nível: intermediário · Tempo: 15 min · Pré-requisito: Projetos guiados</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> organizar o projeto para que outra pessoa (ou você em seis meses) consiga
+reproduzir o resultado — com ambiente, sementes, dados e decisões registrados.
+</div>
+
+## Reprodutibilidade é uma promessa
+
+Um resultado é reprodutível quando outra pessoa consegue chegar ao mesmo número usando o
+mesmo código, os mesmos dados e o mesmo ambiente. Isso exige quatro coisas:
+
+| Pilar | O que registrar |
+|---|---|
+| **Código** | scripts, funções, versão, ordem de execução |
+| **Dados** | fonte, versão, filtros, split |
+| **Ambiente** | versões de Python/R e bibliotecas |
+| **Decisões** | métrica, modelo, limiar, critérios |
+
+Sem um desses, o resultado é uma anedota.
+
+## Estrutura recomendada
+
+```
+projeto/
+├─ data/
+│  ├─ raw/            # dados originais, somente leitura
+│  └─ processed/      # dados derivados, recriáveis
+├─ notebooks/         # exploração e comunicação
+├─ src/               # funções reutilizáveis
+├─ tests/             # testes das métricas e do pipeline
+├─ docs/              # site, relatório, figuras
+├─ requirements.txt   # dependências Python
+├─ README.md
+├─ CITATION.cff
+└─ .gitignore
+```
+
+**Regra:** `data/raw` nunca é editado. Toda transformação vai para `src/` ou `notebooks/` e
+gera `data/processed`.
+
+## Ambiente
+
+### Python
+
+```bash
+python --version
+pip freeze > requirements.txt
+```
+
+```python
+import numpy, pandas, sklearn
+print("numpy", numpy.__version__)
+print("pandas", pandas.__version__)
+print("sklearn", sklearn.__version__)
+```
+
+### R
+
+```r
+R.version.string
+packageVersion("rpart")
+sessionInfo()
+```
+
+O `sessionInfo()` é o `pip freeze` do R: registra versões e pacotes carregados.
+
+::: {.callout-tip}
+## `renv` e `venv`
+No R, o pacote `renv` congela o ambiente do projeto. No Python, `venv` + `requirements.txt`
+(ou `conda env export`) fazem o mesmo. Escolha um e registre no README.
+:::
+
+## Sementes
+
+Semente fixa torna o aleatório repetível. Não torna o resultado "verdadeiro".
+
+### Python
+
+```python
+import random
+import numpy as np
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+
+SEED = 42
+random.seed(SEED)
+np.random.seed(SEED)
+
+X_tr, X_te, y_tr, y_te = train_test_split(
+    X, y, test_size=0.25, random_state=SEED
+)
+modelo = RandomForestRegressor(n_estimators=200, random_state=SEED)
+```
+
+### R
+
+```r
+set.seed(42)
+idx <- sample(nrow(dados), floor(0.75 * nrow(dados)))
+```
+
+::: {.callout-warning}
+## Semente não é garantia absoluta
+Versões diferentes de bibliotecas, algoritmos com paralelismo e mudanças no dado podem
+mudar o resultado mesmo com a mesma semente. Registre **semente + versões + split**.
+:::
+
+## Dados e split
+
+- Documente a fonte, a data de acesso e a licença.
+- Descreva cada coluna e unidade (data dictionary).
+- Salve o split (índices ou arquivo) para que a avaliação seja idêntica.
+- Se o dado for grande, use hash/checksum em vez de versionar o arquivo.
+
+```python
+import pandas as pd
+
+split = pd.Series("treino", index=dados.index)
+split.loc[X_te.index] = "teste"
+split.to_csv("data/processed/split.csv")
+```
+
+```r
+saveRDS(idx, "data/processed/split_treino.rds")
+```
+
+## Decisões
+
+Mantenha um arquivo `DECISOES.md` (ou a seção de métodos do relatório) com:
+
+- pergunta e métrica escolhida **antes** da modelagem;
+- modelos testados e por quê;
+- hiperparâmetros e orçamento da busca;
+- limiar escolhido e custo assumido;
+- limitações e o que ficou de fora.
+
+## Checklist
+
+- [ ] `data/raw` está separado e intocado.
+- [ ] O ambiente está registrado (`requirements.txt` ou `sessionInfo()`).
+- [ ] As sementes estão no código.
+- [ ] O split está salvo ou reproduzível.
+- [ ] O dicionário de dados existe.
+- [ ] As decisões estão registradas.
+- [ ] O README explica como rodar.
+
+## Exercício
+
+Rode o mesmo modelo duas vezes com a mesma semente e compare os resultados. Depois mude a
+semente e compare. O que mudou? O que isso diz sobre a estabilidade do resultado?
+
+::: {.callout-note collapse="true" title="Solução"}
+Com a mesma semente, os resultados devem ser idênticos (no mesmo ambiente). Com sementes
+diferentes, o resultado varia dentro da incerteza do modelo/dados. Se a variação for
+grande, o resultado é frágil e precisa de mais folds, mais dados ou de uma conclusão mais
+cautelosa.
+:::
+
+## Próximo passo
+
+[2. Git, GitHub e model card](02-git-model-card.qmd).

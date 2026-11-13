@@ -1,0 +1,135 @@
+---
+title: "3. Tipos de aprendizado e de tarefa"
+---
+
+<div class="page-meta">Nível: iniciante · Tempo: 12 min · Pré-requisito: Fundamentos 1 e 2</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> identificar se o seu problema é supervisionado ou não, de regressão ou
+classificação, e escolher a tarefa e a métrica inicial.
+</div>
+
+## Dois eixos que não são a mesma coisa
+
+1. **Tipo de aprendizado:** como o modelo usa os dados (com ou sem rótulo).
+2. **Tipo de tarefa:** o que a saída representa (número, classe, grupo, estrutura).
+
+Confundir os dois gera escolha errada de modelo e de métrica.
+
+## Tipos de aprendizado
+
+| Tipo | Tem `y`? | Ideia | Exemplo |
+|---|---|---|---|
+| **Supervisionado** | sim | aprender `X → y` | prever CH4, classificar risco |
+| **Não supervisionado** | não | encontrar estrutura em `X` | agrupar municípios, reduzir dimensões |
+| **Semissupervisionado** | parcial | usar poucos rótulos + muitos dados | classificar imagens com pouca anotação |
+| **Auto-supervisionado** | não (rótulo criado) | prever parte dos próprios dados | modelos de linguagem |
+| **Por reforço** | recompensa | aprender por tentativa e erro | controle, jogos, robótica |
+
+Na prática ambiental e tabular, **supervisionado** e **não supervisionado** cobrem quase tudo.
+
+## Tipos de tarefa
+
+| Tarefa | Saída | Exemplo | Métrica inicial |
+|---|---|---|---|
+| **Regressão** | número contínuo | concentração de CH4 | RMSE, MAE, R² |
+| **Classificação binária** | 2 classes | fogo / não fogo | precisão, recall, F1, AUC |
+| **Classificação multiclasse** | 3+ classes | tipo de uso da terra | acurácia balanceada, F1 macro |
+| **Clusterização** | grupos sem rótulo | perfis de municípios | silhueta |
+| **Redução de dimensionalidade** | representação comprimida | visualizar 20 variáveis | variância explicada |
+| **Séries temporais** | valor no tempo | previsão mensal | RMSE, MAPE, MASE |
+| **Detecção de anomalias** | quão atípico | fraude, pico de emissão | precisão@k, recall |
+
+## Regressão vs classificação
+
+- **Regressão** prevê **quanto**. A saída é contínua e a ordem importa.
+- **Classificação** prevê **qual**. A saída é uma classe e a ordem normalmente não importa.
+
+Cuidado com a tentação de transformar tudo em classificação (ou o contrário). Transformar
+um alvo contínuo em faixas joga informação fora; transformar classe em número inventa uma
+ordem que não existe.
+
+## Clusterização vs classificação
+
+- **Classificação** aprende com rótulos conhecidos e prevê rótulos novos.
+- **Clusterização** não tem rótulo: descobre grupos e cabe a você interpretá-los.
+
+Um cluster não é uma classe. Dois clusters podem ser apenas dois lados de um gradiente
+contínuo. Interpretar cluster como categoria natural é um dos erros mais comuns.
+
+## Como escolher a tarefa
+
+Responda nesta ordem:
+
+1. Você tem `y` confiável? Se sim, supervisionado.
+2. `y` é número ou classe? Regressão ou classificação.
+3. Não tem `y`? Quer grupos ou compressão? Clusterização ou redução de dimensionalidade.
+4. O tempo importa? Se sim, a validação tem que respeitar o tempo (nunca embaralhar o futuro).
+
+::: {.callout-warning}
+## O alvo disfarçado
+Se você cria o `y` a partir de uma variável que também está no `X`, o modelo aprende a
+copiar o alvo. Isso é vazamento, não performance. O tema volta no Fundamento 5.
+:::
+
+## Código: reconhecendo os formatos
+
+O exemplo mostra a diferença entre um problema de classificação (`iris`) e um de regressão
+(`diabetes`). Repare no formato de `y`.
+
+::: {.panel-tabset}
+## Python
+
+```python
+from sklearn.datasets import load_iris, load_diabetes
+
+iris = load_iris()
+diabetes = load_diabetes()
+
+print("IRIS (classificação)")
+print("X:", iris.data.shape, "| y:", iris.target.shape)
+print("classes:", iris.target_names)
+
+print("\nDIABETES (regressão)")
+print("X:", diabetes.data.shape, "| y:", diabetes.target.shape)
+print("exemplos de y:", diabetes.target[:5].round(1))
+```
+
+## R
+
+```r
+data(iris)
+data(longley)
+
+cat("IRIS (classificação)\n")
+cat("X:", nrow(iris), "linhas x", ncol(iris) - 1, "features\n")
+print(table(iris$Species))
+
+cat("\nLONGLEY (regressão)\n")
+cat("X:", nrow(longley), "linhas x", ncol(longley) - 1, "features\n")
+print(head(longley$Employed))
+```
+:::
+
+## Exercício
+
+Classifique cada caso em **regressão**, **classificação**, **clusterização** ou
+**redução de dimensionalidade**:
+
+1. Prever a produtividade agrícola em toneladas por hectare.
+2. Prever se um pixel é floresta, pasto ou água.
+3. Agrupar estações de monitoramento por padrão de qualidade do ar.
+4. Resumir 30 variáveis climáticas em 3 componentes para visualizar.
+5. Prever o número de focos de fogo no próximo mês.
+
+::: {.callout-note collapse="true" title="Solução"}
+1. Regressão.
+2. Classificação multiclasse.
+3. Clusterização.
+4. Redução de dimensionalidade (PCA).
+5. Regressão (contagem no tempo; exige validação temporal).
+:::
+
+## Próximo passo
+
+[4. O pipeline completo](04-pipeline.qmd) — a ordem em que tudo acontece.

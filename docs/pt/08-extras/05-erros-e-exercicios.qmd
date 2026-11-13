@@ -1,0 +1,149 @@
+---
+title: "Erros comuns e exercícios"
+---
+
+<div class="page-meta">Nível: todos · Tempo: 20 min · Pré-requisito: Todas as partes</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> reconhecer os erros que mais aparecem e treinar a decisão com exercícios
+curtos.
+</div>
+
+## 20 erros que custam artigo
+
+| # | Erro | Por que importa | Correção |
+|---|---|---|---|
+| 1 | Acurácia em classe desbalanceada | esconde recall baixo | matriz, recall, F1, PR-AUC |
+| 2 | Reportar R² de treino | mede decoreba | R²/teste ou CV |
+| 3 | Escalar antes do split | vazamento | scaler no pipeline |
+| 4 | Selecionar features fora do CV | vazamento | seleção dentro do fold |
+| 5 | Tunar no teste | teste deixa de ser teste | tunar no treino; teste uma vez |
+| 6 | Melhor hiperparâmetro na borda | ótimo falso | ampliar a faixa |
+| 7 | Média sem incerteza | esconde fragilidade | desvio/IC entre folds |
+| 8 | MAPE com zeros | explode | MAE ou sMAPE |
+| 9 | Comparar RMSE de alvos diferentes | unidades diferentes | métrica relativa ou mesma escala |
+| 10 | Coeficiente como causalidade | overclaim | linguagem de associação |
+| 11 | Cluster como classe | grupos não são rótulos | nomear por perfil |
+| 12 | Ignorar resíduos | R² alto com padrão | 4 diagnósticos |
+| 13 | Extrapolar | o modelo não sabe o que não viu | limitar ao domínio |
+| 14 | Confundir calibração de probabilidade com tuning | conceitos diferentes | separar os termos |
+| 15 | Usar probabilidade como classe | decisão sem limiar | definir limiar pelo custo |
+| 16 | Figura sem unidade/legenda | não é autossuficiente | unidade, escala, período |
+| 17 | Não fixar semente/versões | não reproduz | seed + ambiente |
+| 18 | Causalidade de associação | conclusão inválida | desenho causal |
+| 19 | Não comparar com baseline | não se sabe se é bom | Dummy/média/persistência |
+| 20 | Limitação genérica | não diz o que invalida | causa → consequência → futuro |
+
+## Exercícios
+
+### 1. Matriz de confusão
+
+TN = 80, FP = 20, FN = 10, TP = 40. Calcule acurácia, precisão, recall e F1.
+
+::: {.callout-note collapse="true" title="Solução"}
+Acurácia = (80+40)/150 = 0,800; precisão = 40/60 = 0,667; recall = 40/50 = 0,800;
+F1 = 2×0,667×0,800/(0,667+0,800) = 0,727.
+:::
+
+### 2. Métrica para cada decisão
+
+(a) Triagem de doença rara; (b) confirmação de fraude; (c) previsão de CH4.
+
+::: {.callout-note collapse="true" title="Solução"}
+(a) Recall (evitar FN). (b) Precisão (evitar FP). (c) RMSE/MAE + R², com diagnóstico de
+resíduos.
+:::
+
+### 3. Métricas de regressão
+
+`y = [10, 20, 30]`, `ŷ = [12, 19, 33]`. Calcule R², RMSE, MAE e MAPE.
+
+::: {.callout-note collapse="true" title="Solução"}
+Erros: -2, 1, -3. Soma dos quadrados = 14. Média de y = 20; SS_tot = 200.
+R² = 1 - 14/200 = 0,930; RMSE = √(14/3) = 2,16; MAE = 6/3 = 2,00;
+MAPE = (2/10 + 1/20 + 3/30)/3 × 100 = (0,2 + 0,05 + 0,1)/3 × 100 = 11,7%.
+:::
+
+### 4. Ache o vazamento
+
+"Padronizei a base inteira, dividi em treino/teste, selecionei as 10 features mais
+correlacionadas com o alvo usando a base inteira e rodei a CV."
+
+::: {.callout-note collapse="true" title="Solução"}
+Dois vazamentos: padronização antes do split e seleção de features usando a base inteira
+(incluindo validação). Corrija com pipeline e seleção dentro do fold.
+:::
+
+### 5. Limiar pelo custo
+
+FN custa 20, FP custa 1. O limiar deve subir ou descer em relação a custos iguais?
+
+::: {.callout-note collapse="true" title="Solução"}
+Descer: reduzir FN exige aceitar mais FP. O limiar ótimo se desloca para a esquerda.
+:::
+
+### 6. Calibração
+
+Um modelo tem AUC 0,95 e Brier 0,30. O que investigar?
+
+::: {.callout-note collapse="true" title="Solução"}
+Boa discriminação, má calibração. Se a probabilidade for usada na decisão, calibre
+(Platt/isotônica) ou revise o modelo. AUC não garante probabilidade válida.
+:::
+
+### 7. Escolha de k
+
+Silhueta: k=2 0,39; k=3 0,46; k=4 0,53; k=5 0,45. Qual k e qual ressalva?
+
+::: {.callout-note collapse="true" title="Solução"}
+k=4. Ressalva: silhueta 0,53 é separação moderada; teste estabilidade e interpretabilidade.
+Cluster não é classe natural.
+:::
+
+### 8. Coeficientes
+
+Em uma regressão de CH4, `vento = -19,4 ppb/(m/s)`. Interprete.
+
+::: {.callout-note collapse="true" title="Solução"}
+Mantendo as outras variáveis constantes, +1 m/s de vento associa-se a -19,4 ppb de CH4.
+É associação condicional, não causalidade.
+:::
+
+### 9. Borda do tuning
+
+O melhor `max_depth` é 20, o limite superior da busca. O que fazer?
+
+::: {.callout-note collapse="true" title="Solução"}
+Ampliar a faixa (ex.: 30–50) e rodar de novo. Ótimo na borda é um ótimo falso.
+:::
+
+### 10. Auditoria de reprodutibilidade
+
+Um repositório tem código, mas não tem `requirements.txt`, nem semente, nem split salvo.
+O que falta?
+
+::: {.callout-note collapse="true" title="Solução"}
+Ambiente, semente e split. Sem isso, o número não é reproduzível. Adicione também README,
+model card e dicionário de dados.
+:::
+
+## Mini-simulado
+
+1. Por que a acurácia engana em desbalanceamento?
+2. O que é vazamento de pré-processamento?
+3. Quando usar PR-AUC em vez de ROC-AUC?
+4. O que a silhueta mede?
+5. O que um model card deve conter?
+
+::: {.callout-note collapse="true" title="Gabarito"}
+1. Porque a classe majoritária domina o numerador; recall pode ser zero.
+2. Ajustar transformações na base inteira antes do split; o teste vaza para o treino.
+3. Quando a classe positiva é rara e o custo de FP importa.
+4. Coesão e separação dos clusters.
+5. Uso pretendido, dados, avaliação, limitações, ética e reprodução.
+:::
+
+## Próximo passo
+
+Volte ao [planejamento](https://github.com/LudimiladeAzevedoBeltran/ml-do-zero-ao-diagnostico/blob/main/00_PLANEJAMENTO_SITE_ML.md)
+ou escolha uma [trilha](../00-como-usar.qmd) para revisar.

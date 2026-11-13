@@ -1,0 +1,59 @@
+---
+title: "Catálogo de modelos"
+---
+
+<div class="page-meta">Nível: todos · Tempo: 4 min · Pré-requisito: Fundamentos</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> escolher a família de modelo pela tarefa, pela interpretabilidade e pelo
+custo — antes de olhar para o código.
+</div>
+
+## Como usar o catálogo
+
+Cada modelo tem uma **ficha padronizada**: quando usar, quando não usar, pressupostos,
+hiperparâmetros com faixa e bordas, calibração, código em Python e R, métricas, erros
+comuns e exercício.
+
+A regra é simples: **comece pelo modelo mais simples que pode responder à pergunta**.
+Modelo complexo não compensa falta de dado, de desenho ou de métrica.
+
+## Tabela de decisão
+
+| Modelo | Tarefa | Interpretabilidade | Custo | Status |
+|---|---|---|---|---|
+| Baseline (Dummy) | regressão/classificação | total | nulo | em breve |
+| [Regressão linear](02-regressao-linear.qmd) | regressão | alta | baixo | **pronto** |
+| Ridge / Lasso / Elastic Net | regressão | alta | baixo | em breve |
+| Regressão logística | classificação | alta | baixo | em breve |
+| KNN | regressão/classificação | média | médio | em breve |
+| Naive Bayes | classificação | média | baixo | em breve |
+| SVM | regressão/classificação | baixa/média | médio | em breve |
+| Árvore de decisão | regressão/classificação | alta | baixo | em breve |
+| Random Forest | regressão/classificação | média | médio/alto | em breve |
+| Gradient Boosting | regressão/classificação | média | alto | em breve |
+| Rede neural (MLP) | regressão/classificação | baixa | alto | em breve |
+| K-means | clusterização | média | baixo | em breve |
+| DBSCAN / hierárquico | clusterização | média | médio | em breve |
+| PCA | redução de dimensionalidade | média | baixo | em breve |
+
+## O que a ficha responde
+
+1. **Quando usar:** em que situação o modelo é a primeira escolha.
+2. **Quando não usar:** o limite que evita retrabalho.
+3. **Pressupostos:** o que precisa ser verdade para o resultado ser confiável.
+4. **Hiperparâmetros:** o que cada um controla, a faixa típica e o que acontece nas bordas.
+5. **Calibração:** como ajustar na mão e como usar Optuna.
+6. **Código:** o mínimo executável em Python e R.
+7. **Métricas e erros:** o que reportar e o que costuma dar errado.
+
+## Regra de borda
+
+Se o melhor valor de um hiperparâmetro cai no **limite da faixa** de busca, não comemore:
+a faixa está errada. Amplie o espaço e rode de novo. Um ótimo na borda quase sempre é um
+ótimo falso.
+
+## Próximo passo
+
+Comece pela [regressão linear](02-regressao-linear.qmd) — o modelo que todo mundo deveria
+entender antes de partir para ensemble.
