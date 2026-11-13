@@ -20,6 +20,9 @@ data/raw/
 *.feather
 *.sqlite
 
+# Repositório criado por engano dentro do projeto
+ml-do-zero-ao-diagnostico/
+
 # Sistema
 .DS_Store
 Thumbs.db
