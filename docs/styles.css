@@ -367,3 +367,27 @@ table.semaforo tr:nth-child(4) td:first-child { color: #a33b2b; }
   background: var(--ml-surface);
   border-color: var(--ml-line) var(--ml-line) var(--ml-surface);
 }
+
+/* ---------- Fórmula comentada ---------- */
+.formula-card {
+  background: var(--ml-surface);
+  border: 1px solid var(--ml-line);
+  border-left: 4px solid var(--ml-moss);
+  border-radius: 0 10px 10px 0;
+  padding: .9rem 1.1rem;
+  margin: 1rem 0 1.4rem;
+}
+.formula-card h4 {
+  margin: 0 0 .35rem;
+  font-size: 1.05rem;
+}
+.formula-card .formula-words {
+  font-style: italic;
+  color: var(--ml-ink-soft);
+  margin-bottom: .6rem;
+}
+.formula-card table {
+  margin: .35rem 0 .7rem;
+  font-size: 14px;
+}
+.formula-card p:last-child { margin-bottom: 0; }

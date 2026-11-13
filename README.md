@@ -5,7 +5,7 @@ escolher o modelo, calibrar com critério, avaliar com a métrica adequada e int
 resultados com base em figuras diagnósticas.
 
 > **Idioma:** português (versão em inglês planejada).
-> **Status:** Fase 5 — v1 completa: fundamentos, modelos, calibração, avaliação, interpretação, projetos, reprodutibilidade e extras.
+> **Status:** Fase 6 — fundamentos, modelos, calibração, avaliação, interpretação, projetos, reprodutibilidade, extras e visualização de dados.
 
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-4a5937.svg)](LICENSE)
 [![Texto: CC BY 4.0](https://img.shields.io/badge/texto-CC%20BY%204.0-b96c4c.svg)](LICENSE-docs)
@@ -26,6 +26,7 @@ resultados com base em figuras diagnósticas.
 | Interpretação | laboratório de figuras com "semáforo": o que olhar e o que é erro |
 | Projetos | do primeiro modelo em 30 min a projetos completos |
 | Reprodutibilidade | sementes, versões, Git/GitHub e checklists |
+| Visualização | distribuição, relação, 3D interativo e acessibilidade de cores |
 
 ## Estrutura
 
@@ -45,7 +46,8 @@ resultados com base em figuras diagnósticas.
 │     ├─ 05-interpretacao/
 │     ├─ 06-projetos/
 │     ├─ 07-reprodutibilidade/
-│     └─ 08-extras/
+│     ├─ 08-extras/
+│     └─ 09-graficos/
 ├─ data/                  # exemplo_ch4.csv, exemplo_classificacao.csv, exemplo_cluster.csv
 ├─ notebooks/             # cadernos executáveis (em construção)
 ├─ src/                   # geração de dados e figuras
@@ -102,7 +104,8 @@ Se a branch padrão não for `main`, ajuste o gatilho do workflow.
 ## Escopo da v1
 
 Entram: fundamentos, modelos clássicos, calibração, avaliação (regressão, classificação e
-clusterização), interpretação, projetos guiados, reprodutibilidade e extras.
+clusterização), interpretação, projetos guiados, reprodutibilidade, extras e visualização
+de dados (distribuição, relação, 3D e acessibilidade).
 
 Ficam para a v2: versão em inglês, deep learning, séries temporais, NLP e as demais fichas
 de modelo.

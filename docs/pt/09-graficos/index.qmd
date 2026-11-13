@@ -1,0 +1,51 @@
+---
+title: "Visualização de dados"
+---
+
+<div class="page-meta">Nível: todos · Tempo: 8 min · Pré-requisito: nenhum</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> escolher o gráfico pela pergunta e pelo tipo de dado — e não pelo hábito.
+</div>
+
+## Gráfico não é enfeite
+
+Cada gráfico responde uma pergunta. Se você não sabe qual pergunta o gráfico responde, ele
+vai enfeitar o texto e esconder o dado. A escolha começa pela **pergunta** e pelo **tipo de
+dado**, não pelo software.
+
+## Mapa de decisão
+
+| Pergunta | Família | Exemplos | Página |
+|---|---|---|---|
+| Como os valores se distribuem? | Distribuição | histograma, KDE, ECDF, box, violino, raincloud, ridgeline | [Distribuição](01-distribuicao.qmd) |
+| Duas variáveis se relacionam? | Relação | dispersão, hexbin, densidade 2D, bolha, pairplot, correlação | [Relação](02-relacao.qmd) |
+| Preciso de profundidade ou volume? | 3D | dispersão 3D, superfície, trisurf, isosuperfície | [3D](03-3d.qmd) |
+| Como escolher cores acessíveis? | Cor | paletas, daltonismo, contraste, escala de cinza | [Cores](04-cores-acessibilidade.qmd) |
+| Categorias, tempo, espaço, modelos | Em construção | barras, linha, mapa, resíduos, ROC | em breve |
+
+## Como ler cada ficha
+
+Toda ficha de gráfico tem:
+
+- **O que mostra** — a pergunta que ele responde.
+- **O que esconde** — o que ele pode sugerir sem mostrar.
+- **Quando usar / quando evitar** — o critério.
+- **Acessibilidade** — cor, contraste, rótulos e alternativas.
+
+## Três regras
+
+1. **Mostre o dado, não só o resumo.** Média sem dispersão esconde bimodalidade e outliers.
+2. **Gráfico diferente não é melhor.** O dado e a pergunta mandam; novidade não é mérito.
+3. **Cor não é o único canal.** Use forma, linha, rótulo e posição também.
+
+::: {.callout-tip}
+## Para ir fundo
+A galeria usa o [cheatsheet do Matplotlib](https://matplotlib.org/cheatsheets/) como ponto de
+partida. Para seleção de gráfico, o [Data-to-Viz](https://www.data-to-viz.com/) e o livro
+*Fundamentals of Data Visualization* (Wilke, online) são boas referências.
+:::
+
+## Próximo passo
+
+[Distribuição](01-distribuicao.qmd).

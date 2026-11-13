@@ -28,6 +28,8 @@ pesquisa científica. Você vê o que cada escolha implica e decide.</p>
 
 [**Quero interpretar um gráfico**<br><small>Laboratório: previsto vs observado</small>](pt/05-interpretacao/01-ajuste-regressao.qmd)
 
+[**Quero escolher um gráfico**<br><small>Distribuição, relação, 3D e acessibilidade</small>](pt/09-graficos/index.qmd)
+
 [**Quero fazer um projeto completo**<br><small>Do CSV ao relatório, com interpretação</small>](pt/06-projetos/index.qmd)
 
 [**Quero revisar meu projeto**<br><small>Checklists, model card e reprodutibilidade</small>](pt/07-reprodutibilidade/03-checklists.qmd)
@@ -53,12 +55,14 @@ pesquisa científica. Você vê o que cada escolha implica e decide.</p>
 <span class="badge-scale">Projetos</span>
 <span class="badge-scale">Reprodutibilidade</span>
 <span class="badge-scale">Extras</span>
+<span class="badge-scale">Visualização</span>
 
 - **Fundamentos:** o que é ML, como aprende, tipos de tarefa, pipeline e armadilhas.
 - **Modelos:** fichas com quando usar, quando não usar, hiperparâmetros, faixas e bordas.
 - **Calibração:** manual, grid/random search e Optuna, com o que dá errado em cada um.
 - **Avaliação:** R², R² ajustado, RMSE, MAE, MAPE, acurácia, precisão, recall, F1, ROC e PR.
 - **Interpretação:** figura pronta, o que olhar, semáforo e "o que fazer se".
+- **Visualização:** qual gráfico usar para cada dado, 3D e acessibilidade de cores.
 - **Projetos:** do primeiro modelo em 30 minutos a projetos completos e reprodutíveis.
 
 ## Como o site está organizado
@@ -72,14 +76,17 @@ pesquisa científica. Você vê o que cada escolha implica e decide.</p>
 | V — Interpretação | O que este gráfico está me dizendo? |
 | VI — Projetos | Como juntar tudo num caso real? |
 | VII — Reprodutibilidade | Como fazer outra pessoa reproduzir? |
+| VIII — Extras | Onde consultar termos, erros e exercícios? |
+| IX — Visualização | Qual gráfico usar para este dado? |
 
 > **Autora:** Ludimila de Azevedo Beltran — ORCID
 > [0009-0003-5070-9472](https://orcid.org/0009-0003-5070-9472).
 
 ## Status
 
-Esta é a **Fase 5**: o site cobre fundamentos, modelos, calibração, avaliação, interpretação,
-projetos guiados, reprodutibilidade e extras. A v1 está completa; a versão em inglês, deep
-learning e séries temporais ficam para a v2. O planejamento completo está em
+Esta é a **Fase 6**: o site cobre fundamentos, modelos, calibração, avaliação, interpretação,
+projetos guiados, reprodutibilidade, extras e a primeira leva de visualização de dados
+(distribuição, relação, 3D e cores). Categorias, tempo, espaço e multivariado entram na
+próxima leva. O planejamento completo está em
 [`00_PLANEJAMENTO_SITE_ML.md`](https://github.com/LudimiladeAzevedoBeltran/ml-para-pesquisa-cientifica/blob/main/00_PLANEJAMENTO_SITE_ML.md).
 

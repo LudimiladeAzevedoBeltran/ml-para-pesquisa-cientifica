@@ -1,0 +1,140 @@
+---
+title: "3D"
+---
+
+<div class="page-meta">Nível: avançado · Tempo: 12 min · Pré-requisito: Relação</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> usar 3D quando a profundidade é parte do dado e reconhecer quando ele
+atrapalha a leitura.
+</div>
+
+## 3D não é upgrade do 2D
+
+Um gráfico 3D adiciona uma dimensão, mas também adiciona **oclusão**: pontos escondem
+pontos, ângulos mudam a percepção e a escala fica ambígua. Use 3D quando a terceira
+dimensão é o fenômeno (volume, terreno, superfície de resposta, trajetória), não quando
+você só quer um gráfico “mais bonito”.
+
+::: {.callout-tip}
+## Regra prática
+Se você não consegue responder à pergunta olhando a projeção 2D, 3D provavelmente não
+resolve. Se a profundidade é o dado, 3D interativo ajuda.
+:::
+
+## Dispersão 3D
+
+<iframe src="../../img/plot3d_scatter.html" width="100%" height="580" style="border:none;" loading="lazy"></iframe>
+
+- **O que mostra:** três variáveis contínuas + uma quarta por cor.
+- **Quando usar:** explorar a nuvem em três dimensões; detectar agrupamentos.
+- **Quando evitar:** publicação impressa; muitos pontos; quando 2D com cor já resolve.
+- **Acessibilidade:** gire para separar a nuvem; ofereça uma versão 2D e uma tabela de
+  resumo.
+
+## Superfície de resposta
+
+<iframe src="../../img/plot3d_surface.html" width="100%" height="580" style="border:none;" loading="lazy"></iframe>
+
+- **O que mostra:** como uma saída varia com duas entradas; inclui curvas de nível
+  projetadas.
+- **Quando usar:** modelos com duas variáveis dominantes, resposta suave.
+- **Quando evitar:** dados ruidosos, muitas variáveis, superfícies com buracos.
+- **Acessibilidade:** a projeção de contorno no plano é a alternativa 2D.
+
+## Superfície triangulada (trisurf)
+
+<iframe src="../../img/plot3d_trisurf.html" width="100%" height="580" style="border:none;" loading="lazy"></iframe>
+
+- **O que mostra:** uma superfície que passa pelos pontos, sem grade regular.
+- **Quando usar:** dados esparsos ou irregulares no plano.
+- **Quando evitar:** quando a triangulação inventa faces onde não há dado.
+- **Acessibilidade:** a malha pode esconder pontos; reduza a opacidade ou mostre os pontos.
+
+## Isosuperfície (volume)
+
+<iframe src="../../img/plot3d_volume.html" width="100%" height="580" style="border:none;" loading="lazy"></iframe>
+
+- **O que mostra:** superfícies de mesmo valor em um volume 3D.
+- **Quando usar:** densidade, temperatura, concentração, imagens médicas, fluidos.
+- **Quando evitar:** quando o volume não é o dado; isosuperfícies podem sugerir fronteiras
+  nítidas que não existem.
+- **Acessibilidade:** use cortes 2D e uma escala de cor perceptual; explique o nível
+  escolhido.
+
+## Trajetória 3D
+
+<iframe src="../../img/plot3d_linha.html" width="100%" height="580" style="border:none;" loading="lazy"></iframe>
+
+- **O que mostra:** uma curva no espaço; boa para trajetórias e processos.
+- **Quando usar:** quando a ordem importa e o caminho é o dado.
+- **Quando evitar:** séries temporais com muitas variáveis; prefira small multiples.
+- **Acessibilidade:** destaque início/fim e forneça uma projeção 2D.
+
+## Código
+
+::: {.panel-tabset}
+## Python
+
+```python
+import pandas as pd
+import plotly.graph_objects as go
+
+dados = pd.read_csv("data/exemplo_ch4.csv")
+
+fig = go.Figure(data=[go.Scatter3d(
+    x=dados["temperatura"], y=dados["umidade"], z=dados["vento"],
+    mode="markers",
+    marker=dict(size=4, color=dados["ch4"], colorscale="Viridis",
+                colorbar=dict(title="CH4 (ppb)"), opacity=0.75),
+)])
+fig.update_layout(
+    scene=dict(xaxis_title="Temperatura (°C)",
+               yaxis_title="Umidade (%)",
+               zaxis_title="Vento (m/s)"),
+    height=600,
+)
+fig.show()
+```
+
+## R
+
+```r
+# install.packages("plotly")
+library(plotly)
+
+dados <- read.csv("data/exemplo_ch4.csv")
+
+plot_ly(
+  dados, x = ~temperatura, y = ~umidade, z = ~vento,
+  color = ~ch4, colors = "Viridis", size = 2,
+  type = "scatter3d", mode = "markers"
+) |>
+  layout(
+    scene = list(
+      xaxis = list(title = "Temperatura (°C)"),
+      yaxis = list(title = "Umidade (%)"),
+      zaxis = list(title = "Vento (m/s)")
+    )
+  )
+```
+:::
+
+::: {.callout-note}
+## Os gráficos 3D são interativos
+Eles usam Plotly e carregam a biblioteca por CDN; é preciso internet. Se o iframe não
+aparecer, abra o HTML correspondente em `docs/img/plot3d_*.html`. A isosuperfície é o
+arquivo mais pesado (~2 MB).
+:::
+
+## Regras de 3D
+
+- Gire antes de concluir; um ângulo pode esconder um grupo.
+- Sempre ofereça uma alternativa 2D (projeção, contorno, small multiples).
+- Use paleta perceptual (viridis/cividis) e não confie só na cor.
+- Não use 3D para barras, pizza ou categorias — a profundidade não ajuda.
+- Em publicação impressa, prefira 2D + cor ou small multiples.
+
+## Próximo passo
+
+[Cores e acessibilidade](04-cores-acessibilidade.qmd).

@@ -615,7 +615,7 @@ fichas de modelo.
 
 ---
 
-## 15. Status das Fases 1 a 5 (entregues)
+## 15. Status das Fases 1 a 6 (entregues)
 
 | Item | Arquivo | Estado |
 |---|---|---|
@@ -661,11 +661,18 @@ fichas de modelo.
 | Folhas de cola | `docs/pt/08-extras/03-folhas-de-cola.qmd` | pronto |
 | Bibliografia comentada | `docs/pt/08-extras/04-bibliografia.qmd` | pronto |
 | Erros e exercícios | `docs/pt/08-extras/05-erros-e-exercicios.qmd` | pronto |
+| Visualização — visão geral | `docs/pt/09-graficos/index.qmd` | pronto |
+| Visualização — distribuição | `docs/pt/09-graficos/01-distribuicao.qmd` | pronto |
+| Visualização — relação | `docs/pt/09-graficos/02-relacao.qmd` | pronto |
+| Visualização — 3D | `docs/pt/09-graficos/03-3d.qmd` | pronto |
+| Visualização — cores e acessibilidade | `docs/pt/09-graficos/04-cores-acessibilidade.qmd` | pronto |
+| Figuras da visualização | `docs/img/graf_*.png`, `docs/img/plot3d_*.html` + `src/gerar_figuras_graficos.py` | pronto |
 | Site renderizado | `docs/_site/` | pronto |
 
-**Próxima fase:** concluir as fichas restantes (Baseline, KNN, Naive Bayes, SVM, MLP,
-K-means, DBSCAN/hierárquico e PCA). Depois, v2: versão em inglês, deep learning, séries
-temporais e NLP. Antes disso, ativar o GitHub Pages.
+**Próxima fase:** concluir a Parte IX (categorias, tempo, espaço, multivariado e
+diagnóstico de modelos), as fichas restantes (Baseline, KNN, Naive Bayes, SVM, MLP,
+K-means, DBSCAN/hierárquico e PCA) e a reestruturação didática das páginas existentes.
+Depois, v2: versão em inglês, deep learning, séries temporais e NLP.
 
 > Nota operacional: o `quarto render` dentro do Google Drive pode falhar com `os error 303`
 > por bloqueio de sincronização. Renderize a partir de uma cópia local ou pause a

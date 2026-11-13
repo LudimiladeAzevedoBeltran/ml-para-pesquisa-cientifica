@@ -34,12 +34,26 @@ $$
 R^2 = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}
 $$
 
-- **O que mede:** quanto da variabilidade de `y` o modelo explica, comparado a prever
-  sempre a média.
-- **Faixa:** no máximo 1 (ajuste perfeito). Pode ser **negativo** fora da amostra: o modelo
-  é pior que a média.
-- **Cuidado:** R² alto não garante bom modelo. Um modelo com viés sistemático pode ter R²
-  alto em uma faixa e errar feio em outra.
+::: {.formula-card}
+#### Fórmula comentada
+
+<p class="formula-words">O R² compara o erro do modelo com o erro de prever sempre a média:
+quanto da variação de <code>y</code> o modelo consegue explicar.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(y_i\) | valor observado da observação \(i\) |
+| \(\hat{y}_i\) | valor previsto pelo modelo |
+| \(\bar{y}\) | média dos valores observados |
+| \(n\) | número de observações |
+
+**O que premia:** acertar a variação de `y`, não só o nível médio.  
+**O que pune:** erros grandes, porque o resíduo é elevado ao quadrado.  
+**Faixa:** no máximo 1 (ajuste perfeito); pode ser **negativo** fora da amostra, quando o
+modelo é pior que a média.  
+**Quando engana:** R² alto no treino, com viés sistemático, com alvo diferente ou quando o
+modelo acerta a média e erra os extremos.
+:::
 
 ## R² ajustado
 

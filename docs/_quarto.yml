@@ -122,6 +122,18 @@ website:
             href: pt/08-extras/04-bibliografia.qmd
           - text: "Erros e exercícios"
             href: pt/08-extras/05-erros-e-exercicios.qmd
+      - section: "Parte IX — Visualização de dados"
+        contents:
+          - text: "Visão geral"
+            href: pt/09-graficos/index.qmd
+          - text: "Distribuição"
+            href: pt/09-graficos/01-distribuicao.qmd
+          - text: "Relação"
+            href: pt/09-graficos/02-relacao.qmd
+          - text: "3D"
+            href: pt/09-graficos/03-3d.qmd
+          - text: "Cores e acessibilidade"
+            href: pt/09-graficos/04-cores-acessibilidade.qmd
   page-footer:
     left: "**Machine Learning para Pesquisa Científica** — Ludimila de Azevedo Beltran"
     right: "[MIT](https://github.com/LudimiladeAzevedoBeltran/ml-para-pesquisa-cientifica/blob/main/LICENSE) (código) · [CC BY 4.0](https://github.com/LudimiladeAzevedoBeltran/ml-para-pesquisa-cientifica/blob/main/LICENSE-docs) (texto)"
