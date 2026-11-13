@@ -138,9 +138,10 @@ pre, div.sourceCode {
 pre code { background: transparent; color: inherit; padding: 0; }
 
 /* ---------- Tabelas ---------- */
-table { font-size: 15px; }
+table { font-size: 15px; color: var(--ml-ink); }
 table thead th,
-.table > :not(caption) > * > * {
+.table > thead > tr > th,
+.table > thead > tr > td {
   background: var(--ml-moss);
   color: var(--ml-bg2);
   font-family: var(--ml-mono);
@@ -151,7 +152,13 @@ table thead th,
   border: none;
   vertical-align: top;
 }
-table tbody td, .table > :not(caption) > * > * { border-bottom: 1px solid var(--ml-line-soft); vertical-align: top; }
+table tbody td,
+.table > tbody > tr > td,
+.table > tbody > tr > th {
+  color: var(--ml-ink);
+  border-bottom: 1px solid var(--ml-line-soft);
+  vertical-align: top;
+}
 table tbody tr:nth-child(even) td { background: var(--ml-surface2); }
 table tbody td b, .table td b { color: var(--ml-terra-deep); }
 
