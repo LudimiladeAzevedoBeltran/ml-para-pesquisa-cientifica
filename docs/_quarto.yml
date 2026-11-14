@@ -54,6 +54,8 @@ website:
             href: pt/02-modelos/mapa-de-decisao.qmd
           - text: "Catálogo de modelos"
             href: pt/02-modelos/index.qmd
+          - text: "Baseline (Dummy)"
+            href: pt/02-modelos/01-baseline.qmd
           - text: "Regressão linear"
             href: pt/02-modelos/02-regressao-linear.qmd
           - text: "Ridge / Lasso / Elastic Net"
@@ -76,6 +78,10 @@ website:
             href: pt/02-modelos/11-kmeans.qmd
           - text: "PCA"
             href: pt/02-modelos/12-pca.qmd
+          - text: "MLP (rede neural)"
+            href: pt/02-modelos/13-mlp.qmd
+          - text: "DBSCAN e hierárquico"
+            href: pt/02-modelos/14-dbscan-hierarquico.qmd
       - section: "Parte III — Calibração"
         contents:
           - text: "1. Parâmetro vs hiperparâmetro"

@@ -22,6 +22,27 @@ suaviza a fronteira.
 
 ![KNN: k=1 decora; k=15 equilibra; k=50 suaviza demais.](../../img/knn_fronteira.png){fig-align="center" width="96%"}
 
+::: {.formula-card}
+#### Fórmula comentada
+
+<p class="formula-words">A previsão é a média (regressão) ou o voto (classificação) dos
+`k` vizinhos mais próximos.</p>
+
+$$
+\hat{y}(x) = \frac{1}{k}\sum_{i \in N_k(x)} y_i
+$$
+
+| Símbolo | Significado |
+|---|---|
+| \(N_k(x)\) | conjunto dos \(k\) vizinhos mais próximos |
+| \(k\) | número de vizinhos |
+| \(d(x, x_i)\) | distância entre a observação e o vizinho |
+
+**O que premia:** padrões locais e fronteiras não lineares.  
+**O que pune:** distâncias ruins, escala e alta dimensão.  
+**Quando engana:** sem padronização, com `k` na borda ou em alta dimensão.
+:::
+
 ## Quando usar
 
 - `n` pequeno/médio e poucas features.

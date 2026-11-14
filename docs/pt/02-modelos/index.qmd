@@ -28,7 +28,7 @@ Modelo complexo não compensa falta de dado, de desenho ou de métrica.
 
 | Modelo | Tarefa | Interpretabilidade | Custo | Status |
 |---|---|---|---|---|
-| Baseline (Dummy) | regressão/classificação | total | nulo | em breve |
+| [Baseline (Dummy)](01-baseline.qmd) | regressão/classificação | total | nulo | **pronto** |
 | [Regressão linear](02-regressao-linear.qmd) | regressão | alta | baixo | **pronto** |
 | [Ridge / Lasso / Elastic Net](03-ridge-lasso.qmd) | regressão | alta | baixo | **pronto** |
 | [Regressão logística](04-regressao-logistica.qmd) | classificação | alta | baixo | **pronto** |
@@ -38,9 +38,9 @@ Modelo complexo não compensa falta de dado, de desenho ou de métrica.
 | [Árvore de decisão](05-arvore-decisao.qmd) | regressão/classificação | alta | baixo | **pronto** |
 | [Random Forest](06-random-forest.qmd) | regressão/classificação | média | médio/alto | **pronto** |
 | [Gradient Boosting](07-gradient-boosting.qmd) | regressão/classificação | média | alto | **pronto** |
-| Rede neural (MLP) | regressão/classificação | baixa | alto | em breve |
+| [Rede neural (MLP)](13-mlp.qmd) | regressão/classificação | baixa | alto | **pronto** |
 | [K-means](11-kmeans.qmd) | clusterização | média | baixo | **pronto** |
-| DBSCAN / hierárquico | clusterização | média | médio | em breve |
+| [DBSCAN / hierárquico](14-dbscan-hierarquico.qmd) | clusterização | média | médio | **pronto** |
 | [PCA](12-pca.qmd) | redução de dimensionalidade | média | baixo | **pronto** |
 
 ## O que a ficha responde

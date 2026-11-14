@@ -125,10 +125,11 @@ Tenho y?
 ## O que ainda falta
 
 A tabela acima permite **decidir** com o que já sabemos. As fichas completas dos modelos
-— com hiperparâmetros, faixas, bordas, calibração e código — estão sendo construídas.
+— com hiperparâmetros, faixas, bordas, calibração e código — cobrem as famílias principais.
 
 Hoje estão prontas:
 
+- [Baseline (Dummy)](01-baseline.qmd)
 - [Regressão linear](02-regressao-linear.qmd)
 - [Ridge / Lasso / Elastic Net](03-ridge-lasso.qmd)
 - [Regressão logística](04-regressao-logistica.qmd)
@@ -140,8 +141,10 @@ Hoje estão prontas:
 - [Naive Bayes](10-naive-bayes.qmd)
 - [K-means](11-kmeans.qmd)
 - [PCA](12-pca.qmd)
+- [MLP](13-mlp.qmd)
+- [DBSCAN e hierárquico](14-dbscan-hierarquico.qmd)
 
-Em breve: Baseline, MLP e DBSCAN/hierárquico.
+O catálogo cobre as famílias principais da v1; novas fichas podem ser acrescentadas depois.
 
 ## Checklist
 

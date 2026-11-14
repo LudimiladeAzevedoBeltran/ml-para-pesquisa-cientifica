@@ -22,6 +22,28 @@ raramente é verdade, mas o modelo ainda costuma funcionar bem para triagem.
 
 ![Naive Bayes: probabilidades previstas ordenadas, coloridas pela classe real.](../../img/nb_posterior.png){fig-align="center" width="82%"}
 
+::: {.formula-card}
+#### Fórmula comentada
+
+<p class="formula-words">A posterior é proporcional à prior da classe vezes o produto das
+verossimilhanças de cada feature.</p>
+
+$$
+P(y \mid x) \propto P(y)\prod_{j=1}^{p}P(x_j \mid y)
+$$
+
+| Símbolo | Significado |
+|---|---|
+| \(P(y)\) | prior da classe |
+| \(P(x_j \mid y)\) | verossimilhança da feature \(j\) dada a classe |
+| \(P(y \mid x)\) | posterior da classe |
+| \(p\) | número de features |
+
+**O que premia:** rápido, simples e bom em alta dimensão.  
+**O que pune:** features dependentes e distribuições mal especificadas.  
+**Quando engana:** probabilidades extremas, features correlacionadas e calibração ruim.
+:::
+
 ## Quando usar
 
 - Texto e alta dimensão (multinomial/Bernoulli).

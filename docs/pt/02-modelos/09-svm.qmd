@@ -22,6 +22,31 @@ encostam na calçada são os **vetores de suporte**. Se a rua não puder ser ret
 
 ![SVM linear: margem, fronteira e vetores de suporte.](../../img/svm_margem.png){fig-align="center" width="80%"}
 
+::: {.formula-card}
+#### Fórmula comentada
+
+<p class="formula-words">O SVM maximiza a margem e paga um custo por cada ponto que invade
+ou cruza a margem.</p>
+
+$$
+\min_{w,b}\ \frac{1}{2}\|w\|^2 + C\sum_{i=1}^{n}\xi_i
+\quad\text{sujeito a}\quad
+y_i(w^T x_i + b) \ge 1 - \xi_i,\ \xi_i \ge 0
+$$
+
+| Símbolo | Significado |
+|---|---|
+| \(w\) | vetor normal da fronteira |
+| \(b\) | viés (intercepto) |
+| \(C\) | custo de violar a margem |
+| \(\xi_i\) | violação da margem para a observação \(i\) |
+| \(y_i\) | rótulo (-1 ou +1) |
+
+**O que premia:** margem larga e poucas violações.  
+**O que pune:** margem estreita e pontos mal classificados.  
+**Quando engana:** sem padronização, `C`/`gamma` na borda ou probabilidade não calibrada.
+:::
+
 ## Quando usar
 
 - `n` médio, muitas features, margem razoavelmente clara.

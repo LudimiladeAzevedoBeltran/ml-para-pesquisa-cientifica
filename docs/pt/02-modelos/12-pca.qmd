@@ -21,6 +21,30 @@ uma combinação linear das variáveis originais.
 
 ![PCA biplot: observações e cargas das variáveis.](../../img/graf_multi_pca_biplot.png){fig-align="center" width="86%"}
 
+::: {.formula-card}
+#### Fórmula comentada
+
+<p class="formula-words">O PCA procura a direção \(w\) que maximiza a variância da projeção
+\(Xw\), com \(w\) de norma 1.</p>
+
+$$
+\max_{w:\ \|w\|=1}\ \text{Var}(Xw)
+\qquad
+Z = XW
+$$
+
+| Símbolo | Significado |
+|---|---|
+| \(X\) | matriz de dados padronizados |
+| \(w\) | direção (componente) |
+| \(Z\) | dados projetados |
+| \(\text{Var}(Xw)\) | variância explicada pela direção |
+
+**O que premia:** direções de maior variância.  
+**O que pune:** direções de baixa variância (descartadas).  
+**Quando engana:** sem padronização, estruturas não lineares e leitura causal das cargas.
+:::
+
 ## Quando usar
 
 - Comprimir muitas variáveis correlacionadas.
