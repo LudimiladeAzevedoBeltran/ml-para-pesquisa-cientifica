@@ -1,0 +1,381 @@
+---
+title: "Fórmulas comentadas"
+---
+
+<div class="page-meta">Nível: todos · Tempo: consulta · Pré-requisito: nenhum</div>
+
+<div class="objetivo">
+<b>Objetivo:</b> entender o que cada fórmula mede, o que cada símbolo significa, o que ela
+premia ou pune e quando ela engana.
+</div>
+
+## Como ler uma fórmula
+
+Cada bloco abaixo tem quatro partes:
+
+| Parte | Pergunta que responde |
+|---|---|
+| **Em palavras** | o que a fórmula mede, sem símbolos |
+| **Símbolos** | o que é cada termo |
+| **Premia / pune** | o que faz o valor subir ou descer |
+| **Quando engana** | em que situação a leitura fica errada |
+
+## Regressão
+
+### R²
+
+::: {.formula-card}
+#### Coeficiente de determinação
+
+<p class="formula-words">Compara o erro do modelo com o erro de prever sempre a média.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(y_i\) | valor observado |
+| \(\hat{y}_i\) | valor previsto |
+| \(\bar{y}\) | média dos observados |
+| \(n\) | número de observações |
+
+**Premia:** acertar a variação de `y`. **Pune:** erros grandes, ao quadrado.  
+**Engana quando:** é calculado no treino, com alvo diferente ou com viés sistemático.
+:::
+
+### R² ajustado
+
+::: {.formula-card}
+#### R² penalizado pelo número de preditores
+
+<p class="formula-words">Desconta o R² pelo número de variáveis usadas, para não premiar
+complexidade.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(R^2\) | R² do modelo |
+| \(n\) | número de observações |
+| \(p\) | número de preditores |
+
+**Premia:** modelos que explicam mais com menos variáveis. **Pune:** adicionar preditores
+que não melhoram o ajuste.  
+**Engana quando:** é usado para modelos regularizados ou de ML; nesses casos, compare por
+erro em validação cruzada.
+:::
+
+### RMSE
+
+::: {.formula-card}
+#### Raiz do erro quadrático médio
+
+<p class="formula-words">É o “erro típico” na unidade do alvo, com penalização quadrática.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(y_i\) | valor observado |
+| \(\hat{y}_i\) | valor previsto |
+| \(n\) | número de observações |
+
+**Premia:** erros pequenos. **Pune:** erros grandes com força.  
+**Engana quando:** há outliers extremos ou você compara alvos com unidades diferentes.
+:::
+
+### MAE
+
+::: {.formula-card}
+#### Erro absoluto médio
+
+<p class="formula-words">É a magnitude média do erro, sem elevar ao quadrado.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(y_i\) | valor observado |
+| \(\hat{y}_i\) | valor previsto |
+| \(n\) | número de observações |
+
+**Premia:** erro médio baixo. **Pune:** todos os erros linearmente.  
+**Engana quando:** esconde erros grandes na cauda; combine com RMSE ou MedAE.
+:::
+
+### MAPE
+
+::: {.formula-card}
+#### Erro percentual absoluto médio
+
+<p class="formula-words">Mede o erro relativo, em percentual do valor observado.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(y_i\) | valor observado |
+| \(\hat{y}_i\) | valor previsto |
+| \(n\) | número de observações |
+
+**Premia:** erro relativo baixo. **Pune:** mais a superestimação do que a subestimação.  
+**Engana quando:** o alvo tem zero ou valores próximos de zero; aí use MAE, RMSE ou sMAPE.
+:::
+
+### sMAPE
+
+::: {.formula-card}
+#### MAPE simétrico
+
+<p class="formula-words">Versão do MAPE que divide pela média entre observado e previsto.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(y_i\) | valor observado |
+| \(\hat{y}_i\) | valor previsto |
+| \(n\) | número de observações |
+
+**Premia:** erro relativo baixo nos dois sentidos. **Pune:** erros relativos grandes.  
+**Engana quando:** o denominador é pequeno; ainda sofre perto de zero.
+:::
+
+### MSLE
+
+::: {.formula-card}
+#### Erro logarítmico quadrático
+
+<p class="formula-words">Compara o log(1+y) observado com o log(1+previsto).</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(y_i\) | valor observado (≥ 0) |
+| \(\hat{y}_i\) | valor previsto (≥ 0) |
+| \(n\) | número de observações |
+
+**Premia:** acertar em escala relativa. **Pune:** mais a subestimação.  
+**Engana quando:** o alvo tem zeros ou negativos; não é para qualquer variável.
+:::
+
+## Classificação
+
+### Acurácia
+
+::: {.formula-card}
+#### Proporção de acertos
+
+<p class="formula-words">Divide os acertos pelo total de casos.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(TP\) | verdadeiros positivos |
+| \(TN\) | verdadeiros negativos |
+| \(FP\) | falsos positivos |
+| \(FN\) | falsos negativos |
+
+**Premia:** acertar a classe majoritária. **Pune:** qualquer erro, sem distinguir o tipo.  
+**Engana quando:** as classes são desbalanceadas; um modelo que prevê sempre a majoritária
+acerta muito e tem recall zero.
+:::
+
+### Acurácia balanceada
+
+::: {.formula-card}
+#### Média do acerto por classe
+
+<p class="formula-words">Calcula o recall de cada classe e tira a média.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(TPR\) | recall da classe positiva |
+| \(TNR\) | especificidade |
+
+**Premia:** acertar as duas classes. **Pune:** ignorar a classe minoritária.  
+**Engana quando:** ainda não incorpora o custo do erro; use com precisão/recall.
+:::
+
+### Precisão
+
+::: {.formula-card}
+#### Dos previstos positivos, quantos são positivos
+
+<p class="formula-words">Mede a qualidade dos alarmes positivos.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(TP\) | verdadeiros positivos |
+| \(FP\) | falsos positivos |
+
+**Premia:** evitar falsos positivos. **Pune:** alarmes falsos.  
+**Engana quando:** o modelo prevê poucos positivos; a precisão pode ser alta com recall
+baixo.
+:::
+
+### Recall
+
+::: {.formula-card}
+#### Dos positivos reais, quantos foram encontrados
+
+<p class="formula-words">Mede a capacidade de encontrar os casos positivos.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(TP\) | verdadeiros positivos |
+| \(FN\) | falsos negativos |
+
+**Premia:** encontrar positivos. **Pune:** deixar positivos passarem.  
+**Engana quando:** você aceita muitos falsos positivos para subir o recall.
+:::
+
+### Especificidade
+
+::: {.formula-card}
+#### Dos negativos reais, quantos foram encontrados
+
+<p class="formula-words">É o recall da classe negativa.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(TN\) | verdadeiros negativos |
+| \(FP\) | falsos positivos |
+
+**Premia:** evitar alarmes falsos. **Pune:** classificar negativos como positivos.  
+**Engana quando:** a classe negativa é maioria e a métrica parece alta sem esforço.
+:::
+
+### F1
+
+::: {.formula-card}
+#### Média harmônica entre precisão e recall
+
+<p class="formula-words">Equilibra precisão e recall em um único número.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(P\) | precisão |
+| \(R\) | recall |
+
+**Premia:** equilíbrio entre os dois. **Pune:** qualquer um dos dois muito baixo.  
+**Engana quando:** os custos de FP e FN são muito diferentes; F1 trata os dois como iguais.
+:::
+
+### MCC
+
+::: {.formula-card}
+#### Coeficiente de Matthews
+
+<p class="formula-words">Mede a correlação entre real e previsto usando os quatro quadrantes.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(TP, TN, FP, FN\) | os quatro quadrantes da matriz |
+
+**Premia:** acerto consistente nas duas classes. **Pune:** desequilíbrio entre erros.  
+**Engana quando:** você precisa comunicar para público não técnico; o valor é menos intuitivo.
+:::
+
+### Kappa
+
+::: {.formula-card}
+#### Concordância acima do acaso
+
+<p class="formula-words">Desconta do acerto a parte que seria esperada por sorte.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(p_o\) | acerto observado |
+| \(p_e\) | acerto esperado por acaso |
+
+**Premia:** concordância real. **Pune:** acerto que o acaso já explicaria.  
+**Engana quando:** a prevalência é muito assimétrica; kappa pode ser baixo mesmo com bom
+modelo.
+:::
+
+## Probabilidade
+
+### Log loss
+
+::: {.formula-card}
+#### Entropia cruzada
+
+<p class="formula-words">Pune a confiança errada: prever 0,99 para a classe errada custa
+muito.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(y_i\) | classe real (0 ou 1) |
+| \(p_i\) | probabilidade prevista da classe 1 |
+| \(n\) | número de observações |
+
+**Premia:** probabilidades altas para a classe correta. **Pune:** confiança errada.  
+**Engana quando:** você quer uma leitura intuitiva; o valor não tem unidade.
+:::
+
+### Brier
+
+::: {.formula-card}
+#### Erro quadrático da probabilidade
+
+<p class="formula-words">Compara a probabilidade prevista com o resultado 0/1.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(y_i\) | classe real (0 ou 1) |
+| \(p_i\) | probabilidade prevista |
+| \(n\) | número de observações |
+
+**Premia:** probabilidade próxima do resultado. **Pune:** confiança errada.  
+**Engana quando:** você quer separar discriminação de calibração; Brier mistura as duas.
+:::
+
+## Modelos
+
+### Regressão linear
+
+::: {.formula-card}
+#### A reta (ou hiperplano)
+
+<p class="formula-words">A saída é uma soma ponderada das entradas mais um intercepto.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(\beta_0\) | intercepto |
+| \(\beta_j\) | coeficiente da variável \(j\) |
+| \(x_{ij}\) | valor da variável \(j\) na observação \(i\) |
+| \(\varepsilon_i\) | erro |
+
+**Premia:** relação linear e coeficientes interpretáveis. **Pune:** não linearidade e
+interações não modeladas.  
+**Engana quando:** há multicolinearidade, outliers ou extrapolação.
+:::
+
+### Logito e sigmoide
+
+::: {.formula-card}
+#### Regressão logística
+
+<p class="formula-words">Modela o log-odds como uma reta e transforma em probabilidade com
+a sigmoide.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(p\) | probabilidade da classe 1 |
+| \(\beta_0\) | intercepto |
+| \(\beta_j\) | coeficiente |
+| \(x_j\) | variável |
+
+**Premia:** fronteira linear no logito e probabilidade interpretável. **Pune:** relações
+muito não lineares.  
+**Engana quando:** há separação perfeita, desbalanceamento severo ou calibração ruim.
+:::
+
+### Ridge e Lasso
+
+::: {.formula-card}
+#### Penalidade nos coeficientes
+
+<p class="formula-words">Soma ao erro uma penalidade pelo tamanho dos coeficientes.</p>
+
+| Símbolo | Significado |
+|---|---|
+| \(\lambda\) ou \(\alpha\) | força da penalidade |
+| \(\beta_j\) | coeficiente |
+| \(\|\beta\|_2^2\) | soma dos quadrados (Ridge) |
+| \(\|\beta\|_1\) | soma dos módulos (Lasso) |
+
+**Premia:** coeficientes pequenos e estáveis. **Pune:** coeficientes grandes.  
+**Engana quando:** as variáveis não foram padronizadas ou o alpha está na borda.
+:::
+
+## Próximo passo
+
+[Métricas de regressão](01-regressao.qmd) e
+[métricas de classificação](02-classificacao.qmd).

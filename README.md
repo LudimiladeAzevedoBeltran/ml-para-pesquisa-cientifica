@@ -5,7 +5,7 @@ escolher o modelo, calibrar com critério, avaliar com a métrica adequada e int
 resultados com base em figuras diagnósticas.
 
 > **Idioma:** português (versão em inglês planejada).
-> **Status:** Fase 8 — fundamentos, modelos, calibração, avaliação, interpretação, projetos, reprodutibilidade, extras e visualização de dados (distribuição, relação, tempo, espaço, categorias, multivariado, incerteza, 3D, cores, diagnóstico de modelos e gráficos enganosos).
+> **Status:** Fase 9 — fundamentos, modelos, calibração, avaliação, interpretação, projetos, reprodutibilidade, extras e visualização de dados (distribuição, relação, tempo, espaço, categorias, multivariado, incerteza, 3D, cores, diagnóstico de modelos e gráficos enganosos).
 
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-4a5937.svg)](LICENSE)
 [![Texto: CC BY 4.0](https://img.shields.io/badge/texto-CC%20BY%204.0-b96c4c.svg)](LICENSE-docs)

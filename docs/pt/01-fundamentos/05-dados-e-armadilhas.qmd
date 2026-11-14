@@ -23,6 +23,8 @@ entra no treino. Ele produz um resultado bonito e falso.
 | De seleção | escolher features olhando o teste | erro reportado menor |
 | De target | feature calculada a partir do alvo | modelo "vidente" |
 
+![Vazamento: o teste não pode influenciar o pré-processamento nem a seleção.](../../img/diag_leakage.png){fig-align="center" width="88%"}
+
 ## Desbalanceamento
 
 Em classificação, 95% de uma classe e 5% da outra é comum (fogo, fraude, doença rara). A
@@ -82,6 +84,10 @@ A validação cruzada comum embaralha as linhas. Isso é errado quando:
 - **Grupo:** a mesma entidade aparece várias vezes. Use `GroupKFold`.
 
 O resultado de uma CV que ignora isso é otimista e não se sustenta.
+
+![Split temporal: o passado treina e o futuro testa; a janela de treino cresce.](../../img/diag_cv_temporal.png){fig-align="center" width="82%"}
+
+![CV espacial: blocos de teste separados por um buffer para reduzir dependência entre vizinhos.](../../img/diag_cv_espacial.png){fig-align="center" width="66%"}
 
 ## Código: vendo o vazamento na seleção
 

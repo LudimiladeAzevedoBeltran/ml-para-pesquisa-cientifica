@@ -27,6 +27,31 @@ Quando `z = 0`, `p = 0,5`. O limiar de decisão é uma escolha sua — 0,5 é s�
 
 ![Regressão logística: a probabilidade passa por 0,5 quando z = 0.](../../img/logistica_sigmoide.png){fig-align="center" width="76%"}
 
+::: {.formula-card}
+#### Fórmula comentada
+
+<p class="formula-words">O modelo faz uma reta no log-odds e transforma o resultado em
+probabilidade com a sigmoide.</p>
+
+$$
+\log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p
+\qquad
+p = \frac{1}{1 + e^{-z}}
+$$
+
+| Símbolo | Significado |
+|---|---|
+| \(p\) | probabilidade da classe 1 |
+| \(\frac{p}{1-p}\) | odds (razão de chances) |
+| \(\beta_0\) | intercepto no log-odds |
+| \(\beta_j\) | coeficiente da variável \(j\) |
+| \(x_j\) | variável \(j\) |
+
+**O que premia:** fronteira linear no logito e coeficientes interpretáveis como odds ratios.  
+**O que pune:** relações muito não lineares e separação perfeita.  
+**Quando engana:** desbalanceamento severo, separação perfeita e calibração ruim.
+:::
+
 ## Quando usar
 
 - Classificação binária com relação aproximadamente linear no logito.

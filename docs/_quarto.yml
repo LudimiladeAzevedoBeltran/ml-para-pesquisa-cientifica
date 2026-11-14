@@ -66,6 +66,16 @@ website:
             href: pt/02-modelos/06-random-forest.qmd
           - text: "Gradient boosting"
             href: pt/02-modelos/07-gradient-boosting.qmd
+          - text: "KNN"
+            href: pt/02-modelos/08-knn.qmd
+          - text: "SVM"
+            href: pt/02-modelos/09-svm.qmd
+          - text: "Naive Bayes"
+            href: pt/02-modelos/10-naive-bayes.qmd
+          - text: "K-means"
+            href: pt/02-modelos/11-kmeans.qmd
+          - text: "PCA"
+            href: pt/02-modelos/12-pca.qmd
       - section: "Parte III — Calibração"
         contents:
           - text: "1. Parâmetro vs hiperparâmetro"
@@ -80,6 +90,8 @@ website:
             href: pt/03-calibracao/05-boas-praticas.qmd
       - section: "Parte IV — Avaliação"
         contents:
+          - text: "Fórmulas comentadas"
+            href: pt/04-avaliacao/00-formulas-comentadas.qmd
           - text: "Métricas de regressão"
             href: pt/04-avaliacao/01-regressao.qmd
           - text: "Métricas de classificação"

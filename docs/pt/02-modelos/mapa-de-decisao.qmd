@@ -135,8 +135,13 @@ Hoje estão prontas:
 - [Árvore de decisão](05-arvore-decisao.qmd)
 - [Random Forest](06-random-forest.qmd)
 - [Gradient boosting](07-gradient-boosting.qmd)
+- [KNN](08-knn.qmd)
+- [SVM](09-svm.qmd)
+- [Naive Bayes](10-naive-bayes.qmd)
+- [K-means](11-kmeans.qmd)
+- [PCA](12-pca.qmd)
 
-Em breve: Baseline, KNN, Naive Bayes, SVM, MLP, K-means, DBSCAN/hierárquico e PCA.
+Em breve: Baseline, MLP e DBSCAN/hierárquico.
 
 ## Checklist
 

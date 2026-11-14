@@ -33,6 +33,8 @@ precisa ser ajustada **apenas no treino** e aplicada ao resto.
 Se você escala a base inteira antes do split, a média e o desvio do teste vazam para o
 treino. O erro fica otimista e não se reproduz.
 
+![Validação cruzada: cada bloco é teste uma vez, e o resto treina.](../../img/diag_cv.png){fig-align="center" width="82%"}
+
 ## Baseline primeiro
 
 Nunca compare um modelo sofisticado com o nada. Compare com:

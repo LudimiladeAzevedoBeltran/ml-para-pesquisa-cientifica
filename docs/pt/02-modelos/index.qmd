@@ -32,16 +32,16 @@ Modelo complexo não compensa falta de dado, de desenho ou de métrica.
 | [Regressão linear](02-regressao-linear.qmd) | regressão | alta | baixo | **pronto** |
 | [Ridge / Lasso / Elastic Net](03-ridge-lasso.qmd) | regressão | alta | baixo | **pronto** |
 | [Regressão logística](04-regressao-logistica.qmd) | classificação | alta | baixo | **pronto** |
-| KNN | regressão/classificação | média | médio | em breve |
-| Naive Bayes | classificação | média | baixo | em breve |
-| SVM | regressão/classificação | baixa/média | médio | em breve |
+| [KNN](08-knn.qmd) | regressão/classificação | média | médio | **pronto** |
+| [Naive Bayes](10-naive-bayes.qmd) | classificação | média | baixo | **pronto** |
+| [SVM](09-svm.qmd) | regressão/classificação | baixa/média | médio | **pronto** |
 | [Árvore de decisão](05-arvore-decisao.qmd) | regressão/classificação | alta | baixo | **pronto** |
 | [Random Forest](06-random-forest.qmd) | regressão/classificação | média | médio/alto | **pronto** |
 | [Gradient Boosting](07-gradient-boosting.qmd) | regressão/classificação | média | alto | **pronto** |
 | Rede neural (MLP) | regressão/classificação | baixa | alto | em breve |
-| K-means | clusterização | média | baixo | em breve |
+| [K-means](11-kmeans.qmd) | clusterização | média | baixo | **pronto** |
 | DBSCAN / hierárquico | clusterização | média | médio | em breve |
-| PCA | redução de dimensionalidade | média | baixo | em breve |
+| [PCA](12-pca.qmd) | redução de dimensionalidade | média | baixo | **pronto** |
 
 ## O que a ficha responde
 

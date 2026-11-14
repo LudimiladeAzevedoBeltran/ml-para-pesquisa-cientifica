@@ -26,6 +26,34 @@ pequenas mudanças no dado mudam muito os coeficientes.
 
 O preço é viés. O ganho é variância menor e melhor erro fora da amostra.
 
+::: {.formula-card}
+#### Fórmula comentada
+
+<p class="formula-words">A função de custo soma o erro quadrático e uma penalidade pelo
+tamanho dos coeficientes.</p>
+
+$$
+\text{Ridge}: \sum_{i=1}^{n}(y_i-\hat{y}_i)^2 + \alpha \sum_{j=1}^{p}\beta_j^2
+$$
+
+$$
+\text{Lasso}: \sum_{i=1}^{n}(y_i-\hat{y}_i)^2 + \alpha \sum_{j=1}^{p}|\beta_j|
+$$
+
+| Símbolo | Significado |
+|---|---|
+| \(\hat{y}_i\) | previsão do modelo |
+| \(\alpha\) | força da penalidade |
+| \(\beta_j\) | coeficiente da variável \(j\) |
+| \(\sum \beta_j^2\) | penalidade L2 (Ridge) |
+| \(\sum \|\beta_j\|\) | penalidade L1 (Lasso) |
+
+**O que premia:** coeficientes pequenos e estáveis.  
+**O que pune:** coeficientes grandes; no Lasso, também zera coeficientes.  
+**Quando engana:** sem padronização, com alpha na borda ou lendo coeficiente regularizado
+como efeito causal.
+:::
+
 ## Quando usar
 
 - Muitas features, `p` próximo de `n` ou `p > n`.

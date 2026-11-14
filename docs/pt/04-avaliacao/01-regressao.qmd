@@ -9,6 +9,12 @@ title: "Métricas de regressão"
 cada uma mede, o que ela esconde e quando não usar.
 </div>
 
+::: {.callout-tip}
+## Fórmulas comentadas
+A página [Fórmulas comentadas](00-formulas-comentadas.qmd) explica cada símbolo, o que a
+fórmula premia ou pune e quando ela engana.
+:::
+
 ## A métrica não é enfeite
 
 A métrica define o que o modelo vai otimizar e o que você vai reportar. Escolher depois de

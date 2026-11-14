@@ -615,7 +615,7 @@ fichas de modelo.
 
 ---
 
-## 15. Status das Fases 1 a 8 (entregues)
+## 15. Status das Fases 1 a 9 (entregues)
 
 | Item | Arquivo | Estado |
 |---|---|---|
@@ -632,7 +632,14 @@ fichas de modelo.
 | Ficha Árvore de decisão | `docs/pt/02-modelos/05-arvore-decisao.qmd` | pronto |
 | Ficha Random Forest | `docs/pt/02-modelos/06-random-forest.qmd` | pronto |
 | Ficha Gradient boosting | `docs/pt/02-modelos/07-gradient-boosting.qmd` | pronto |
-| Figuras de modelos | `docs/img/ridge_lasso_caminho.png`, `logistica_sigmoide.png`, `arvore_decisao.png`, `random_forest_oob.png`, `gradient_boosting_curvas.png` + `src/gerar_figuras_modelos.py` | pronto |
+| Ficha KNN | `docs/pt/02-modelos/08-knn.qmd` | pronto |
+| Ficha SVM | `docs/pt/02-modelos/09-svm.qmd` | pronto |
+| Ficha Naive Bayes | `docs/pt/02-modelos/10-naive-bayes.qmd` | pronto |
+| Ficha K-means | `docs/pt/02-modelos/11-kmeans.qmd` | pronto |
+| Ficha PCA | `docs/pt/02-modelos/12-pca.qmd` | pronto |
+| Fórmulas comentadas | `docs/pt/04-avaliacao/00-formulas-comentadas.qmd` | pronto |
+| Diagramas conceituais | `docs/img/diag_*.png` + `src/gerar_diagramas.py` | pronto |
+| Figuras de modelos | `docs/img/ridge_lasso_caminho.png`, `logistica_sigmoide.png`, `arvore_decisao.png`, `random_forest_oob.png`, `gradient_boosting_curvas.png`, `knn_fronteira.png`, `svm_margem.png`, `nb_posterior.png` + scripts em `src/` | pronto |
 | Métricas de regressão | `docs/pt/04-avaliacao/01-regressao.qmd` | pronto |
 | Laboratório de interpretação | `docs/pt/05-interpretacao/01-ajuste-regressao.qmd` | pronto |
 | Figuras do laboratório | `docs/img/previsto_observado_*.png` + `src/gerar_figuras.py` | pronto |
@@ -679,10 +686,9 @@ fichas de modelo.
 | Figuras da visualização | `docs/img/graf_*.png`, `docs/img/plot3d_*.html`, `docs/img/plot_cat_sankey.html` + scripts em `src/` | pronto |
 | Site renderizado | `docs/_site/` | pronto |
 
-**Próxima fase:** completar as fichas restantes (Baseline, KNN, Naive Bayes, SVM, MLP,
-K-means, DBSCAN/hierárquico e PCA) e reestruturar didaticamente as páginas existentes
-(fórmulas comentadas, diagramas e explicação em camadas). Depois, v2: versão em inglês,
-deep learning, séries temporais e NLP.
+**Próxima fase:** completar as fichas restantes (Baseline, MLP e DBSCAN/hierárquico),
+aplicar o template didático às demais páginas e fechar a citação/Zenodo. Depois, v2: versão
+em inglês, deep learning, séries temporais e NLP.
 
 > Nota operacional: o `quarto render` dentro do Google Drive pode falhar com `os error 303`
 > por bloqueio de sincronização. Renderize a partir de uma cópia local ou pause a

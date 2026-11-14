@@ -22,6 +22,30 @@ que a distância vertical média dos pontos até ela seja a menor possível. A i
 quanto `y` muda quando `x` aumenta uma unidade; o intercepto diz o valor de `y` quando
 `x = 0`.
 
+::: {.formula-card}
+#### Fórmula comentada
+
+<p class="formula-words">A saída é uma soma ponderada das entradas, mais um intercepto e um
+erro.</p>
+
+$$
+y_i = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_p x_{ip} + \varepsilon_i
+$$
+
+| Símbolo | Significado |
+|---|---|
+| \(y_i\) | valor observado da observação \(i\) |
+| \(\beta_0\) | intercepto |
+| \(\beta_j\) | coeficiente da variável \(j\) |
+| \(x_{ij}\) | valor da variável \(j\) na observação \(i\) |
+| \(\varepsilon_i\) | erro (o que o modelo não captura) |
+
+**O que premia:** relação linear e coeficientes interpretáveis.  
+**O que pune:** não linearidade e interações não modeladas.  
+**Quando engana:** multicolinearidade, outliers, extrapolação e leitura causal do
+coeficiente.
+:::
+
 ## Quando usar
 
 - Relação aproximadamente linear entre `X` e `y`.

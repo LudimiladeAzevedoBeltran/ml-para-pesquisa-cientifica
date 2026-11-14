@@ -110,6 +110,8 @@ São coisas diferentes com o mesmo nome.
 **Discriminação** (ROC/PR) pergunta: o modelo ordena bem os casos? **Calibração** pergunta:
 o número 0,8 significa 80%? Um modelo pode discriminar bem e ser mal calibrado.
 
+![As duas “calibrações”: probabilidade (esquerda) e hiperparâmetros (direita).](../../img/diag_calibracao.png){fig-align="center" width="92%"}
+
 ## Multiclasse
 
 - ROC/PR são binárias. Para multiclasse, use **one-vs-rest** (uma curva por classe) ou

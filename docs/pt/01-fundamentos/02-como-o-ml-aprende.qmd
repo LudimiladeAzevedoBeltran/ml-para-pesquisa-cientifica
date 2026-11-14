@@ -79,6 +79,10 @@ otimista e não se reproduz em produção.
 O **trade-off viés–variância** é o pêndulo: aumentar complexidade reduz viés e aumenta
 variância. O ponto ótimo é onde o erro de validação é mínimo — não onde o de treino é mínimo.
 
+![Viés–variância: o erro de validação tem um mínimo; à esquerda sobra viés, à direita sobra variância.](../../img/diag_bias_variancia.png){fig-align="center" width="82%"}
+
+![O mesmo dado ajustado com três complexidades: underfitting, ajuste adequado e overfitting.](../../img/diag_overfitting.png){fig-align="center" width="96%"}
+
 ::: {.callout-note}
 ## A regra do dedo
 Se o erro de treino é muito menor que o de validação, o modelo está decorando. Se os dois

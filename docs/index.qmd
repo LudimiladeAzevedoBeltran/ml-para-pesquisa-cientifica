@@ -84,7 +84,7 @@ pesquisa científica. Você vê o que cada escolha implica e decide.</p>
 
 ## Status
 
-Esta é a **Fase 8**: o site cobre fundamentos, modelos, calibração, avaliação, interpretação,
+Esta é a **Fase 9**: o site cobre fundamentos, modelos, calibração, avaliação, interpretação,
 projetos guiados, reprodutibilidade, extras e a Parte IX de visualização (distribuição,
 relação, tempo, espaço, categorias, multivariado, incerteza, 3D, cores, diagnóstico de
 modelos e gráficos enganosos). O planejamento completo está em

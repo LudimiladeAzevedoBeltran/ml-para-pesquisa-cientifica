@@ -9,6 +9,12 @@ title: "Métricas de classificação"
 precisão, recall, F1, MCC e kappa — sem cair na armadilha do desbalanceamento.
 </div>
 
+::: {.callout-tip}
+## Fórmulas comentadas
+A página [Fórmulas comentadas](00-formulas-comentadas.qmd) explica cada símbolo, o que a
+fórmula premia ou pune e quando ela engana.
+:::
+
 ## A matriz de confusão é o começo
 
 Toda métrica de classificação binária sai de quatro números:
