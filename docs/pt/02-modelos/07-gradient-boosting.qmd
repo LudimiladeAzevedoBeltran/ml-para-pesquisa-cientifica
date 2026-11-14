@@ -25,6 +25,29 @@ quanto de cada correção entra; o **n_estimators** controla quantas correções
 - Learning rate grande + poucas árvores: converge rápido, mas pode passar do ponto.
 - Profundidade maior: captura interações, mas decora.
 
+::: {.formula-card}
+#### Fórmula comentada
+
+<p class="formula-words">Cada árvore nova entra com um peso pequeno e corrige o erro da soma
+anterior.</p>
+
+$$
+F_m(x) = F_{m-1}(x) + \nu\, h_m(x)
+$$
+
+| Símbolo | Significado |
+|---|---|
+| \(F_m\) | modelo após \(m\) árvores |
+| \(h_m\) | árvore nova, ajustada ao resíduo/gradiente |
+| \(\nu\) | learning rate (quanto da correção entra) |
+| \(m\) | número de árvores já acumuladas |
+
+**O que premia:** correções sequenciais que reduzem o erro.  
+**O que pune:** árvores profundas demais e learning rate alto.  
+**Quando engana:** sem early stopping, com `n_estimators` alto, ou lendo importância como
+causalidade.
+:::
+
 ## Quando usar
 
 - Dados tabulares, busca de maior acurácia.

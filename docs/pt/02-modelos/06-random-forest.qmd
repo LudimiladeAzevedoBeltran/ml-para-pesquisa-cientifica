@@ -22,6 +22,28 @@ lugares diferentes. A média dos erros cancela parte da variância. O sorteio de
 cada split **descorrelaciona** as árvores — é isso que faz o ensemble funcionar melhor que
 só repetir a mesma árvore.
 
+::: {.formula-card}
+#### Fórmula comentada
+
+<p class="formula-words">A previsão é a média das árvores (regressão) ou o voto/probabilidade
+média (classificação).</p>
+
+$$
+\hat{y}(x) = \frac{1}{B}\sum_{b=1}^{B} T_b(x)
+$$
+
+| Símbolo | Significado |
+|---|---|
+| \(B\) | número de árvores |
+| \(T_b(x)\) | previsão da árvore \(b\) para a observação \(x\) |
+| \(\hat{y}(x)\) | previsão final do ensemble |
+
+**O que premia:** diversidade entre árvores e média de previsões.  
+**O que pune:** árvores muito correlacionadas e poucas árvores.  
+**Quando engana:** extrapolação, importância com features correlacionadas e uso do OOB como
+teste final.
+:::
+
 ## Quando usar
 
 - Dados tabulares com relações não lineares e interações.

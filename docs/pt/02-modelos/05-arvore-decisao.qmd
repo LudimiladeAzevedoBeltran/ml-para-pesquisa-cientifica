@@ -25,6 +25,27 @@ do alvo. O caminho da raiz até a folha é a regra de decisão.
 e temperatura; à direita, por temperatura e vento de novo. As folhas mostram a previsão
 média de CH4 naquele grupo.
 
+::: {.formula-card}
+#### Fórmula comentada
+
+<p class="formula-words">A árvore escolhe o corte que mais reduz a impureza dos filhos em
+relação ao nó pai.</p>
+
+$$
+\Delta I = I(\text{pai}) - \frac{n_L}{n}I(\text{esq}) - \frac{n_R}{n}I(\text{dir})
+$$
+
+| Símbolo | Significado |
+|---|---|
+| \(I\) | impureza (Gini, entropia ou MSE) |
+| \(n\) | número de observações no nó pai |
+| \(n_L, n_R\) | observações nos filhos esquerdo e direito |
+
+**O que premia:** filhos mais puros que o pai.  
+**O que pune:** cortes que deixam os filhos misturados.  
+**Quando engana:** árvore sem poda, instabilidade entre sementes e extrapolação.
+:::
+
 ## Quando usar
 
 - Precisa de regras interpretáveis e apresentáveis.
