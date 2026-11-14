@@ -22,9 +22,13 @@ dado**, não pelo software.
 | Duas variáveis se relacionam? | Relação | dispersão, hexbin, densidade 2D, bolha, pairplot, correlação | [Relação](02-relacao.qmd) |
 | Como os valores evoluem no tempo? | Tempo | linha, área, sazonal, lag, ACF, calendário, small multiples | [Tempo](05-tempo.qmd) |
 | Onde está no espaço? | Espaço | bolha, raster, contorno, hexbin, small multiples, coroplético | [Espaço](06-espaco.qmd) |
+| Como as categorias se comparam? | Categorias | barras, dot, agrupadas, empilhadas, mosaico, waterfall, Sankey | [Categorias](07-categorias.qmd) |
+| Muitas variáveis ao mesmo tempo? | Multivariado | PCA biplot, paralelas, radar, rede | [Multivariado](08-multivariado.qmd) |
+| Qual a incerteza da estimativa? | Incerteza | coeficientes com IC, Bland–Altman, QQ, boxen | [Incerteza](09-incerteza.qmd) |
+| O modelo de regressão está adequado? | Diagnóstico | resíduos, previsto vs observado, curvas, SHAP | [Diagnóstico de regressão](10-diagnostico-regressao.qmd) |
+| O classificador está adequado? | Diagnóstico | matriz, ROC, PR, calibração, lift | [Diagnóstico de classificação](11-diagnostico-classificacao.qmd) |
 | Preciso de profundidade ou volume? | 3D | dispersão 3D, superfície, trisurf, isosuperfície | [3D](03-3d.qmd) |
 | Como escolher cores acessíveis? | Cor | paletas, daltonismo, contraste, escala de cinza | [Cores](04-cores-acessibilidade.qmd) |
-| Categorias e modelos | Em construção | barras, dot, mosaico, resíduos, ROC | em breve |
 
 ## Como ler cada ficha
 

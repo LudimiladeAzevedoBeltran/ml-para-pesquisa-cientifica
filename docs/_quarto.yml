@@ -134,6 +134,16 @@ website:
             href: pt/09-graficos/05-tempo.qmd
           - text: "Espaço"
             href: pt/09-graficos/06-espaco.qmd
+          - text: "Categorias e composição"
+            href: pt/09-graficos/07-categorias.qmd
+          - text: "Multivariado"
+            href: pt/09-graficos/08-multivariado.qmd
+          - text: "Incerteza"
+            href: pt/09-graficos/09-incerteza.qmd
+          - text: "Diagnóstico de regressão"
+            href: pt/09-graficos/10-diagnostico-regressao.qmd
+          - text: "Diagnóstico de classificação"
+            href: pt/09-graficos/11-diagnostico-classificacao.qmd
           - text: "3D"
             href: pt/09-graficos/03-3d.qmd
           - text: "Cores e acessibilidade"
