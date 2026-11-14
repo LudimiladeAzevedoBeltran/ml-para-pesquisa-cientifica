@@ -29,6 +29,29 @@ não existe. Uma figura acessível não é “mais bonita”: é **mais honesta*
 cinza. Okabe-Ito é categórica e desenhada para daltonismo. Set2 é categórica, mas tem
 contraste desigual.
 
+::: {.callout-note collapse="true" title="Código Python"}
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+okabe = ["#E69F00", "#56B4E9", "#009E73", "#F0E442",
+         "#0072B2", "#D55E00", "#CC79A7", "#000000"]
+paletas = {
+    "viridis": plt.cm.viridis(np.linspace(0, 1, 8)),
+    "cividis": plt.cm.cividis(np.linspace(0, 1, 8)),
+    "Okabe-Ito": okabe,
+    "Set2": plt.cm.Set2(np.linspace(0, 1, 8)),
+}
+fig, ax = plt.subplots(figsize=(9, 5))
+for i, (nome, cores) in enumerate(paletas.items()):
+    for j, cor in enumerate(cores):
+        ax.add_patch(plt.Rectangle((j, -i), 0.92, 0.8, color=cor))
+    ax.text(-0.2, -i + 0.4, nome, ha="right", va="center")
+ax.axis("off")
+plt.show()
+```
+:::
+
 ## Daltonismo
 
 ![Simulação de daltonismo: vermelho/verde vs Okabe-Ito.](../../img/graf_daltonismo.png){fig-align="center" width="92%"}
@@ -36,6 +59,43 @@ contraste desigual.
 **Leitura:** na primeira linha, vermelho e verde colapsam para tons parecidos de oliva.
 Na segunda, laranja e azul continuam distinguíveis. A simulação é aproximada; serve para
 mostrar o risco, não para certificar a paleta.
+
+::: {.callout-note collapse="true" title="Código Python"}
+```python
+import matplotlib.colors as mcolors
+import matplotlib.pyplot as plt
+import numpy as np
+
+def simular_cvd(hexcor, tipo="deuteranopia"):
+    rgb = np.array(mcolors.to_rgb(hexcor))
+    linear = np.where(rgb <= 0.04045, rgb / 12.92,
+                      ((rgb + 0.055) / 1.055) ** 2.4)
+    matrizes = {
+        "deuteranopia": np.array([[0.367322, 0.860646, -0.227968],
+                                  [0.280085, 0.672501, 0.047413],
+                                  [-0.011820, 0.042940, 0.968881]]),
+        "protanopia": np.array([[0.152286, 1.052583, -0.204868],
+                                [0.114503, 0.786281, 0.099216],
+                                [-0.003882, -0.048116, 1.051998]]),
+    }
+    sim = np.clip(matrizes[tipo] @ linear, 0, 1)
+    srgb = np.where(sim <= 0.0031308, sim * 12.92,
+                    1.055 * sim ** (1 / 2.4) - 0.055)
+    return np.clip(srgb, 0, 1)
+
+ruim = ["#D00000", "#008000"]
+boa = ["#D55E00", "#0072B2"]
+fig, eixos = plt.subplots(2, 3, figsize=(9, 5))
+for linha, paleta in enumerate([ruim, boa]):
+    for coluna, tipo in enumerate(["normal", "deuteranopia", "protanopia"]):
+        ax = eixos[linha, coluna]
+        for k, cor in enumerate(paleta):
+            c = cor if tipo == "normal" else simular_cvd(cor, tipo)
+            ax.scatter(np.full(10, k), np.linspace(0, 1, 10), s=70, color=c)
+        ax.set_xticks([0, 1], ["A", "B"])
+plt.show()
+```
+:::
 
 ::: {.callout-warning}
 ## Nunca use cor como único canal

@@ -148,6 +148,8 @@ website:
             href: pt/09-graficos/03-3d.qmd
           - text: "Cores e acessibilidade"
             href: pt/09-graficos/04-cores-acessibilidade.qmd
+          - text: "Gráficos enganosos"
+            href: pt/09-graficos/12-graficos-enganosos.qmd
   page-footer:
     left: "**Machine Learning para Pesquisa Científica** — Ludimila de Azevedo Beltran"
     right: "[MIT](https://github.com/LudimiladeAzevedoBeltran/ml-para-pesquisa-cientifica/blob/main/LICENSE) (código) · [CC BY 4.0](https://github.com/LudimiladeAzevedoBeltran/ml-para-pesquisa-cientifica/blob/main/LICENSE-docs) (texto)"

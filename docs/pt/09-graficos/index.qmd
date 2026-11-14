@@ -29,6 +29,7 @@ dado**, não pelo software.
 | O classificador está adequado? | Diagnóstico | matriz, ROC, PR, calibração, lift | [Diagnóstico de classificação](11-diagnostico-classificacao.qmd) |
 | Preciso de profundidade ou volume? | 3D | dispersão 3D, superfície, trisurf, isosuperfície | [3D](03-3d.qmd) |
 | Como escolher cores acessíveis? | Cor | paletas, daltonismo, contraste, escala de cinza | [Cores](04-cores-acessibilidade.qmd) |
+| Como não enganar? | Enganosos | pizza, 3D de barras, duplo eixo, eixo truncado, arco-íris | [Enganosos](12-graficos-enganosos.qmd) |
 
 ## Como ler cada ficha
 

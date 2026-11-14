@@ -615,7 +615,7 @@ fichas de modelo.
 
 ---
 
-## 15. Status das Fases 1 a 7 (entregues)
+## 15. Status das Fases 1 a 8 (entregues)
 
 | Item | Arquivo | Estado |
 |---|---|---|
@@ -673,16 +673,16 @@ fichas de modelo.
 | Visualização — diagnóstico de classificação | `docs/pt/09-graficos/11-diagnostico-classificacao.qmd` | pronto |
 | Visualização — 3D | `docs/pt/09-graficos/03-3d.qmd` | pronto |
 | Visualização — cores e acessibilidade | `docs/pt/09-graficos/04-cores-acessibilidade.qmd` | pronto |
+| Visualização — gráficos enganosos | `docs/pt/09-graficos/12-graficos-enganosos.qmd` | pronto |
 | Dados de tempo/espaço | `data/exemplo_serie.csv`, `data/exemplo_espacial.csv` + `src/gerar_figuras_tempo_espaco.py` | pronto |
 | Dados de categorias | `data/exemplo_categorias.csv` + `src/gerar_figuras_avancadas.py` | pronto |
 | Figuras da visualização | `docs/img/graf_*.png`, `docs/img/plot3d_*.html`, `docs/img/plot_cat_sankey.html` + scripts em `src/` | pronto |
 | Site renderizado | `docs/_site/` | pronto |
 
-**Próxima fase:** acrescentar código copiável embaixo de cada gráfico nas páginas antigas
-(distribuição, relação, 3D e cores); criar a página “gráficos enganosos”; completar as
-fichas restantes (Baseline, KNN, Naive Bayes, SVM, MLP, K-means, DBSCAN/hierárquico e PCA);
-e reestruturar didaticamente as páginas existentes. Depois, v2: versão em inglês, deep
-learning, séries temporais e NLP.
+**Próxima fase:** completar as fichas restantes (Baseline, KNN, Naive Bayes, SVM, MLP,
+K-means, DBSCAN/hierárquico e PCA) e reestruturar didaticamente as páginas existentes
+(fórmulas comentadas, diagramas e explicação em camadas). Depois, v2: versão em inglês,
+deep learning, séries temporais e NLP.
 
 > Nota operacional: o `quarto render` dentro do Google Drive pode falhar com `os error 303`
 > por bloqueio de sincronização. Renderize a partir de uma cópia local ou pause a

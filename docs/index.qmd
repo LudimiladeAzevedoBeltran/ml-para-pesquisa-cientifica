@@ -84,9 +84,9 @@ pesquisa científica. Você vê o que cada escolha implica e decide.</p>
 
 ## Status
 
-Esta é a **Fase 7**: o site cobre fundamentos, modelos, calibração, avaliação, interpretação,
+Esta é a **Fase 8**: o site cobre fundamentos, modelos, calibração, avaliação, interpretação,
 projetos guiados, reprodutibilidade, extras e a Parte IX de visualização (distribuição,
-relação, tempo, espaço, categorias, multivariado, incerteza, 3D, cores e diagnóstico de
-modelos). O planejamento completo está em
+relação, tempo, espaço, categorias, multivariado, incerteza, 3D, cores, diagnóstico de
+modelos e gráficos enganosos). O planejamento completo está em
 [`00_PLANEJAMENTO_SITE_ML.md`](https://github.com/LudimiladeAzevedoBeltran/ml-para-pesquisa-cientifica/blob/main/00_PLANEJAMENTO_SITE_ML.md).
 

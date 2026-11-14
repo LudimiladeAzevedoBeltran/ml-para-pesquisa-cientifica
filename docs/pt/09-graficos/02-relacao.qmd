@@ -23,6 +23,23 @@ hexbin, densidade 2D ou amostragem. Cada uma conta uma história diferente.
 - **Quando usar:** `n` pequeno/médio, quando cada ponto importa.
 - **Cuidado:** a cor por grupo pode sugerir separação que é só gradiente.
 
+::: {.callout-note collapse="true" title="Código Python"}
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+dados = pd.read_csv("data/exemplo_ch4.csv")
+dados["estacao"] = pd.cut(
+    dados["temperatura"], bins=[-float("inf"), 23, 27, float("inf")],
+    labels=["frio", "ameno", "quente"],
+)
+fig, ax = plt.subplots(figsize=(7, 5))
+sns.scatterplot(data=dados, x="temperatura", y="ch4", hue="estacao", ax=ax)
+plt.show()
+```
+:::
+
 ## Hexbin
 
 ![Hexbin de temperatura vs umidade.](../../img/graf_hexbin.png){fig-align="center" width="80%"}
@@ -32,6 +49,20 @@ hexbin, densidade 2D ou amostragem. Cada uma conta uma história diferente.
 - **Quando usar:** `n` grande, duas variáveis contínuas.
 - **Acessibilidade:** use uma paleta sequencial perceptual (viridis/cividis).
 
+::: {.callout-note collapse="true" title="Código Python"}
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+
+dados = pd.read_csv("data/exemplo_ch4.csv")
+fig, ax = plt.subplots(figsize=(7, 5))
+hb = ax.hexbin(dados["temperatura"], dados["umidade"],
+               gridsize=18, cmap="viridis", mincnt=1)
+fig.colorbar(hb, ax=ax, label="contagem")
+plt.show()
+```
+:::
+
 ## Densidade 2D
 
 ![Densidade 2D de temperatura vs umidade.](../../img/graf_densidade2d.png){fig-align="center" width="80%"}
@@ -40,6 +71,20 @@ hexbin, densidade 2D ou amostragem. Cada uma conta uma história diferente.
 - **O que esconde:** pontos isolados e a dispersão local.
 - **Quando usar:** `n` grande e relação contínua.
 - **Cuidado:** o `bandwidth` muda a figura; não trate contorno como fronteira real.
+
+::: {.callout-note collapse="true" title="Código Python"}
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+dados = pd.read_csv("data/exemplo_ch4.csv")
+fig, ax = plt.subplots(figsize=(7, 5))
+sns.kdeplot(data=dados, x="temperatura", y="umidade",
+            fill=True, cmap="viridis", levels=10, ax=ax)
+plt.show()
+```
+:::
 
 ## Bolha
 
@@ -51,6 +96,23 @@ hexbin, densidade 2D ou amostragem. Cada uma conta uma história diferente.
 - **Quando usar:** quando há uma variável de magnitude e uma de contexto.
 - **Cuidado:** tamanho por área, não por raio; use legenda de tamanho.
 
+::: {.callout-note collapse="true" title="Código Python"}
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+
+dados = pd.read_csv("data/exemplo_ch4.csv")
+fig, ax = plt.subplots(figsize=(7, 5))
+sc = ax.scatter(
+    dados["temperatura"], dados["ch4"],
+    s=20 + 18 * (dados["vento"] - dados["vento"].min()),
+    c=dados["umidade"], cmap="viridis", alpha=0.75,
+)
+fig.colorbar(sc, ax=ax, label="umidade (%)")
+plt.show()
+```
+:::
+
 ## Scatter matrix
 
 ![Scatter matrix das variáveis numéricas.](../../img/graf_pairplot.png){fig-align="center" width="88%"}
@@ -59,6 +121,18 @@ hexbin, densidade 2D ou amostragem. Cada uma conta uma história diferente.
 - **O que esconde:** com muitas variáveis, vira ruído; não é bom para publicação.
 - **Quando usar:** EDA com 3–6 variáveis.
 - **Cuidado:** a diagonal (distribuição) e a escala mudam entre painéis.
+
+::: {.callout-note collapse="true" title="Código Python"}
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+dados = pd.read_csv("data/exemplo_ch4.csv")
+sns.pairplot(dados[["temperatura", "umidade", "vento", "ch4"]], diag_kind="kde")
+plt.show()
+```
+:::
 
 ## Heatmap de correlação
 
@@ -69,6 +143,21 @@ hexbin, densidade 2D ou amostragem. Cada uma conta uma história diferente.
 - **Quando usar:** triagem inicial, muitas variáveis.
 - **Cuidado:** use paleta divergente centrada em zero; correlação não é causalidade.
 
+::: {.callout-note collapse="true" title="Código Python"}
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+dados = pd.read_csv("data/exemplo_ch4.csv")
+corr = dados[["temperatura", "umidade", "vento", "pressao", "ch4"]].corr()
+fig, ax = plt.subplots(figsize=(6, 5))
+sns.heatmap(corr, cmap="RdBu_r", vmin=-1, vmax=1,
+            annot=True, fmt=".2f", ax=ax)
+plt.show()
+```
+:::
+
 ## Contorno
 
 ![Contorno de densidade de temperatura vs umidade.](../../img/graf_contorno.png){fig-align="center" width="80%"}
@@ -77,6 +166,20 @@ hexbin, densidade 2D ou amostragem. Cada uma conta uma história diferente.
 - **O que esconde:** a variabilidade dentro de cada faixa.
 - **Quando usar:** quando a Densidade 2D precisa ser lida em valores.
 - **Cuidado:** muitas linhas confundem; rotule as principais.
+
+::: {.callout-note collapse="true" title="Código Python"}
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+dados = pd.read_csv("data/exemplo_ch4.csv")
+fig, ax = plt.subplots(figsize=(7, 5))
+sns.kdeplot(data=dados, x="temperatura", y="umidade",
+            levels=10, color="#3f5d7a", ax=ax)
+plt.show()
+```
+:::
 
 ## Escolha rápida
 
